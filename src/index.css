@@ -73,7 +73,7 @@ body {
 }
 
 .section::before {
-  content: attr(data-deco);
+  content: none;
   position: absolute;
   left: 50%;
   top: 54%;
@@ -98,14 +98,6 @@ body {
 .section > .container {
   position: relative;
   z-index: 1;
-}
-
-.section-projects::before {
-  white-space: normal;
-  width: min(88vw, 760px);
-  text-wrap: balance;
-  text-align: center;
-  left: 50%;
 }
 
 .section-title {
@@ -303,20 +295,40 @@ body {
 .hero-mobile-links {
   display: none;
   margin-top: 1rem;
-  gap: 0.55rem;
+  gap: 0.85rem;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
 }
 
 .hero-mobile-links a {
-  color: var(--text);
-  border: 1px solid var(--line);
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #dff6ff;
+  border: 0;
   border-radius: 999px;
-  padding: 0.45rem 0.72rem;
-  font-size: 0.82rem;
-  font-weight: 700;
+  padding: 0;
   text-decoration: none;
   background: rgba(8, 22, 29, 0.65);
+  box-shadow: none;
+  transition: transform 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.hero-mobile-links a svg {
+  width: 15px;
+  height: 15px;
+}
+
+.hero-mobile-links a:hover {
+  color: #ffffff;
+  background: rgba(39, 194, 169, 0.28);
+  transform: translateY(-2px);
+}
+
+.hero-mobile-links a:active {
+  transform: translateY(0) scale(0.96);
 }
 
 .floating-socials {
@@ -720,6 +732,10 @@ body {
 }
 
 @media (max-width: 760px) {
+  .container {
+    width: 100%;
+  }
+
   .top-nav {
     left: 0.5rem;
     right: 0.5rem;
@@ -741,18 +757,15 @@ body {
     padding: 3.2rem 0;
   }
 
-  .section::before {
-    top: 50%;
-    font-size: clamp(3.2rem, 18vw, 7.5rem);
-    letter-spacing: 0.05em;
-    line-height: 1;
-    opacity: 0.2;
-    filter: blur(2px);
-    max-width: 90vw;
-  }
-
-  .section-projects::before {
-    width: min(82vw, 330px);
+  .about-block,
+  .skill-card,
+  .project-card,
+  .contact-card {
+    border-radius: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    border-left: 0;
+    border-right: 0;
   }
 
   .menu-toggle {
@@ -796,6 +809,25 @@ body {
 
   .hero-mobile-links {
     display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    width: auto;
+    transform: none;
+    margin-top: 0;
+    padding: 0.56rem 0.8rem;
+    border: 1px solid rgba(159, 183, 196, 0.22);
+    border-radius: 999px;
+    background: rgba(7, 18, 24, 0.92);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+    z-index: 60;
+    justify-content: space-between;
+  }
+
+  .site-shell {
+    padding-bottom: 5rem;
   }
 
   .contact-actions {
