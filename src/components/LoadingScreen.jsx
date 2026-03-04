@@ -34,7 +34,7 @@ export default function LoadingScreen({ onDone }) {
             |
           </span>
         </span>
-        <span className="loading-subtext">portfolio loading</span>
+        <span className="loading-subtext">loading...</span>
       </div>
     </div>
   );
