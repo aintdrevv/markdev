@@ -737,8 +737,8 @@ body {
 }
 
 .typing-cursor {
-  animation: blink 0.7s step-end infinite;
   color: #2dd4aa;
+  animation: blink 0.7s step-end infinite;
 }
 
 @keyframes blink {

@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const typingPhrases = [
-  'digital experiences.',
-  'clean interfaces.',
-  'bold solutions.',
-  'modern web apps.',
-];
+const PHRASE = 'Frontend Developer';
 
 function jumpToContact() {
   const target = document.getElementById('contacts');
@@ -17,42 +12,30 @@ function jumpToContact() {
 export default function Hero() {
   const [socialOpen, setSocialOpen] = useState(false);
   const [displayed, setDisplayed] = useState('');
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const current = typingPhrases[phraseIndex];
-    let timeout;
-
-    if (!isDeleting && displayed.length < current.length) {
-      // Typing
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length + 1));
-      }, 70);
-    } else if (!isDeleting && displayed.length === current.length) {
-      // Pause before deleting
-      timeout = setTimeout(() => setIsDeleting(true), 1800);
-    } else if (isDeleting && displayed.length > 0) {
-      // Deleting
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length - 1));
-      }, 40);
-    } else if (isDeleting && displayed.length === 0) {
-      // Move to next phrase
-      setIsDeleting(false);
-      setPhraseIndex((i) => (i + 1) % typingPhrases.length);
+    if (done) return;
+    if (displayed.length < PHRASE.length) {
+      const t = setTimeout(() => {
+        setDisplayed(PHRASE.slice(0, displayed.length + 1));
+      }, 80);
+      return () => clearTimeout(t);
+    } else {
+      setDone(true);
     }
-
-    return () => clearTimeout(timeout);
-  }, [displayed, isDeleting, phraseIndex]);
+  }, [displayed, done]);
 
   return (
     <section id="hero" className="hero section">
       <div className="container">
         <div className="hero-content">
-          <p className="section-kicker">Frontend Developer</p>
+          <p className="section-kicker">
+            {displayed}
+            <span className="typing-cursor">|</span>
+          </p>
           <h1>
-            Building bold <span>{displayed}<span className="typing-cursor">|</span></span>
+            Building bold <span>digital</span> experiences.
           </h1>
           <p>
             Hi, I am Mark Macaraig. I design and build clean interfaces with React, modern CSS,
