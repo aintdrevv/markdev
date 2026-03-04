@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
@@ -16,14 +16,15 @@ function App() {
     return window.localStorage.getItem('theme') || 'light';
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle('theme-light', theme === 'light');
     document.body.classList.toggle('theme-light', theme === 'light');
     window.localStorage.setItem('theme', theme);
   }, [theme]);
 
   useEffect(() => {
     if (isLoading) return;
-    const timer = setTimeout(() => setIsVisible(true), 80);
+    const timer = setTimeout(() => setIsVisible(true), 0);
     return () => clearTimeout(timer);
   }, [isLoading]);
 
