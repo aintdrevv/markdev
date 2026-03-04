@@ -2,6 +2,19 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function extractError(error) {
+  const dataMessage =
+    error?.response?.data?.message ||
+    error?.response?.body?.message ||
+    error?.body?.message;
+  const code =
+    error?.response?.data?.name ||
+    error?.response?.data?.code ||
+    error?.code;
+  const message = dataMessage || error?.message || 'Failed to send message.';
+  return code ? `${message} (${code})` : message;
+}
+
 function parseBody(req) {
   if (!req.body) return {};
   if (typeof req.body === 'string') {
@@ -57,9 +70,11 @@ export default async function handler(req, res) {
 
     return res.status(200).json({ ok: true });
   } catch (error) {
+    const details = extractError(error);
+    console.error('[contact-api] resend send failed:', details);
     return res.status(500).json({
       ok: false,
-      message: error?.message || 'Failed to send message.',
+      message: details,
     });
   }
 }
