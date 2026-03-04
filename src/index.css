@@ -400,7 +400,7 @@ body.theme-light {
 
 .floating-socials {
   position: fixed;
-  right: 1rem;
+  right: 1.35rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 45;
@@ -434,7 +434,7 @@ body.theme-light {
 .social-toggle {
   display: none;
   position: fixed;
-  right: 0.85rem;
+  right: 1.2rem;
   top: 50%;
   transform: translateY(-50%);
   z-index: 46;
