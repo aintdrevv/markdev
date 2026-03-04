@@ -43,6 +43,7 @@ body {
 .site-shell {
   position: relative;
   isolation: isolate;
+  opacity: 0;
 }
 
 .site-bg {
@@ -738,10 +739,133 @@ body {
 
 .typing-cursor {
   color: #2dd4aa;
-  animation: blink 0.7s step-end infinite;
+  animation: blink-step 0.7s step-end infinite;
 }
 
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+@keyframes blink-step {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 25% 15%, rgba(39, 194, 169, 0.22), transparent 40%),
+    radial-gradient(circle at 82% 85%, rgba(255, 138, 76, 0.1), transparent 38%),
+    linear-gradient(165deg, #081219 5%, #0d212c 55%, #071219 100%);
+  transition: opacity 0.62s ease, visibility 0.62s ease, filter 0.62s ease;
+}
+
+.loading-screen.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(8px);
+}
+
+.loading-logo {
+  display: grid;
+  gap: 0.65rem;
+  place-items: center;
+}
+
+.loading-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  border: 2px solid rgba(159, 183, 196, 0.25);
+  border-top-color: var(--brand);
+  border-right-color: rgba(255, 138, 76, 0.75);
+  animation: spin 1.1s linear infinite;
+}
+
+.loading-text {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.1rem, 6vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: #eaf7ff;
+  text-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+}
+
+.loading-cursor {
+  display: inline-block;
+  color: var(--brand);
+  animation: blink-step 0.68s step-end infinite;
+}
+
+.loading-subtext {
+  color: rgba(207, 227, 237, 0.75);
+  font-size: 0.79rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+ }
+
+.site-shell.site-visible {
+  opacity: 1;
+  transition: opacity 0.38s ease;
+}
+
+.enter-item {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  filter: blur(7px);
+}
+
+.site-shell.site-visible .enter-item {
+  animation: enterUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--enter-delay, 0ms);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes enterUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(7px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loading-ring,
+  .loading-cursor,
+  .typing-cursor,
+  .site-bg {
+    animation: none !important;
+  }
+
+  .loading-screen,
+  .loading-screen.fade-out {
+    transition: none;
+  }
+
+  .site-shell,
+  .site-shell.site-visible,
+  .enter-item,
+  .site-shell.site-visible .enter-item {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+    animation: none;
+  }
 }
