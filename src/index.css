@@ -694,19 +694,19 @@ body {
   line-height: 1.45;
   text-align: center;
   backdrop-filter: blur(10px);
+  border: 0;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
   animation: popupSlideDown 0.42s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contact-popup.success {
-  background: rgba(39, 194, 169, 0.2);
-  border: 1px solid rgba(39, 194, 169, 0.42);
-  color: #bff5e9;
+  background: rgba(18, 54, 62, 0.64);
+  color: #c9fff2;
 }
 
 .contact-popup.error {
-  background: rgba(235, 87, 87, 0.18);
-  border: 1px solid rgba(235, 87, 87, 0.34);
-  color: #ffd2d2;
+  background: rgba(66, 24, 30, 0.64);
+  color: #ffd8d8;
 }
 
 .contact-glass-form {
