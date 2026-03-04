@@ -735,3 +735,13 @@ body {
     gap: 0.7rem;
   }
 }
+
+.typing-cursor {
+  animation: blink 0.7s step-end infinite;
+  color: #2dd4aa;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
