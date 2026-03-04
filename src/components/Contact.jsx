@@ -1,21 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle');
-  const [toast, setToast] = useState('');
+  const [popup, setPopup] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (event) => {
+  useEffect(() => {
+    if (!popup) return undefined;
+    const timer = setTimeout(() => setPopup(null), 2400);
+    return () => clearTimeout(timer);
+  }, [popup]);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    if (isSubmitting) return;
+
     if (!form.name.trim() || !form.email.trim() || !form.message.trim()) {
-      setStatus('error');
-      setToast('Please complete all fields.');
+      setPopup({ type: 'error', message: 'Please complete all fields.' });
       return;
     }
 
-    setStatus('success');
-    setToast('Message sent. I will get back to you soon.');
-    setForm({ name: '', email: '', message: '' });
+    try {
+      setIsSubmitting(true);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || !payload.ok) {
+        throw new Error(payload?.message || 'Failed to send message.');
+      }
+
+      setPopup({ type: 'success', message: 'Message sent. I will get back to you soon.' });
+      setForm({ name: '', email: '', message: '' });
+    } catch (error) {
+      setPopup({
+        type: 'error',
+        message: error?.message || 'Failed to send message. Please try again.',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,6 +77,8 @@ export default function Contact() {
             </div>
 
             <div className="contact-glass-right">
+              {popup && <div className={`contact-popup ${popup.type}`}>{popup.message}</div>}
+
               <form className="contact-glass-form" onSubmit={handleSubmit}>
                 <label htmlFor="contact-name">Name</label>
                 <input
@@ -81,10 +110,10 @@ export default function Contact() {
                   required
                 />
 
-                <button type="submit">{status === 'success' ? 'Sent' : 'Send message'}</button>
+                <button type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Send message'}
+                </button>
               </form>
-
-              {toast && <div className={`contact-toast ${status === 'success' ? 'success' : 'error'}`}>{toast}</div>}
             </div>
           </div>
         </article>

@@ -677,7 +677,35 @@ body {
 }
 
 .contact-glass-right {
+  position: relative;
   padding: 2.4rem 1.5rem;
+}
+
+.contact-popup {
+  position: absolute;
+  top: 0.9rem;
+  right: 1rem;
+  z-index: 3;
+  max-width: min(90%, 320px);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  line-height: 1.45;
+  backdrop-filter: blur(10px);
+  animation: popupIn 0.22s ease;
+}
+
+.contact-popup.success {
+  background: rgba(39, 194, 169, 0.2);
+  border: 1px solid rgba(39, 194, 169, 0.42);
+  color: #bff5e9;
+}
+
+.contact-popup.error {
+  background: rgba(235, 87, 87, 0.18);
+  border: 1px solid rgba(235, 87, 87, 0.34);
+  color: #ffd2d2;
 }
 
 .contact-glass-form {
@@ -729,8 +757,9 @@ body {
   background: rgba(39, 194, 169, 0.3);
 }
 
-.contact-glass-right .contact-toast {
-  margin-top: 0.75rem;
+.contact-glass-form button:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
 }
 
 .contact-split {
@@ -901,24 +930,6 @@ body {
   justify-content: space-between;
   gap: 0.8rem;
   flex-wrap: wrap;
-}
-
-.contact-toast {
-  margin-top: 0.65rem;
-  border-radius: 10px;
-  padding: 0.65rem 0.75rem;
-  font-size: 0.86rem;
-  font-weight: 600;
-}
-
-.contact-toast.success {
-  background: rgba(39, 194, 169, 0.17);
-  color: #9ee9dc;
-}
-
-.contact-toast.error {
-  background: rgba(235, 87, 87, 0.16);
-  color: #ffc8c8;
 }
 
 .contact-merge {
@@ -1172,7 +1183,7 @@ body {
 .footer {
   border-top: 1px solid rgba(159, 183, 196, 0.2);
   margin-top: 3.2rem;
-  padding: 1rem 0 1.25rem;
+  padding: 1.15rem 0;
 }
 
 .footer .container {
@@ -1335,6 +1346,12 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .contact-popup {
+    left: 1rem;
+    right: 1rem;
+    max-width: none;
+  }
+
   .social-toggle {
     display: none;
   }
@@ -1367,13 +1384,17 @@ body {
     transform: none;
     margin-top: 0;
     padding: 0.56rem 0.8rem;
-    border: 1px solid rgba(159, 183, 196, 0.22);
-    border-radius: 999px;
+    border-top: 1px solid rgba(159, 183, 196, 0.22);
+    border-bottom: 1px solid rgba(159, 183, 196, 0.22);
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
     background: rgba(7, 18, 24, 0.92);
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
     z-index: 60;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .site-shell {
@@ -1386,14 +1407,26 @@ body {
 
   .footer-inner {
     min-height: unset;
-    padding: 1rem 0;
+    padding: 0;
     flex-direction: column;
     align-items: center;
     gap: 0.7rem;
     text-align: center;
   }
 
+  .footer {
+    padding-top: 1.35rem;
+    padding-bottom: 1.15rem;
+  }
+
+  .footer-brandline {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
   .footer-location {
+    width: 100%;
     justify-content: center;
     text-align: center;
   }
@@ -1503,6 +1536,17 @@ body {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
+  }
+}
+
+@keyframes popupIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
