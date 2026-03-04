@@ -22,16 +22,36 @@ export default function Contact() {
 
     try {
       setIsSubmitting(true);
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
+      const endpoints = import.meta.env.VITE_CONTACT_API_URL
+        ? [import.meta.env.VITE_CONTACT_API_URL]
+        : ['/api/contact', '/.netlify/functions/contact'];
 
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok || !payload.ok) {
-        throw new Error(payload?.message || 'Failed to send message.');
+      let delivered = false;
+      let lastError = 'Failed to send message.';
+
+      for (const endpoint of endpoints) {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+        });
+
+        const payload = await response.json().catch(() => null);
+        if (response.ok && payload?.ok) {
+          delivered = true;
+          break;
+        }
+
+        if (response.status === 404) {
+          lastError = 'Contact API not found (404). Deploy with serverless functions (Vercel/Netlify).';
+          continue;
+        }
+
+        lastError = payload?.message || `Failed to send message (${response.status}).`;
+        break;
       }
+
+      if (!delivered) throw new Error(lastError);
 
       setPopup({ type: 'success', message: 'Message sent. I will get back to you soon.' });
       setForm({ name: '', email: '', message: '' });

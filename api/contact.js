@@ -20,13 +20,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ ok: false, message: 'Method not allowed.' });
   }
 
-  const toEmail = process.env.CONTACT_TO_EMAIL;
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'andrewbaje00@gmail.com';
   const fromEmail = process.env.RESEND_FROM_EMAIL;
 
   if (!process.env.RESEND_API_KEY || !toEmail || !fromEmail) {
     return res.status(500).json({
       ok: false,
-      message: 'Missing email configuration on server.',
+      message: 'Missing server email config. Set RESEND_API_KEY and RESEND_FROM_EMAIL.',
     });
   }
 
@@ -59,8 +59,7 @@ export default async function handler(req, res) {
   } catch (error) {
     return res.status(500).json({
       ok: false,
-      message: 'Failed to send message.',
-      error: error?.message || 'Unknown error',
+      message: error?.message || 'Failed to send message.',
     });
   }
 }
