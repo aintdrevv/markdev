@@ -12,19 +12,14 @@ function jumpToContact() {
 export default function Hero() {
   const [socialOpen, setSocialOpen] = useState(false);
   const [displayed, setDisplayed] = useState('');
-  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    if (done) return;
-    if (displayed.length < PHRASE.length) {
-      const t = setTimeout(() => {
-        setDisplayed(PHRASE.slice(0, displayed.length + 1));
-      }, 80);
-      return () => clearTimeout(t);
-    } else {
-      setDone(true);
-    }
-  }, [displayed, done]);
+    if (displayed.length >= PHRASE.length) return;
+    const t = setTimeout(() => {
+      setDisplayed(PHRASE.slice(0, displayed.length + 1));
+    }, 80);
+    return () => clearTimeout(t);
+  }, [displayed]);
 
   return (
     <section id="hero" className="hero section">

@@ -18,6 +18,36 @@ function App() {
     return () => clearTimeout(timer);
   }, [isLoading]);
 
+  useEffect(() => {
+    if (isLoading) return;
+
+    const sections = Array.from(document.querySelectorAll('.section'));
+    if (!sections.length) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      sections.forEach((section) => section.classList.add('section-scroll', 'is-revealed'));
+      return;
+    }
+
+    sections.forEach((section) => section.classList.add('section-scroll'));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.2, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [isLoading]);
+
   if (isLoading) {
     return <LoadingScreen onDone={() => setIsLoading(false)} />;
   }
