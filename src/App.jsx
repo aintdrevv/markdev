@@ -11,6 +11,15 @@ import LoadingScreen from './components/LoadingScreen.jsx';
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'light';
+    return window.localStorage.getItem('theme') || 'light';
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle('theme-light', theme === 'light');
+    window.localStorage.setItem('theme', theme);
+  }, [theme]);
 
   useEffect(() => {
     if (isLoading) return;
@@ -55,7 +64,7 @@ function App() {
   return (
     <div className={`site-shell ${isVisible ? 'site-visible' : ''}`}>
       <div className="site-bg" aria-hidden="true" />
-      <Header />
+      <Header theme={theme} onToggleTheme={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))} />
       <main>
         <div className="enter-item" style={{ '--enter-delay': '180ms' }}>
           <Hero />

@@ -44,6 +44,19 @@ body {
   overflow-x: hidden;
 }
 
+body.theme-light {
+  --surface: rgba(255, 255, 255, 0.72);
+  --surface-strong: rgba(247, 252, 255, 0.95);
+  --line: rgba(28, 82, 110, 0.2);
+  --text: #102937;
+  --muted: #4e6674;
+  --brand: #0f7f6d;
+  --brand-strong: #0b6658;
+  background:
+    radial-gradient(circle at 12% 14%, #e8f6ff 0%, #d9eefb 42%),
+    radial-gradient(circle at 85% 88%, #f2fbff 0%, #e7f5ff 50%);
+}
+
 .site-shell {
   position: relative;
   isolation: isolate;
@@ -222,6 +235,36 @@ body {
   color: var(--text);
   padding: 0.3rem;
   border-radius: 0;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.theme-toggle {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(159, 183, 196, 0.24);
+  border-radius: 999px;
+  background: rgba(7, 19, 25, 0.35);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-toggle:hover {
+  border-color: rgba(39, 194, 169, 0.65);
+  background: rgba(39, 194, 169, 0.15);
 }
 
 .menu-toggle svg {
@@ -1243,6 +1286,135 @@ body {
   width: 14px;
   height: 14px;
   color: rgba(39, 194, 169, 0.9);
+}
+
+body.theme-light .site-bg {
+  background-image: radial-gradient(circle at 75% 10%, rgba(30, 165, 143, 0.15), transparent 42%),
+    radial-gradient(circle at 12% 84%, rgba(39, 143, 194, 0.12), transparent 38%),
+    linear-gradient(130deg, rgba(10, 57, 83, 0.06) 0%, transparent 40%);
+}
+
+body.theme-light .top-nav {
+  background: linear-gradient(135deg, rgba(245, 252, 255, 0.9), rgba(224, 241, 248, 0.85));
+  border-color: rgba(28, 82, 110, 0.24);
+  box-shadow:
+    0 0 0 1px rgba(30, 165, 143, 0.1) inset,
+    0 12px 32px rgba(10, 44, 64, 0.18),
+    0 0 28px rgba(39, 143, 194, 0.18);
+}
+
+body.theme-light .nav-links button,
+body.theme-light .nav-mobile button {
+  color: #486474;
+}
+
+body.theme-light .nav-links button:hover,
+body.theme-light .nav-mobile button:hover {
+  color: #0b4a40;
+  background: rgba(15, 127, 109, 0.14);
+}
+
+body.theme-light .theme-toggle {
+  background: rgba(234, 246, 252, 0.95);
+  color: #24516b;
+  border-color: rgba(36, 81, 107, 0.25);
+}
+
+body.theme-light .nav-mobile .glass-card {
+  background: rgba(245, 252, 255, 0.96);
+  box-shadow: 0 14px 24px rgba(13, 54, 77, 0.16);
+}
+
+body.theme-light .btn-secondary {
+  background: rgba(15, 127, 109, 0.09);
+  border-color: rgba(15, 127, 109, 0.24);
+}
+
+body.theme-light .timeline-item {
+  background: rgba(239, 249, 255, 0.82);
+}
+
+body.theme-light .section-kicker {
+  color: #0f7f6d;
+}
+
+body.theme-light .about-block,
+body.theme-light .skill-card,
+body.theme-light .project-card,
+body.theme-light .contact-card,
+body.theme-light .timeline-item {
+  border-color: rgba(15, 127, 109, 0.22);
+}
+
+body.theme-light .skill-card {
+  background: rgba(240, 252, 248, 0.92);
+}
+
+body.theme-light .pill {
+  border-color: rgba(11, 102, 88, 0.45);
+  background: rgba(11, 102, 88, 0.14);
+  color: #0a5a4d;
+}
+
+body.theme-light .project-card {
+  background: rgba(232, 244, 250, 0.94);
+  border-color: rgba(28, 82, 110, 0.28);
+}
+
+body.theme-light .project-card p {
+  color: #3f5967;
+}
+
+body.theme-light .project-links a:hover,
+body.theme-light .social-link:hover {
+  border-color: rgba(15, 127, 109, 0.72);
+  color: #0b4a40;
+}
+
+body.theme-light .floating-socials a,
+body.theme-light .hero-mobile-links a {
+  background: rgba(238, 248, 255, 0.92);
+  color: #1d4358;
+  border-color: rgba(35, 88, 116, 0.2);
+}
+
+body.theme-light .contact-glass-card {
+  background:
+    linear-gradient(160deg, rgba(246, 252, 255, 0.94), rgba(231, 244, 251, 0.92)),
+    radial-gradient(circle at 12% 10%, rgba(30, 165, 143, 0.14), transparent 42%);
+  border-color: rgba(28, 82, 110, 0.2);
+}
+
+body.theme-light .contact-glass-left {
+  border-right-color: rgba(28, 82, 110, 0.16);
+}
+
+body.theme-light .contact-glass-lead {
+  color: #1f4358;
+}
+
+body.theme-light .contact-glass-form {
+  background: rgba(235, 247, 253, 0.78);
+}
+
+body.theme-light .contact-glass-form input,
+body.theme-light .contact-glass-form textarea {
+  background: rgba(252, 255, 255, 0.94);
+  color: #102937;
+  border-color: rgba(36, 81, 107, 0.23);
+}
+
+body.theme-light .contact-glass-form button {
+  background: #0f7f6d;
+  color: #f4fffb;
+}
+
+body.theme-light .contact-glass-form button:hover {
+  background: #0b6658;
+}
+
+body.theme-light .footer {
+  border-top-color: rgba(28, 82, 110, 0.18);
 }
 
 @keyframes drift {
