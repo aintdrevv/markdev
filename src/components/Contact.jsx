@@ -26,7 +26,7 @@ export default function Contact() {
       setIsSubmitting(true);
       const endpoints = import.meta.env.VITE_CONTACT_API_URL
         ? [import.meta.env.VITE_CONTACT_API_URL]
-        : [XANO_CONTACT_ENDPOINT, '/api/contact', '/.netlify/functions/contact'];
+        : ['/api/contact', '/.netlify/functions/contact', XANO_CONTACT_ENDPOINT];
 
       let delivered = false;
       let lastError = 'Failed to send message.';
