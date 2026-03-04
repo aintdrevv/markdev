@@ -1292,7 +1292,7 @@ body.theme-light {
 .footer-location svg {
   width: 14px;
   height: 14px;
-  color: rgba(39, 194, 169, 0.9);
+  color: rgba(18, 136, 118, 0.95);
 }
 
 body.theme-light .site-bg {
@@ -1422,6 +1422,10 @@ body.theme-light .contact-glass-form button:hover {
 
 body.theme-light .footer {
   border-top-color: rgba(28, 82, 110, 0.18);
+}
+
+body.theme-light .footer-location svg {
+  color: #0f5f52;
 }
 
 @keyframes drift {

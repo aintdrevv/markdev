@@ -42,6 +42,9 @@ export default function Hero() {
             <button className="btn btn-primary" type="button" onClick={jumpToContact}>
               Start a project
             </button>
+            <a className="btn btn-secondary" href="/Mark-Macaraig-CV.pdf" target="_blank" rel="noreferrer" download>
+              Download CV
+            </a>
           </div>
 
           <div className="hero-mobile-links" aria-label="Quick links">
