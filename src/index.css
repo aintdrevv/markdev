@@ -677,23 +677,24 @@ body {
 }
 
 .contact-glass-right {
-  position: relative;
   padding: 2.4rem 1.5rem;
 }
 
 .contact-popup {
-  position: absolute;
-  top: 0.9rem;
-  right: 1rem;
-  z-index: 3;
-  max-width: min(90%, 320px);
-  border-radius: 10px;
-  padding: 0.6rem 0.75rem;
-  font-size: 0.84rem;
+  position: fixed;
+  top: 5.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 70;
+  width: min(92%, 460px);
+  border-radius: 12px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.86rem;
   font-weight: 600;
   line-height: 1.45;
+  text-align: center;
   backdrop-filter: blur(10px);
-  animation: popupIn 0.22s ease;
+  animation: popupSlideDown 0.42s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .contact-popup.success {
@@ -1347,9 +1348,8 @@ body {
   }
 
   .contact-popup {
-    left: 1rem;
-    right: 1rem;
-    max-width: none;
+    top: 4.5rem;
+    width: min(94%, 420px);
   }
 
   .social-toggle {
@@ -1547,6 +1547,17 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes popupSlideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -34px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
   }
 }
 

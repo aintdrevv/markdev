@@ -39,7 +39,8 @@ export default function Contact() {
         });
 
         const payload = await response.json().catch(() => null);
-        if (response.ok && payload?.ok) {
+        const explicitFailure = payload?.ok === false || payload?.success === false || Boolean(payload?.error);
+        if (response.ok && !explicitFailure) {
           delivered = true;
           break;
         }
