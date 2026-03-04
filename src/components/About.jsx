@@ -15,7 +15,7 @@ const timeline = [
 
 export default function About() {
   return (
-    <section id="about" className="section">
+    <section id="about" className="section" data-deco="About">
       <div className="container">
         <p className="section-kicker">About</p>
         <h2 className="section-title">A developer who cares about details.</h2>

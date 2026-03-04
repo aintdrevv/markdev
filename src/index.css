@@ -67,7 +67,37 @@ body {
 }
 
 .section {
+  position: relative;
   padding: 4.5rem 0;
+  isolation: isolate;
+}
+
+.section::before {
+  content: attr(data-deco);
+  position: absolute;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(5rem, 18vw, 16rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: rgba(238, 248, 255, 0.08);
+  filter: blur(4px);
+  opacity: 0.3;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  white-space: nowrap;
+  max-width: 96vw;
+  text-align: center;
+}
+
+.section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .section-title {
@@ -682,6 +712,16 @@ body {
 
   .section {
     padding: 3.2rem 0;
+  }
+
+  .section::before {
+    top: 50%;
+    font-size: clamp(3.2rem, 18vw, 7.5rem);
+    letter-spacing: 0.05em;
+    line-height: 1;
+    opacity: 0.2;
+    filter: blur(2px);
+    max-width: 90vw;
   }
 
   .menu-toggle {

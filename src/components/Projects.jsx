@@ -18,7 +18,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="section">
+    <section id="projects" className="section" data-deco="Projects">
       <div className="container">
         <p className="section-kicker">Projects</p>
         <h2 className="section-title">Work snapshots and upcoming builds.</h2>

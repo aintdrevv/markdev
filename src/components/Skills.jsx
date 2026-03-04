@@ -27,7 +27,7 @@ const groups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="section">
+    <section id="skills" className="section" data-deco="Skills">
       <div className="container">
         <p className="section-kicker">Skills</p>
         <h2 className="section-title">Modern frontend stack in progress.</h2>
