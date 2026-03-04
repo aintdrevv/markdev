@@ -15,40 +15,44 @@ function jumpToContact() {
 export default function Hero() {
   const [socialOpen, setSocialOpen] = useState(false);
   const [phraseIndex, setPhraseIndex] = useState(0);
-  const [displayed, setDisplayed] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [charCount, setCharCount] = useState(0);
+  const [phase, setPhase] = useState('typing');
+  const currentPhrase = PHRASES[phraseIndex];
+  const displayed = currentPhrase.slice(0, charCount);
 
   useEffect(() => {
-    const currentPhrase = PHRASES[phraseIndex];
-    const isFullyTyped = displayed.length >= currentPhrase.length;
-    const isFullyDeleted = displayed.length === 0;
-    const deletingStep = Math.random() < 0.5 ? 1 : 2;
-    const deleteSpeed = Math.floor(Math.random() * (220 - 140 + 1)) + 140;
-    const extraDeletePause = Math.random() < 0.35 ? 210 : 0;
+    let timeoutMs = TYPE_SPEED;
+    let next = null;
 
-    if (!isDeleting && isFullyTyped) {
-      const pause = setTimeout(() => setIsDeleting(true), PAUSE_AFTER_TYPE_MS);
-      return () => clearTimeout(pause);
-    }
-
-    if (isDeleting && isFullyDeleted) {
-      const pause = setTimeout(() => {
-        setIsDeleting(false);
-        setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
-      }, PAUSE_AFTER_DELETE_MS);
-      return () => clearTimeout(pause);
-    }
-
-    const t = setTimeout(() => {
-      if (isDeleting) {
-        setDisplayed((prev) => prev.slice(0, Math.max(0, prev.length - deletingStep)));
+    if (phase === 'typing') {
+      if (charCount < currentPhrase.length) {
+        next = () => setCharCount((prev) => prev + 1);
       } else {
-        setDisplayed(currentPhrase.slice(0, displayed.length + 1));
+        timeoutMs = PAUSE_AFTER_TYPE_MS;
+        next = () => setPhase('deleting');
       }
-    }, isDeleting ? deleteSpeed + extraDeletePause : TYPE_SPEED);
+    } else if (phase === 'deleting') {
+      if (charCount > 0) {
+        const deletingStep = Math.random() < 0.5 ? 1 : 2;
+        const deleteSpeed = Math.floor(Math.random() * (220 - 140 + 1)) + 140;
+        const extraDeletePause = Math.random() < 0.35 ? 210 : 0;
+        timeoutMs = deleteSpeed + extraDeletePause;
+        next = () => setCharCount((prev) => Math.max(0, prev - deletingStep));
+      } else {
+        timeoutMs = PAUSE_AFTER_DELETE_MS;
+        next = () => {
+          setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
+          setPhase('typing');
+        };
+      }
+    }
 
-    return () => clearTimeout(t);
-  }, [displayed, isDeleting, phraseIndex]);
+    const timer = setTimeout(() => {
+      next?.();
+    }, timeoutMs);
+
+    return () => clearTimeout(timer);
+  }, [charCount, currentPhrase.length, phase]);
 
   return (
     <section id="hero" className="hero section">
@@ -56,7 +60,7 @@ export default function Hero() {
         <div className="hero-content">
           <p className="section-kicker">
             {displayed}
-            <span className="typing-cursor">|</span>
+            <span className="typing-cursor">_</span>
           </p>
           <h1>
             Building bold <span>digital</span> experiences.
