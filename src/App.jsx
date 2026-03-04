@@ -25,9 +25,7 @@ function App() {
   return (
     <div className={`site-shell ${isVisible ? 'site-visible' : ''}`}>
       <div className="site-bg" aria-hidden="true" />
-      <div className="enter-item" style={{ '--enter-delay': '80ms' }}>
-        <Header />
-      </div>
+      <Header />
       <main>
         <div className="enter-item" style={{ '--enter-delay': '180ms' }}>
           <Hero />

@@ -646,8 +646,12 @@ body {
 
 @media (max-width: 760px) {
   .top-nav {
-    width: min(92%, 560px);
-    top: 0.75rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    margin-inline: auto;
+    width: auto;
+    top: 0.5rem;
+    transform: none;
   }
 
   .hero-content {
@@ -683,35 +687,38 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    right: 1rem;
+    top: auto;
+    bottom: 0.9rem;
+    transform: none;
   }
 
   .floating-socials {
-    right: 0.55rem;
-    top: 50%;
-    transform: translate(120%, -50%);
-    transition: transform 0.28s ease;
-    padding: 0.6rem 0.5rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    top: auto;
+    bottom: 3.8rem;
+    transform: translateY(115%);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    opacity: 0;
+    padding: 0.55rem;
     border: 1px solid var(--line);
-    border-radius: 16px 0 0 16px;
+    border-radius: 16px;
     background: rgba(7, 18, 24, 0.96);
     backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem;
   }
 
   .floating-socials.open {
-    transform: translate(0, -50%);
+    transform: translateY(0);
+    opacity: 1;
   }
 
   .social-close {
-    width: 32px;
-    height: 32px;
-    margin-inline: auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: rgba(8, 22, 29, 0.9);
-    color: var(--text);
+    display: none;
   }
 
   .social-close svg {
