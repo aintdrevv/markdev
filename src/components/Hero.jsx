@@ -48,6 +48,18 @@ export default function Hero() {
               Start a project
             </button>
           </div>
+
+          <div className="hero-mobile-links" aria-label="Quick links">
+            <a href="https://github.com/aintdrevv" target="_blank" rel="noreferrer">
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/mark-macaraig-25b9b3201/" target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+            <a href="https://www.facebook.com/mrkinyourheart" target="_blank" rel="noreferrer">
+              Facebook
+            </a>
+          </div>
         </div>
       </div>
 
