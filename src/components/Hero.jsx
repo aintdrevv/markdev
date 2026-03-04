@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const PHRASE = 'Frontend Developer';
+const PHRASES = ['Frontend Developer', 'UI Builder', 'React Developer'];
+const TYPE_SPEED = 78;
+const PAUSE_AFTER_TYPE_MS = 900;
+const PAUSE_AFTER_DELETE_MS = 360;
 
 function jumpToContact() {
   const target = document.getElementById('contacts');
@@ -11,15 +14,41 @@ function jumpToContact() {
 
 export default function Hero() {
   const [socialOpen, setSocialOpen] = useState(false);
+  const [phraseIndex, setPhraseIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    if (displayed.length >= PHRASE.length) return;
+    const currentPhrase = PHRASES[phraseIndex];
+    const isFullyTyped = displayed.length >= currentPhrase.length;
+    const isFullyDeleted = displayed.length === 0;
+    const deletingStep = Math.random() < 0.5 ? 1 : 2;
+    const deleteSpeed = Math.floor(Math.random() * (220 - 140 + 1)) + 140;
+    const extraDeletePause = Math.random() < 0.35 ? 210 : 0;
+
+    if (!isDeleting && isFullyTyped) {
+      const pause = setTimeout(() => setIsDeleting(true), PAUSE_AFTER_TYPE_MS);
+      return () => clearTimeout(pause);
+    }
+
+    if (isDeleting && isFullyDeleted) {
+      const pause = setTimeout(() => {
+        setIsDeleting(false);
+        setPhraseIndex((prev) => (prev + 1) % PHRASES.length);
+      }, PAUSE_AFTER_DELETE_MS);
+      return () => clearTimeout(pause);
+    }
+
     const t = setTimeout(() => {
-      setDisplayed(PHRASE.slice(0, displayed.length + 1));
-    }, 80);
+      if (isDeleting) {
+        setDisplayed((prev) => prev.slice(0, Math.max(0, prev.length - deletingStep)));
+      } else {
+        setDisplayed(currentPhrase.slice(0, displayed.length + 1));
+      }
+    }, isDeleting ? deleteSpeed + extraDeletePause : TYPE_SPEED);
+
     return () => clearTimeout(t);
-  }, [displayed]);
+  }, [displayed, isDeleting, phraseIndex]);
 
   return (
     <section id="hero" className="hero section">

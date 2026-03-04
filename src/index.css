@@ -253,7 +253,7 @@ body.theme-light {
 .theme-toggle {
   width: 34px;
   height: 34px;
-  border: 1px solid rgba(159, 183, 196, 0.24);
+  border: 0;
   border-radius: 999px;
   background: rgba(7, 19, 25, 0.35);
   color: var(--text);
@@ -270,7 +270,6 @@ body.theme-light {
 }
 
 .theme-toggle:hover {
-  border-color: rgba(39, 194, 169, 0.65);
   background: rgba(39, 194, 169, 0.15);
 }
 
@@ -1324,7 +1323,7 @@ body.theme-light .nav-mobile button:hover {
 body.theme-light .theme-toggle {
   background: rgba(234, 246, 252, 0.95);
   color: #24516b;
-  border-color: rgba(36, 81, 107, 0.25);
+  border: 0;
 }
 
 body.theme-light .nav-mobile .glass-card {
