@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
 :root {
+  --font-body: 'Manrope', sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --font-ui: 'Sora', sans-serif;
+  --font-reading: 'Crimson Pro', serif;
   --bg: #09131a;
   --bg-soft: #0f2029;
   --surface: rgba(13, 27, 36, 0.7);
@@ -30,7 +34,7 @@ body,
 html,
 body {
   margin: 0;
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-body);
   color: var(--text);
   background: radial-gradient(circle at 15% 15%, #14303f 0%, #09131a 40%),
     radial-gradient(circle at 80% 90%, #1a2b35 0%, #09131a 45%);
@@ -67,7 +71,7 @@ body {
 }
 
 .section-title {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(1.8rem, 3vw, 2.8rem);
   margin: 0 auto;
   letter-spacing: -0.02em;
@@ -87,8 +91,9 @@ body {
 .section-copy {
   color: var(--muted);
   max-width: 64ch;
-  margin: 0.2rem auto 0;
+  margin: 0.65rem auto 0;
   text-align: center;
+  line-height: 1.8;
 }
 
 .glass-card {
@@ -124,7 +129,7 @@ body {
 }
 
 .brand {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -220,7 +225,7 @@ body {
 }
 
 .hero h1 {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.7rem, 8vw, 6rem);
   margin: 0.6rem 0 1.2rem;
   line-height: 0.9;
@@ -228,15 +233,25 @@ body {
   text-shadow: 0 10px 24px rgba(0, 0, 0, 0.36);
 }
 
+.hero .section-kicker {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+}
+
 .hero h1 span {
   color: var(--brand);
 }
 
 .hero p {
+  font-family: var(--font-reading);
   color: var(--muted);
   max-width: 62ch;
-  margin: 0 auto;
+  margin: 0.9rem auto 0;
   font-size: clamp(1rem, 1.6vw, 1.16rem);
+  line-height: 1.86;
+  letter-spacing: 0.01em;
+  word-spacing: 0.03em;
 }
 
 .hero-actions {
@@ -360,7 +375,8 @@ body {
 .about-block p {
   margin: 0;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.84;
+  word-spacing: 0.02em;
   text-align: center;
 }
 
@@ -383,9 +399,10 @@ body {
 }
 
 .timeline-item p {
-  margin: 0.35rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.92rem;
   color: var(--muted);
+  line-height: 1.72;
   text-align: center;
 }
 
@@ -453,10 +470,11 @@ body {
 
 .project-card p,
 .contact-card p {
-  margin: 0.65rem 0 0;
+  margin: 0.85rem 0 0;
   color: var(--muted);
   font-size: 0.93rem;
-  line-height: 1.6;
+  line-height: 1.74;
+  word-spacing: 0.02em;
   text-align: center;
 }
 
@@ -795,7 +813,7 @@ body {
 }
 
 .loading-text {
-  font-family: 'Syne', sans-serif;
+  font-family: var(--font-display);
   font-size: clamp(2.1rem, 6vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.04em;
