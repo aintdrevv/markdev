@@ -24,7 +24,7 @@ export async function handler(event) {
     };
   }
 
-  const toEmail = process.env.CONTACT_TO_EMAIL || 'andrewbaje00@gmail.com';
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'itsmarkmacaraig@gmail.com';
   const fromEmail = process.env.RESEND_FROM_EMAIL;
 
   if (!process.env.RESEND_API_KEY || !fromEmail) {

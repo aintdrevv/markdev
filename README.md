@@ -9,7 +9,7 @@ Set these environment variables in your hosting provider (and local env if neede
 
 - `RESEND_API_KEY`
 - `RESEND_FROM_EMAIL` (must be a verified sender in Resend)
-- `CONTACT_TO_EMAIL` (where messages are delivered, default fallback: `andrewbaje00@gmail.com`)
+- `CONTACT_TO_EMAIL` (where messages are delivered, default fallback: `itsmarkmacaraig@gmail.com`)
 - `VITE_CONTACT_API_URL` (optional override if your API lives on another domain/path)
 
 Use `.env.example` as template.
