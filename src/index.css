@@ -165,6 +165,7 @@ body {
     0 0 0 1px rgba(39, 194, 169, 0.12) inset,
     0 12px 32px rgba(0, 0, 0, 0.4),
     0 0 34px rgba(39, 194, 169, 0.3);
+  transition: transform 0.28s ease, opacity 0.28s ease;
 }
 
 .top-nav-inner {
@@ -317,9 +318,39 @@ body {
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   padding-top: calc(62px + 1rem);
   padding-bottom: 1rem;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(39, 194, 169, 0.1), transparent 40%),
+    linear-gradient(180deg, rgba(6, 17, 23, 0.4) 0%, rgba(6, 17, 23, 0.55) 100%);
+}
+
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(42px);
+}
+
+.hero::before {
+  inset: -18% -10% auto -12%;
+  height: 64%;
+  background:
+    radial-gradient(ellipse at 20% 40%, rgba(73, 255, 228, 0.42) 0%, rgba(73, 255, 228, 0) 62%),
+    radial-gradient(ellipse at 70% 50%, rgba(107, 177, 255, 0.32) 0%, rgba(107, 177, 255, 0) 58%);
+  animation: aurora-flow 18s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  inset: auto -12% -22% -8%;
+  height: 62%;
+  background:
+    radial-gradient(ellipse at 65% 40%, rgba(39, 194, 169, 0.36) 0%, rgba(39, 194, 169, 0) 60%),
+    radial-gradient(ellipse at 25% 55%, rgba(33, 130, 196, 0.28) 0%, rgba(33, 130, 196, 0) 62%);
+  animation: aurora-flow-alt 22s ease-in-out infinite alternate;
 }
 
 .hero-content {
@@ -1740,6 +1771,28 @@ body.theme-light .footer-location svg {
   }
 }
 
+@keyframes aurora-flow {
+  0% {
+    transform: translate3d(-2%, -3%, 0) rotate(-3deg) scale(1);
+    opacity: 0.78;
+  }
+  100% {
+    transform: translate3d(5%, 4%, 0) rotate(4deg) scale(1.08);
+    opacity: 0.95;
+  }
+}
+
+@keyframes aurora-flow-alt {
+  0% {
+    transform: translate3d(3%, 2%, 0) rotate(2deg) scale(1);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(-4%, -3%, 0) rotate(-4deg) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
 
 @media (max-width: 960px) {
   .about-grid,
@@ -1784,6 +1837,12 @@ body.theme-light .footer-location svg {
     width: auto;
     top: 0.5rem;
     transform: none;
+  }
+
+  .top-nav.mobile-idle-hidden {
+    transform: translateY(-140%);
+    opacity: 0;
+    pointer-events: none;
   }
 
   .hero-content {
@@ -2071,7 +2130,9 @@ body.theme-light .footer-location svg {
   .loading-ring,
   .loading-cursor,
   .typing-cursor,
-  .site-bg {
+  .site-bg,
+  .hero::before,
+  .hero::after {
     animation: none !important;
   }
 
