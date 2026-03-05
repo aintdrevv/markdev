@@ -16,7 +16,7 @@ function scrollToId(id) {
   window.scrollTo({ top: y, behavior: 'smooth' });
 }
 
-export default function Header({ theme, onToggleTheme }) {
+export default function Header({ onHireClick }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -35,28 +35,12 @@ export default function Header({ theme, onToggleTheme }) {
         </nav>
 
         <div className="nav-actions">
-          <button
-            className="theme-toggle"
-            type="button"
-            onClick={onToggleTheme}
-            aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
-            title={theme === 'light' ? 'Dark mode' : 'Light mode'}
-          >
-            {theme === 'light' ? (
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M21.75 15.5a9.77 9.77 0 0 1-4.28 1A9.74 9.74 0 0 1 7.74 6.76a9.72 9.72 0 0 1 1-4.27A1 1 0 0 0 7.5 1.25a11.74 11.74 0 1 0 15.5 15.5 1 1 0 0 0-1.25-1.25Z" />
-              </svg>
-            ) : (
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16a1 1 0 0 1 1 1v1.5a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1Zm0 17.5a1 1 0 0 1 1 1V22a1 1 0 1 1-2 0v-1.5a1 1 0 0 1 1-1Zm9-8.5a1 1 0 0 1 0 2h-1.5a1 1 0 1 1 0-2H21ZM4.5 11a1 1 0 1 1 0 2H3a1 1 0 1 1 0-2h1.5Zm12.36-6.86a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 1 1-1.41 1.41l-1.06-1.06a1 1 0 0 1 0-1.41Zm-10.13 10.13a1 1 0 0 1 1.41 0l1.06 1.06a1 1 0 0 1-1.41 1.41l-1.06-1.06a1 1 0 0 1 0-1.41Zm10.13 2.47a1 1 0 0 1 0 1.41l-1.06 1.06a1 1 0 1 1-1.41-1.41l1.06-1.06a1 1 0 0 1 1.41 0ZM9.2 6.25a1 1 0 0 1-1.41 0L6.73 5.2A1 1 0 0 1 8.14 3.8L9.2 4.84a1 1 0 0 1 0 1.41Z" />
-              </svg>
-            )}
+          <button className="hire-btn" type="button" onClick={onHireClick}>
+            Hire Me
           </button>
 
           <button className="menu-toggle" type="button" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M4 7a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm0 5a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Zm1 4a1 1 0 1 0 0 2h14a1 1 0 1 0 0-2H5Z" />
-            </svg>
+            <span>Menu</span>
           </button>
         </div>
       </div>

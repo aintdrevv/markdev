@@ -70,7 +70,6 @@ export default function Hero() {
             and strong attention to detail. This new portfolio version is focused on clarity,
             speed, and visual impact.
           </p>
-
           <div className="hero-actions">
             <button className="btn btn-primary" type="button" onClick={jumpToContact}>
               Start a project

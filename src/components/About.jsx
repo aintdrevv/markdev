@@ -12,6 +12,8 @@ const timeline = [
     description: 'Ship polished work for internship, junior roles, and freelance collaborations.',
   },
 ];
+const ABOUT_IMAGE_URL =
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1400&q=80';
 
 export default function About() {
   return (
@@ -25,14 +27,19 @@ export default function About() {
         </p>
 
         <div className="about-grid">
-          <article className="glass-card about-block">
-            <p>
-              My learning path is practical: build often, review critically, and improve quickly. I
-              focus on writing readable code, making layouts feel intentional, and keeping each
-              screen easy to navigate. I am currently looking for opportunities where I can
-              contribute while growing in a real product team.
-            </p>
-          </article>
+          <div className="about-main">
+            <article className="glass-card about-block">
+              <p>
+                My learning path is practical: build often, review critically, and improve quickly.
+                I focus on writing readable code, making layouts feel intentional, and keeping each
+                screen easy to navigate. I am currently looking for opportunities where I can
+                contribute while growing in a real product team.
+              </p>
+            </article>
+            <figure className="about-visual">
+              <img src={ABOUT_IMAGE_URL} alt="Creative workspace setup for frontend development." loading="lazy" />
+            </figure>
+          </div>
 
           <aside className="timeline">
             {timeline.map((item) => (

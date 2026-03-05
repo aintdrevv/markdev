@@ -5,28 +5,20 @@ import About from './components/About.jsx';
 import Skills from './components/Skills.jsx';
 import Projects from './components/Projects.jsx';
 import Contact from './components/Contact.jsx';
+import ContactModal from './components/ContactModal.jsx';
 import Footer from './components/Footer.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  const [theme, setTheme] = useState(() => {
-    if (typeof window === 'undefined') return 'light';
-    return window.localStorage.getItem('theme') || 'light';
-  });
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useLayoutEffect(() => {
-    document.documentElement.classList.toggle('theme-light', theme === 'light');
-    document.body.classList.toggle('theme-light', theme === 'light');
-    window.localStorage.setItem('theme', theme);
-  }, [theme]);
-
-  useEffect(() => {
-    if (isLoading) return;
-    const timer = setTimeout(() => setIsVisible(true), 0);
-    return () => clearTimeout(timer);
-  }, [isLoading]);
+    document.documentElement.classList.remove('theme-light');
+    document.body.classList.remove('theme-light');
+    window.localStorage.setItem('theme', 'dark');
+  }, []);
 
   useEffect(() => {
     if (isLoading) return;
@@ -61,13 +53,16 @@ function App() {
   }, [isLoading]);
 
   if (isLoading) {
-    return <LoadingScreen onDone={() => setIsLoading(false)} />;
+    return <LoadingScreen onDone={() => {
+      setIsVisible(true);
+      setIsLoading(false);
+    }} />;
   }
 
   return (
     <div className={`site-shell ${isVisible ? 'site-visible' : ''}`}>
       <div className="site-bg" aria-hidden="true" />
-      <Header theme={theme} onToggleTheme={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))} />
+      <Header onHireClick={() => setIsContactModalOpen(true)} />
       <main>
         <div className="enter-item" style={{ '--enter-delay': '180ms' }}>
           <Hero />
@@ -88,6 +83,7 @@ function App() {
       <div className="enter-item" style={{ '--enter-delay': '730ms' }}>
         <Footer />
       </div>
+      <ContactModal open={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );
 }
