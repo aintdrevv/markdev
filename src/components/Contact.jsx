@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 
-const XANO_CONTACT_ENDPOINT = 'https://x8ki-letl-twmt.n7.xano.io/api:7XacDfnY/contact';
-
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [popup, setPopup] = useState(null);
@@ -26,7 +24,7 @@ export default function Contact() {
       setIsSubmitting(true);
       const endpoints = import.meta.env.VITE_CONTACT_API_URL
         ? [import.meta.env.VITE_CONTACT_API_URL]
-        : ['/api/contact', '/.netlify/functions/contact', XANO_CONTACT_ENDPOINT];
+        : ['/api/contact', '/.netlify/functions/contact'];
 
       let delivered = false;
       let lastError = 'Failed to send message.';
