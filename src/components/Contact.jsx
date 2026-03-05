@@ -112,35 +112,43 @@ export default function Contact() {
               {popup && <div className={`contact-popup ${popup.type}`}>{popup.message}</div>}
 
               <form className="contact-glass-form" onSubmit={handleSubmit}>
-                <label htmlFor="contact-name">Name</label>
-                <input
-                  id="contact-name"
-                  type="text"
-                  value={form.name}
-                  onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
-                  placeholder="Your name"
-                  required
-                />
+                <div className="contact-form-row">
+                  <div className="contact-form-field">
+                    <label htmlFor="contact-name">Name</label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      value={form.name}
+                      onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
 
-                <label htmlFor="contact-email">Email</label>
-                <input
-                  id="contact-email"
-                  type="email"
-                  value={form.email}
-                  onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-                  placeholder="you@example.com"
-                  required
-                />
+                  <div className="contact-form-field">
+                    <label htmlFor="contact-email">Email</label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      value={form.email}
+                      onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+                      placeholder="you@example.com"
+                      required
+                    />
+                  </div>
+                </div>
 
-                <label htmlFor="contact-message">Message</label>
-                <textarea
-                  id="contact-message"
-                  rows="5"
-                  value={form.message}
-                  onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
-                  placeholder="Tell me about your project..."
-                  required
-                />
+                <div className="contact-form-field">
+                  <label htmlFor="contact-message">Message</label>
+                  <textarea
+                    id="contact-message"
+                    rows="5"
+                    value={form.message}
+                    onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
+                    placeholder="Tell me about your project..."
+                    required
+                  />
+                </div>
 
                 <button type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Sending...' : 'Send message'}

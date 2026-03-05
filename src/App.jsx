@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import About from './components/About.jsx';
@@ -13,12 +13,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-
-  useLayoutEffect(() => {
-    document.documentElement.classList.remove('theme-light');
-    document.body.classList.remove('theme-light');
-    window.localStorage.setItem('theme', 'dark');
-  }, []);
 
   useEffect(() => {
     if (isLoading) return;

@@ -87,6 +87,7 @@ export default function ContactModal({ open, onClose }) {
         <button type="button" className="contact-modal-close" aria-label="Close contact modal" onClick={onClose}>
           x
         </button>
+        <p className="contact-modal-kicker">Quick Inquiry</p>
         <h3>Let us work together</h3>
         <p>Share your project details and I will reply as soon as possible.</p>
 
@@ -97,39 +98,52 @@ export default function ContactModal({ open, onClose }) {
         ) : null}
 
         <form className="contact-modal-form" onSubmit={handleSubmit}>
-          <label htmlFor="modal-name">Name</label>
-          <input
-            id="modal-name"
-            type="text"
-            value={form.name}
-            onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
-            placeholder="Your name"
-            required
-          />
+          <div className="contact-modal-row">
+            <div className="contact-modal-field">
+              <label htmlFor="modal-name">Name</label>
+              <input
+                id="modal-name"
+                type="text"
+                value={form.name}
+                onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
+                placeholder="Your name"
+                required
+              />
+            </div>
 
-          <label htmlFor="modal-email">Email</label>
-          <input
-            id="modal-email"
-            type="email"
-            value={form.email}
-            onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
-            placeholder="you@example.com"
-            required
-          />
+            <div className="contact-modal-field">
+              <label htmlFor="modal-email">Email</label>
+              <input
+                id="modal-email"
+                type="email"
+                value={form.email}
+                onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+          </div>
 
-          <label htmlFor="modal-message">Message</label>
-          <textarea
-            id="modal-message"
-            rows="4"
-            value={form.message}
-            onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
-            placeholder="Tell me about your project..."
-            required
-          />
+          <div className="contact-modal-field">
+            <label htmlFor="modal-message">Message</label>
+            <textarea
+              id="modal-message"
+              rows="4"
+              value={form.message}
+              onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
+              placeholder="Tell me about your project..."
+              required
+            />
+          </div>
 
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Sending...' : 'Send message'}
-          </button>
+          <div className="contact-modal-actions">
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Sending...' : 'Send message'}
+            </button>
+            <a className="contact-modal-direct" href="mailto:itsmarkmacaraig@gmail.com">
+              Email Me Directly
+            </a>
+          </div>
         </form>
       </div>
     </div>
