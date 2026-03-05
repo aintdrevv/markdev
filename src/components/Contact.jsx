@@ -39,7 +39,15 @@ export default function Contact() {
         });
 
         const payload = await response.json().catch(() => null);
-        const explicitFailure = payload?.ok === false || payload?.success === false || Boolean(payload?.error);
+        const xanoStatus =
+          typeof payload?.success === 'object' ? payload.success?.status : payload?.status;
+        const xanoError =
+          typeof payload?.success === 'object' ? payload.success?.error : payload?.error;
+        const explicitFailure =
+          payload?.ok === false ||
+          payload?.success === false ||
+          String(xanoStatus || '').toLowerCase() === 'error' ||
+          Boolean(xanoError);
         if (response.ok && !explicitFailure) {
           delivered = true;
           break;
@@ -50,7 +58,10 @@ export default function Contact() {
           continue;
         }
 
-        lastError = payload?.message || `Failed to send message (${response.status}).`;
+        lastError =
+          payload?.message ||
+          xanoError ||
+          `Failed to send message (${response.status}).`;
         break;
       }
 
