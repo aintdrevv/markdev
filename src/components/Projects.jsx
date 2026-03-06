@@ -3,16 +3,19 @@ const projects = [
     name: 'Portfolio V3',
     status: 'In progress',
     summary: 'A refined personal site with stronger storytelling, visual rhythm, and cleaner component architecture.',
+    artClass: 'art-orbit',
   },
   {
     name: 'UI Component Lab',
     status: 'Planned',
     summary: 'A collection of reusable cards, forms, and navigation patterns for faster interface building.',
+    artClass: 'art-grid',
   },
   {
     name: 'Landing Page Series',
     status: 'Building',
     summary: 'Practice pages focused on conversion sections, mobile responsiveness, and interaction polish.',
+    artClass: 'art-ribbon',
   },
 ];
 
@@ -30,6 +33,11 @@ export default function Projects() {
         <div className="projects-grid">
           {projects.map((project) => (
             <article key={project.name} className="glass-card project-card">
+              <div className={`project-art ${project.artClass}`} aria-hidden="true">
+                <span className="project-layer layer-back" />
+                <span className="project-layer layer-mid" />
+                <span className="project-layer layer-front" />
+              </div>
               <h3>{project.name}</h3>
               <p>{project.summary}</p>
               <div className="project-links">

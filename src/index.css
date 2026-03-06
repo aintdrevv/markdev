@@ -754,7 +754,6 @@ body {
 }
 
 .about-visual:hover {
-  border-color: rgba(39, 194, 169, 0.55);
   transform: translateY(-4px);
 }
 
