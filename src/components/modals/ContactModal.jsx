@@ -163,9 +163,10 @@ export default function ContactModal({ open, onClose }) {
             }}
           >
             <div>
-              <p className="contact-modal-kicker">Quick Inquiry</p>
-              <h3>Let&apos;s build something great.</h3>
-              <p>
+              <h3 className="section-title section-title-modern contact-modal-title">
+                Let&apos;s build something great.
+              </h3>
+              <p className="section-copy contact-modal-copy">
                 Share the direction, the scope, or the rough idea. I&apos;ll help turn it into
                 something sharp and usable.
               </p>
@@ -187,6 +188,9 @@ export default function ContactModal({ open, onClose }) {
             }}
           >
             <div className="contact-modal-head">
+              <div>
+                <p className="contact-modal-kicker">Quick Inquiry</p>
+              </div>
               <button
                 type="button"
                 className="contact-modal-close"

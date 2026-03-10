@@ -568,23 +568,22 @@
   gap: 2rem;
 }
 
-.contact-modal h3 {
-  margin: 0;
+.contact-modal-title {
   color: var(--text);
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 3vw, 2.2rem);
-  font-weight: 800;
-  line-height: 0.98;
+  font-size: clamp(1.9rem, 3vw, 2.5rem);
+  max-width: 10ch;
 }
 
-.contact-modal p {
-  margin: 0.8rem 0 0;
+.contact-modal-copy {
+  margin: 0.85rem 0 0;
+  max-width: 32ch;
   color: rgba(var(--text-rgb), 0.68);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .contact-modal-socials {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
@@ -620,6 +619,7 @@
 .contact-modal-head {
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   gap: 1rem;
 }
 
@@ -633,10 +633,8 @@
 }
 
 .contact-modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  margin-left: auto;
+  position: static;
+  flex: 0 0 auto;
   width: 36px;
   height: 36px;
   border: 1px solid rgba(var(--brand-rgb), 0.16);
@@ -702,6 +700,11 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
+.contact-modal-form input::placeholder,
+.contact-modal-form textarea::placeholder {
+  color: rgba(var(--brand-rgb), 0.58);
+}
+
 .contact-modal-form input:focus,
 .contact-modal-form textarea:focus {
   outline: none;
@@ -718,7 +721,9 @@
 .contact-modal-actions {
   margin-top: 0.4rem;
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 0.75rem;
+  align-items: stretch;
 }
 
 .contact-modal-form button {
@@ -736,6 +741,13 @@
   cursor: pointer;
 }
 
+.contact-modal-cv {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .contact-modal-form button:disabled {
   opacity: 0.62;
   cursor: not-allowed;
@@ -751,9 +763,8 @@
     padding: 28px 22px;
   }
 
-  .contact-modal-close {
-    top: 14px;
-    right: 14px;
+  .contact-modal-actions {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -931,7 +942,7 @@ body {
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  font-size: clamp(2.75rem, 5.6vw, 4.9rem);
   margin: 0;
   letter-spacing: -0.04em;
   line-height: 0.94;
@@ -957,10 +968,11 @@ body {
 
 .section-copy {
   color: var(--muted);
-  max-width: 58ch;
-  margin: 1rem 0 0;
+  max-width: 54ch;
+  margin: 1.15rem 0 0;
+  font-size: 1.02rem;
   text-align: left;
-  line-height: 1.8;
+  line-height: 1.82;
 }
 
 .glass-card {
