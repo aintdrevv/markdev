@@ -43,7 +43,7 @@
   --nav-cta-label: rgba(243, 247, 255, 0.94);
   --nav-cta-shadow: 0 0 15px rgba(124, 131, 255, 0.18);
   --nav-mobile-control-glow: 0 0 14px rgba(124, 131, 255, 0.16);
-  --nav-mobile-panel: rgba(var(--surface-strong-rgb), 0.96);
+  --nav-mobile-panel: var(--nav-surface);
   --nav-mobile-border: rgba(var(--brand-rgb), 0.14);
   --nav-mobile-link: rgba(var(--text-rgb), 0.74);
   --nav-mobile-link-hover-surface: rgba(var(--brand-rgb), 0.12);
