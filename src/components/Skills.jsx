@@ -3,7 +3,7 @@ const skillRows = [
     { label: 'npm', size: '0.95rem', faint: true, tint: 'rgba(108, 99, 255, 0.16)', lightTint: 'rgba(25, 32, 61, 0.24)', hover: '#6C63FF', glow: 'rgba(108, 99, 255, 0.26)', flicker: true, flickerDuration: '3.8s', flickerDelay: '0.2s' },
     { label: 'Git/GitHub', size: '1.95rem', tint: 'rgba(255, 255, 255, 0.18)', lightTint: 'rgba(25, 32, 61, 0.34)', hover: 'rgba(255, 255, 255, 0.82)', glow: 'rgba(255, 255, 255, 0.22)' },
     { label: 'VS Code', size: '1.45rem', tint: 'rgba(108, 99, 255, 0.26)', lightTint: 'rgba(108, 99, 255, 0.42)', hover: '#6C63FF', glow: 'rgba(108, 99, 255, 0.28)', flicker: true, flickerDuration: '4.6s', flickerDelay: '0.9s' },
-    { label: 'Layout Systems', size: '1.65rem', tint: 'rgba(108, 99, 255, 0.3)', lightTint: 'rgba(108, 99, 255, 0.46)', hover: '#6C63FF', glow: 'rgba(108, 99, 255, 0.3)', flicker: true, flickerDuration: '5.1s', flickerDelay: '0.4s' },
+    { label: 'Layout Systems', size: '1.65rem', tint: 'rgba(108, 99, 255, 0.3)', lightTint: 'rgba(108, 99, 255, 0.46)', hover: '#6C63FF', glow: 'rgba(108, 99, 255, 0.3)', flicker: true, flickerDuration: '5.1s', flickerDelay: '0.4s', rotate: '-4deg' },
     { label: 'Vite', size: '1rem', faint: true, tint: 'rgba(108, 99, 255, 0.16)', lightTint: 'rgba(25, 32, 61, 0.24)', hover: '#6C63FF', glow: 'rgba(108, 99, 255, 0.24)', flicker: true, flickerDuration: '4.2s', flickerDelay: '1.1s' },
   ],
   [
@@ -32,25 +32,25 @@ const mobileSkillGroups = [
   {
     label: 'Core',
     items: [
-      { name: 'React', level: 'Main Focus', accent: true },
-      { name: 'JavaScript', level: 'Growing', accent: true, tint: '#F7DF1E' },
-      { name: 'HTML/CSS', level: 'Adv. Beginner', tint: '#FF6B35' },
+      { name: 'React', level: 'Main Focus' },
+      { name: 'JavaScript', level: 'Growing' },
+      { name: 'HTML/CSS', level: 'Adv. Beginner' },
     ],
   },
   {
     label: 'Styling',
     items: [
-      { name: 'Tailwind CSS', level: 'Comfortable', accent: true, tint: '#38BDF8' },
-      { name: 'Responsive', level: 'Strong Focus', tint: '#6C63FF' },
-      { name: 'Layout Systems', level: 'Practicing', tint: '#A78BFA' },
+      { name: 'Tailwind CSS', level: 'Comfortable' },
+      { name: 'Responsive', level: 'Strong Focus' },
+      { name: 'Layout Systems', level: 'Practicing' },
     ],
   },
   {
     label: 'Tools',
     items: [
-      { name: 'Git/GitHub', level: 'Daily', tint: '#F05032' },
-      { name: 'Figma', level: 'UI Refs', accent: true, tint: '#FF6B9D' },
-      { name: 'VS Code', level: 'Daily Setup', tint: '#007ACC' },
+      { name: 'Git/GitHub', level: 'Daily' },
+      { name: 'Figma', level: 'UI Refs' },
+      { name: 'VS Code', level: 'Daily Setup' },
     ],
   },
 ];
@@ -102,13 +102,7 @@ export default function Skills() {
                 <p className="skills-mobile-label">{group.label}</p>
                 <div className="skills-mobile-pills">
                   {group.items.map((item) => (
-                    <span
-                      key={item.name}
-                      className={`skills-mobile-pill${item.accent ? ' is-accent' : ''}`}
-                      style={{
-                        '--skill-pill': item.tint ?? 'var(--color-accent)',
-                      }}
-                    >
+                    <span key={item.name} className="skills-mobile-pill">
                       <span>{item.name}</span>
                       <small>{item.level}</small>
                     </span>

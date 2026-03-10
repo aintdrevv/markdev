@@ -153,10 +153,10 @@ export default function Contact() {
                 onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
                 placeholder="Name"
                 required
-                className="w-full border px-[18px] py-[14px] text-sm outline-none placeholder:text-white/20 transition-all duration-200"
+                className="contact-field-input w-full border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  borderColor: 'rgba(255,255,255,0.08)',
+                  background: 'rgba(var(--surface-rgb), 0.72)',
+                  borderColor: 'rgba(var(--brand-rgb), 0.16)',
                   borderRadius: '12px',
                   color: 'var(--text)',
                   fontFamily: 'var(--font-body)',
@@ -166,7 +166,7 @@ export default function Contact() {
                   event.currentTarget.style.boxShadow = '0 0 0 3px rgba(var(--brand-rgb), 0.12)';
                 }}
                 onBlur={(event) => {
-                  event.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                  event.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.16)';
                   event.currentTarget.style.boxShadow = 'none';
                 }}
               />
@@ -177,10 +177,10 @@ export default function Contact() {
                 onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                 placeholder="Email"
                 required
-                className="w-full border px-[18px] py-[14px] text-sm outline-none placeholder:text-white/20 transition-all duration-200"
+                className="contact-field-input w-full border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
                 style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  borderColor: 'rgba(255,255,255,0.08)',
+                  background: 'rgba(var(--surface-rgb), 0.72)',
+                  borderColor: 'rgba(var(--brand-rgb), 0.16)',
                   borderRadius: '12px',
                   color: 'var(--text)',
                   fontFamily: 'var(--font-body)',
@@ -190,7 +190,7 @@ export default function Contact() {
                   event.currentTarget.style.boxShadow = '0 0 0 3px rgba(var(--brand-rgb), 0.12)';
                 }}
                 onBlur={(event) => {
-                  event.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                  event.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.16)';
                   event.currentTarget.style.boxShadow = 'none';
                 }}
               />
@@ -202,10 +202,10 @@ export default function Contact() {
               onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
               placeholder="Message"
               required
-              className="h-[130px] w-full resize-none border px-[18px] py-[14px] text-sm outline-none placeholder:text-white/20 transition-all duration-200"
+              className="contact-field-input h-[130px] w-full resize-none border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
               style={{
-                background: 'rgba(255,255,255,0.04)',
-                borderColor: 'rgba(255,255,255,0.08)',
+                background: 'rgba(var(--surface-rgb), 0.72)',
+                borderColor: 'rgba(var(--brand-rgb), 0.16)',
                 borderRadius: '12px',
                 color: 'var(--text)',
                 fontFamily: 'var(--font-body)',
@@ -215,7 +215,7 @@ export default function Contact() {
                 event.currentTarget.style.boxShadow = '0 0 0 3px rgba(var(--brand-rgb), 0.12)';
               }}
               onBlur={(event) => {
-                event.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+                event.currentTarget.style.borderColor = 'rgba(var(--brand-rgb), 0.16)';
                 event.currentTarget.style.boxShadow = 'none';
               }}
             />
@@ -226,7 +226,7 @@ export default function Contact() {
               className="contact-submit-button mt-2 w-full rounded-full py-[14px] text-sm font-semibold tracking-[0.04em] transition-all duration-200"
               style={{
                 background: 'var(--color-accent)',
-                color: '#06080D',
+                color: '#ffffff',
                 fontFamily: 'var(--font-display)',
               }}
             >
@@ -244,16 +244,16 @@ export default function Contact() {
                 aria-label={link.label}
                 className="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200"
                 style={{
-                  color: 'rgba(var(--text-rgb), 0.62)',
-                  background: 'rgba(255,255,255,0.04)',
+                  color: '#ffffff',
+                  background: '#8f88ff',
                 }}
                 onMouseEnter={(event) => {
-                  event.currentTarget.style.color = 'var(--color-accent)';
-                  event.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.08)';
+                  event.currentTarget.style.color = '#ffffff';
+                  event.currentTarget.style.background = '#a39dff';
                 }}
                 onMouseLeave={(event) => {
-                  event.currentTarget.style.color = 'rgba(var(--text-rgb), 0.62)';
-                  event.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                  event.currentTarget.style.color = '#ffffff';
+                  event.currentTarget.style.background = '#8f88ff';
                 }}
               >
                 <span className="h-[18px] w-[18px]">{link.icon}</span>

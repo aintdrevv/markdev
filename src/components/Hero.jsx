@@ -88,7 +88,7 @@ export default function Hero() {
           </div>
 
           <div className="hero-v2-actions">
-            <button className="hero-v2-btn hero-v2-btn-primary" type="button" onClick={jumpToContact}>
+            <button className="hero-v2-btn hero-v2-btn-primary hero-v2-btn-launch" type="button" onClick={jumpToContact}>
               Launch Project
             </button>
             <a
