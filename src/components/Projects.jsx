@@ -37,9 +37,6 @@ export default function Projects() {
     <section id="projects" className="section section-projects" data-deco="Projects">
       <div className="container">
         <div className="projects-bento-shell section-shell">
-          <div className="projects-bento-aurora projects-bento-aurora-a" aria-hidden="true" />
-          <div className="projects-bento-aurora projects-bento-aurora-b" aria-hidden="true" />
-
           <div className="section-header-left projects-bento-head">
             <p className="section-kicker">Projects</p>
             <h2 className="section-title section-title-modern">

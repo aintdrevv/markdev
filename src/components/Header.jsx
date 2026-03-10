@@ -236,12 +236,12 @@ export default function Header({ onHireClick }) {
             background: 'rgba(var(--surface-strong-rgb), 0.9)',
           }}
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col items-center gap-2">
             {links.map((link) => (
               <button
                 key={link.id}
                 type="button"
-                className="rounded-2xl px-4 py-3 text-left text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
+                className="w-full rounded-2xl px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{ color: 'rgba(var(--text-rgb), 0.7)' }}
                 onClick={() => {
                   scrollToId(link.id);
@@ -261,7 +261,7 @@ export default function Header({ onHireClick }) {
             ))}
             <button
               type="button"
-              className="mt-1 rounded-2xl px-4 py-3 text-sm font-bold uppercase tracking-[0.18em]"
+              className="mt-1 w-full rounded-2xl px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.18em]"
               style={{
                 color: 'var(--text)',
                 border: 'none',
