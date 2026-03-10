@@ -336,7 +336,7 @@ export default function Header({ onHireClick }) {
             style={{
               color: 'var(--text)',
               border: 'none',
-              background: '#6C63FF',
+              background: 'transparent',
             }}
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
