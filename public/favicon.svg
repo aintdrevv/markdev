@@ -1,5 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <rect width="64" height="64" rx="14" fill="#0f1f1e"/>
-  <text x="8" y="46" font-family="monospace" font-size="28" font-weight="bold" fill="#2dd4aa">_</text>
-  <text x="8" y="36" font-family="monospace" font-size="22" font-weight="bold" fill="#2dd4aa">&gt;_</text>
+  <circle cx="32" cy="32" r="30" fill="#0A0A0F" />
+  <circle cx="32" cy="32" r="29" stroke="rgba(255,255,255,0.08)" />
+  <circle cx="32" cy="32" r="21" fill="#6C63FF" fill-opacity="0.16" />
+  <text
+    x="32"
+    y="37"
+    text-anchor="middle"
+    font-family="Syne, Arial, sans-serif"
+    font-size="20"
+    font-weight="800"
+    letter-spacing="-1"
+    fill="#E8F0FF"
+  >
+    m
+  </text>
 </svg>

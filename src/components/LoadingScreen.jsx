@@ -1,40 +1,26 @@
-import { useState, useEffect } from 'react';
-
-const LOGO_TEXT = 'markdev';
+import { useEffect, useState } from 'react';
 
 export default function LoadingScreen({ onDone }) {
-  const [displayed, setDisplayed] = useState('');
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    if (displayed.length < LOGO_TEXT.length) {
-      const t = setTimeout(() => {
-        setDisplayed(LOGO_TEXT.slice(0, displayed.length + 1));
-      }, 95);
-      return () => clearTimeout(t);
-    } else {
-      const t = setTimeout(() => setFadeOut(true), 620);
-      return () => clearTimeout(t);
-    }
-  }, [displayed]);
+    const t = setTimeout(() => setFadeOut(true), 900);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     if (!fadeOut) return;
-    const t = setTimeout(() => onDone?.(), 620);
+    const t = setTimeout(() => onDone?.(), 520);
     return () => clearTimeout(t);
   }, [fadeOut, onDone]);
 
   return (
     <div className={`loading-screen${fadeOut ? ' fade-out' : ''}`}>
       <div className="loading-logo" role="status" aria-live="polite" aria-label="Loading page">
-        <span className="loading-ring" aria-hidden="true" />
-        <span className="loading-text">
-          {displayed}
-          <span className="loading-cursor" aria-hidden="true">
-            |
-          </span>
+        <span className="loading-brand">
+          mark<span>.dev</span>
         </span>
-        <span className="loading-subtext">loading...</span>
+        <span className="loading-subtext">loading interface</span>
       </div>
     </div>
   );
