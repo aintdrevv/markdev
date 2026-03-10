@@ -19,7 +19,7 @@ const projects = [
     status: 'Building',
     summary:
       'Practice pages focused on conversion sections, mobile responsiveness, and interaction polish.',
-    accent: '#FF6B9D',
+    accent: '#7C83FF',
   },
   {
     name: 'Job Application Logger',

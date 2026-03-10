@@ -360,7 +360,7 @@
   font-size: clamp(3.9rem, 6vw, 5rem) !important;
   line-height: 1.08;
   letter-spacing: -0.03em;
-  color: #6c63ff;
+  color: var(--text);
   text-transform: none;
   text-shadow: none;
 }
@@ -378,7 +378,7 @@
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(var(--text-rgb), 0.62);
 }
 
 .hero-v2-actions {
@@ -415,14 +415,15 @@
 }
 
 .hero-v2-btn-secondary {
-  background: #8f88ff;
-  border: 1px solid rgba(143, 136, 255, 0.38);
-  color: #fff;
+  background: rgba(var(--surface-rgb), 0.56);
+  border: 1px solid rgba(var(--brand-rgb), 0.18);
+  color: rgba(var(--text-rgb), 0.82);
 }
 
 .hero-v2-btn-secondary:hover {
-  border-color: rgba(163, 157, 255, 0.5);
-  background: #a39dff;
+  border-color: rgba(var(--brand-rgb), 0.3);
+  background: rgba(var(--surface-rgb), 0.76);
+  color: var(--text);
 }
 
 @media (max-width: 900px) {
@@ -556,7 +557,10 @@
 }
 
 .contact-modal-left {
-  background: #6c63ff;
+  background:
+    linear-gradient(160deg, rgba(var(--surface-strong-rgb), 0.98), rgba(var(--surface-rgb), 0.9)),
+    radial-gradient(circle at 18% 16%, rgba(var(--brand-rgb), 0.12), transparent 42%);
+  border-right: 1px solid rgba(var(--brand-rgb), 0.12);
   padding: 40px 28px;
   display: flex;
   flex-direction: column;
@@ -564,55 +568,64 @@
   gap: 2rem;
 }
 
-.contact-modal-left h3 {
+.contact-modal h3 {
   margin: 0;
-  color: #fff;
+  color: var(--text);
   font-family: var(--font-display);
-  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
   font-weight: 800;
-  line-height: 0.96;
+  line-height: 0.98;
 }
 
-.contact-modal-left p {
-  margin: 0.85rem 0 0;
-  color: rgba(255, 255, 255, 0.74);
+.contact-modal p {
+  margin: 0.8rem 0 0;
+  color: rgba(var(--text-rgb), 0.68);
   line-height: 1.7;
 }
 
 .contact-modal-socials {
   display: grid;
-  gap: 0.7rem;
+  gap: 0.75rem;
 }
 
 .contact-modal-socials a {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  font-family: var(--font-display);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  color: rgba(var(--text-rgb), 0.72);
+  background: rgba(var(--surface-rgb), 0.5);
+  border: 1px solid rgba(var(--brand-rgb), 0.12);
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.contact-modal-socials a svg {
+  width: 17px;
+  height: 17px;
 }
 
 .contact-modal-socials a:hover {
-  color: #fff;
+  color: var(--text);
+  background: rgba(var(--surface-rgb), 0.7);
+  border-color: rgba(var(--brand-rgb), 0.22);
 }
 
 .contact-modal-right {
-  background: #111320;
+  background: rgba(var(--surface-strong-rgb), 0.96);
   padding: 36px 32px;
 }
 
 .contact-modal-head {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .contact-modal-kicker {
   margin: 0;
-  color: #6c63ff;
+  color: rgba(var(--text-rgb), 0.5);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -620,12 +633,15 @@
 }
 
 .contact-modal-close {
-  position: static;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  margin-left: auto;
   width: 36px;
   height: 36px;
-  border: 0;
-  background: rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.78);
+  border: 1px solid rgba(var(--brand-rgb), 0.16);
+  background: rgba(var(--surface-rgb), 0.72);
+  color: rgba(var(--text-rgb), 0.78);
   border-radius: 999px;
   cursor: pointer;
   display: inline-flex;
@@ -645,11 +661,11 @@
   background: transparent;
   font-size: 0.88rem;
   line-height: 1.6;
-  color: #e9f8ff;
+  color: var(--text);
 }
 
 .contact-modal-status.success {
-  color: rgba(198, 205, 255, 0.92);
+  color: var(--color-accent);
 }
 
 .contact-modal-status.error {
@@ -670,29 +686,28 @@
 .contact-modal-form label {
   font-size: 0.72rem;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.42);
+  color: rgba(var(--text-rgb), 0.42);
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
 .contact-modal-form input,
 .contact-modal-form textarea {
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: transparent;
-  color: #ecf8ff;
+  border: 1px solid rgba(var(--brand-rgb), 0.16);
+  background: rgba(var(--surface-rgb), 0.72);
+  color: var(--text);
   font: inherit;
-  border-radius: 0;
-  padding: 0.2rem 0 0.75rem;
-  transition: border-color 0.2s ease;
+  border-radius: 12px;
+  padding: 0.82rem 0.9rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 .contact-modal-form input:focus,
 .contact-modal-form textarea:focus {
   outline: none;
-  border-color: rgba(108, 99, 255, 0.82);
-  box-shadow: none;
-  background: transparent;
+  border-color: rgba(var(--brand-rgb), 0.5);
+  box-shadow: 0 0 0 3px rgba(var(--brand-rgb), 0.12);
+  background: rgba(var(--surface-rgb), 0.82);
 }
 
 .contact-modal-form textarea {
@@ -702,14 +717,15 @@
 
 .contact-modal-actions {
   margin-top: 0.4rem;
-  display: block;
+  display: grid;
+  gap: 0.75rem;
 }
 
 .contact-modal-form button {
   width: 100%;
   margin-top: 0;
   border: 0;
-  background: #6c63ff;
+  background: var(--color-accent);
   color: #fff;
   border-radius: 999px;
   min-height: 46px;
@@ -734,6 +750,11 @@
   .contact-modal-right {
     padding: 28px 22px;
   }
+
+  .contact-modal-close {
+    top: 14px;
+    right: 14px;
+  }
 }
 
 :root,
@@ -751,6 +772,7 @@
   --surface-rgb: 17, 19, 34;
   --surface-strong: rgba(10, 11, 22, 0.94);
   --surface-strong-rgb: 10, 11, 22;
+  --nav-surface: rgba(28, 31, 46, 0.9);
   --line: rgba(108, 99, 255, 0.28);
   --line-rgb: 108, 99, 255;
   --line-soft: rgba(145, 158, 255, 0.22);
@@ -781,6 +803,7 @@
   --surface-rgb: 255, 255, 255;
   --surface-strong: rgba(250, 252, 255, 0.96);
   --surface-strong-rgb: 250, 252, 255;
+  --nav-surface: rgba(108, 99, 255, 0.94);
   --line: rgba(108, 99, 255, 0.22);
   --line-rgb: 108, 99, 255;
   --line-soft: rgba(108, 99, 255, 0.18);
@@ -924,7 +947,7 @@ body {
 
 .section-kicker {
   margin: 0 0 0.75rem;
-  color: var(--brand);
+  color: rgba(var(--brand-rgb), 0.82);
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -1559,15 +1582,15 @@ body {
 }
 
 .btn-secondary {
-  color: var(--text);
-  border-color: rgba(232, 240, 255, 0.18);
-  background: rgba(232, 240, 255, 0.04);
+  color: rgba(var(--text-rgb), 0.84);
+  border-color: rgba(var(--brand-rgb), 0.16);
+  background: rgba(var(--surface-rgb), 0.42);
 }
 
 .btn-secondary:hover {
-  border-color: rgba(108, 99, 255, 0.58);
-  background: rgba(108, 99, 255, 0.12);
-  box-shadow: 0 0 22px rgba(108, 99, 255, 0.22);
+  border-color: rgba(var(--brand-rgb), 0.32);
+  background: rgba(var(--surface-rgb), 0.62);
+  box-shadow: 0 0 18px rgba(var(--brand-rgb), 0.16);
 }
 
 .combo-text {
@@ -1789,7 +1812,7 @@ body {
 }
 
 .skills-type-word.is-accent {
-  color: rgba(108, 99, 255, 0.46);
+  color: rgba(var(--brand-rgb), 0.36);
 }
 
 .skills-type-word.is-faint {
@@ -1799,12 +1822,12 @@ body {
 .skills-type-word.is-flicker {
   animation: skillTextFlicker var(--skill-flicker-duration, 3.8s) linear infinite;
   animation-delay: var(--skill-flicker-delay, 0s);
-  text-shadow: 0 0 12px rgba(108, 99, 255, 0.18);
+  text-shadow: 0 0 10px rgba(var(--brand-rgb), 0.12);
 }
 
 .skills-type-word:hover {
   color: var(--skill-hover, #6c63ff);
-  text-shadow: 0 0 18px var(--skill-glow, rgba(108, 99, 255, 0.24));
+  text-shadow: 0 0 14px var(--skill-glow, rgba(108, 99, 255, 0.18));
 }
 
 @keyframes skillTextFlicker {
@@ -2075,7 +2098,7 @@ body {
 }
 
 .project-links a {
-  color: var(--text);
+  color: rgba(var(--text-rgb), 0.84);
   font-size: 0.83rem;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -2084,7 +2107,7 @@ body {
 }
 
 .project-links a:hover {
-  border-color: rgba(var(--brand-rgb), 0.75);
+  border-color: rgba(var(--brand-rgb), 0.48);
 }
 
 .projects-bento-shell {

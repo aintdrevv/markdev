@@ -154,9 +154,7 @@ export default function Header({ onHireClick }) {
           opacity: !isMounted ? 0 : isMobileIdleHidden ? 0.18 : 1,
           transition: 'transform 700ms cubic-bezier(0.22, 1.2, 0.36, 1), opacity 500ms ease-in-out, box-shadow 250ms ease-in-out, border-color 250ms ease-in-out, backdrop-filter 250ms ease-in-out',
           color: 'var(--text)',
-          background: isLightTheme
-            ? 'rgba(108, 99, 255, 0.94)'
-            : 'rgba(84, 74, 232, 0.7)',
+          background: 'var(--nav-surface)',
           boxShadow: isScrolled
             ? '0 0 20px rgba(108, 99, 255, 0.18)'
             : 'none',
@@ -173,13 +171,13 @@ export default function Header({ onHireClick }) {
           className="relative z-10 bg-transparent text-[0.8rem] md:text-base font-extrabold uppercase tracking-[0.18em] transition duration-300 ease-in-out hover:-translate-y-0.5"
           style={{
             fontFamily: 'var(--font-display)',
-            color: '#ffffff',
+            color: isLightTheme ? '#ffffff' : 'rgba(240, 244, 255, 0.92)',
           }}
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           mark
-          <span style={{ color: 'rgba(255, 255, 255, 0.76)' }}>.dev</span>
+          <span style={{ color: isLightTheme ? 'rgba(255, 255, 255, 0.76)' : 'rgba(156, 168, 255, 0.9)' }}>.dev</span>
         </button>
 
         <nav
@@ -188,13 +186,13 @@ export default function Header({ onHireClick }) {
         >
           <span
             className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
-            style={{
-              ...indicatorStyle,
-              background: 'rgba(255, 255, 255, 0.14)',
-              borderColor: 'transparent',
-              boxShadow: '0 0 18px rgba(255, 255, 255, 0.12)',
-              transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
-            }}
+              style={{
+                ...indicatorStyle,
+                background: isLightTheme ? 'rgba(255, 255, 255, 0.14)' : 'rgba(124, 131, 255, 0.16)',
+                borderColor: 'transparent',
+                boxShadow: isLightTheme ? '0 0 18px rgba(255, 255, 255, 0.12)' : '0 0 18px rgba(124, 131, 255, 0.16)',
+                transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
+              }}
             aria-hidden="true"
           />
           {links.map((link) => {
@@ -211,9 +209,13 @@ export default function Header({ onHireClick }) {
                 className="relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  color: active ? '#ffffff' : 'rgba(255, 255, 255, 0.72)',
+                  color: active
+                    ? (isLightTheme ? '#ffffff' : 'rgba(243, 247, 255, 0.92)')
+                    : (isLightTheme ? 'rgba(255, 255, 255, 0.72)' : 'rgba(210, 218, 238, 0.72)'),
                   transform: active ? 'translateY(-2px)' : 'translateY(0)',
-                  textShadow: active ? '0 0 10px rgba(255, 255, 255, 0.14)' : 'none',
+                  textShadow: active
+                    ? (isLightTheme ? '0 0 10px rgba(255, 255, 255, 0.14)' : '0 0 10px rgba(124, 131, 255, 0.18)')
+                    : 'none',
                   fontWeight: 600,
                 }}
                 onMouseEnter={() => {
@@ -252,32 +254,32 @@ export default function Header({ onHireClick }) {
             aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
             onClick={toggleTheme}
             style={{
-              color: isLightTheme ? '#6C63FF' : '#ffffff',
+              color: isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)',
               border: 'none',
-              background: isLightTheme ? '#ffffff' : '#8f88ff',
+              background: isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#ffffff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#a39dff';
+              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#f3f7ff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.28)';
               event.currentTarget.style.boxShadow = isLightTheme
                 ? '0 0 16px rgba(255, 255, 255, 0.18)'
-                : '0 0 16px rgba(143, 136, 255, 0.28)';
+                : '0 0 16px rgba(124, 131, 255, 0.18)';
             }}
             onMouseLeave={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : '#ffffff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#8f88ff';
+              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)';
               event.currentTarget.style.boxShadow = 'none';
             }}
             onFocus={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#ffffff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#a39dff';
+              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#f3f7ff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.28)';
               event.currentTarget.style.boxShadow = isLightTheme
                 ? '0 0 16px rgba(255, 255, 255, 0.18)'
-                : '0 0 16px rgba(143, 136, 255, 0.28)';
+                : '0 0 16px rgba(124, 131, 255, 0.18)';
             }}
             onBlur={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : '#ffffff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#8f88ff';
+              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)';
               event.currentTarget.style.boxShadow = 'none';
             }}
           >
@@ -299,12 +301,12 @@ export default function Header({ onHireClick }) {
               fontFamily: "'DM Sans', sans-serif",
               color: '#ffffff',
               border: 'none',
-              background: isLightTheme ? '#ffffff' : '#8f88ff',
+              background: isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.2)',
               transform: isHireHovered ? 'scale(1.05)' : 'scale(1)',
               boxShadow: isHireHovered
                 ? isLightTheme
                   ? '0 0 15px rgba(255, 255, 255, 0.18)'
-                  : '0 0 15px rgba(143, 136, 255, 0.28)'
+                  : '0 0 15px rgba(124, 131, 255, 0.18)'
                 : 'none',
             }}
             onMouseEnter={() => setIsHireHovered(true)}
@@ -313,7 +315,7 @@ export default function Header({ onHireClick }) {
             onBlur={() => setIsHireHovered(false)}
             onClick={onHireClick}
           >
-            <span style={{ color: isLightTheme ? '#544ae8' : '#ffffff' }}>Hire Me</span>
+            <span style={{ color: isLightTheme ? '#544ae8' : 'rgba(243, 247, 255, 0.94)' }}>Hire Me</span>
           </button>
 
           <button

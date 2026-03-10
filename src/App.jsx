@@ -12,6 +12,21 @@ function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+
+    return () => {
+      if ('scrollRestoration' in window.history) {
+        window.history.scrollRestoration = previousScrollRestoration;
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const sections = Array.from(document.querySelectorAll('.section'));
     if (!sections.length) return;
 

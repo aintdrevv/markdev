@@ -150,55 +150,55 @@ export default function ContactModal({ open, onClose }) {
       >
         <div
           className="contact-modal"
-          onClick={(event) => event.stopPropagation()}
           style={{
             transformOrigin: 'center',
             animation: 'modalScalePop 320ms cubic-bezier(0.22, 1, 0.36, 1) both',
           }}
+          onClick={(event) => event.stopPropagation()}
         >
-        <div
-          className="contact-modal-left"
-          style={{
-            animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both',
-          }}
-        >
-          <div>
-            <h3>Let&apos;s build something great.</h3>
-            <p>
-              Share the direction, the scope, or the rough idea. I&apos;ll help turn it into
-              something sharp and usable.
-            </p>
+          <div
+            className="contact-modal-left"
+            style={{
+              animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both',
+            }}
+          >
+            <div>
+              <p className="contact-modal-kicker">Quick Inquiry</p>
+              <h3>Let&apos;s build something great.</h3>
+              <p>
+                Share the direction, the scope, or the rough idea. I&apos;ll help turn it into
+                something sharp and usable.
+              </p>
+            </div>
+
+            <div className="contact-modal-socials">
+              {socialLinks.map((link) => (
+                <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
-          <div className="contact-modal-socials">
-            {socialLinks.map((link) => (
-              <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
-                {link.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        <div
-          className="contact-modal-right"
-          style={{
-            animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both',
-          }}
-        >
-          <div className="contact-modal-head">
-            <p className="contact-modal-kicker">Quick Inquiry</p>
-            <button
-              type="button"
-              className="contact-modal-close"
-              aria-label="Close contact modal"
-              onClick={onClose}
-            >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                <path d="M6 6 18 18" />
-                <path d="M18 6 6 18" />
-              </svg>
-            </button>
-          </div>
+          <div
+            className="contact-modal-right"
+            style={{
+              animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both',
+            }}
+          >
+            <div className="contact-modal-head">
+              <button
+                type="button"
+                className="contact-modal-close"
+                aria-label="Close contact modal"
+                onClick={onClose}
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+                  <path d="M6 6 18 18" />
+                  <path d="M18 6 6 18" />
+                </svg>
+              </button>
+            </div>
 
           {status.message ? (
             <div className={`contact-modal-status ${status.type}`}>{status.message}</div>
@@ -257,7 +257,7 @@ export default function ContactModal({ open, onClose }) {
             </div>
           </form>
         </div>
-      </div>
+        </div>
       </div>
     </>
   );
