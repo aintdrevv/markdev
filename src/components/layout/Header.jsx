@@ -115,6 +115,9 @@ export default function Header({ onHireClick }) {
     };
   }, [mobileOpen]);
 
+  const navBorderColor = isScrolled ? 'var(--nav-border-strong)' : 'var(--nav-border)';
+  const navBlur = isScrolled ? 'blur(20px)' : 'blur(10px)';
+
   return (
     <header className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8">
       <style>{`
@@ -155,29 +158,23 @@ export default function Header({ onHireClick }) {
           transition: 'transform 700ms cubic-bezier(0.22, 1.2, 0.36, 1), opacity 500ms ease-in-out, box-shadow 250ms ease-in-out, border-color 250ms ease-in-out, backdrop-filter 250ms ease-in-out',
           color: 'var(--text)',
           background: 'var(--nav-surface)',
-          boxShadow: isScrolled
-            ? '0 0 20px rgba(108, 99, 255, 0.18)'
-            : 'none',
-          borderColor: isLightTheme
-            ? 'rgba(255, 255, 255, 0.14)'
-            : isScrolled
-              ? 'rgba(255, 255, 255, 0.16)'
-              : 'rgba(255, 255, 255, 0.1)',
-          backdropFilter: isScrolled ? 'blur(20px)' : 'blur(10px)',
-          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'blur(10px)',
+          boxShadow: isScrolled ? 'var(--nav-shell-shadow)' : 'none',
+          borderColor: navBorderColor,
+          backdropFilter: navBlur,
+          WebkitBackdropFilter: navBlur,
         }}
       >
         <button
           className="relative z-10 bg-transparent text-[0.8rem] md:text-base font-extrabold uppercase tracking-[0.18em] transition duration-300 ease-in-out hover:-translate-y-0.5"
           style={{
             fontFamily: 'var(--font-display)',
-            color: isLightTheme ? '#ffffff' : 'rgba(240, 244, 255, 0.92)',
+            color: 'var(--nav-logo)',
           }}
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           mark
-          <span style={{ color: isLightTheme ? 'var(--accent)' : 'rgba(156, 168, 255, 0.9)' }}>.dev</span>
+          <span style={{ color: 'var(--nav-logo-accent)' }}>.dev</span>
         </button>
 
         <nav
@@ -186,18 +183,17 @@ export default function Header({ onHireClick }) {
         >
           <span
             className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
-              style={{
-                ...indicatorStyle,
-                background: isLightTheme ? 'rgba(255, 255, 255, 0.14)' : 'rgba(124, 131, 255, 0.16)',
-                borderColor: 'transparent',
-                boxShadow: isLightTheme ? '0 0 18px rgba(255, 255, 255, 0.12)' : '0 0 18px rgba(124, 131, 255, 0.16)',
-                transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
-              }}
+            style={{
+              ...indicatorStyle,
+              background: 'var(--nav-indicator)',
+              borderColor: 'transparent',
+              boxShadow: 'var(--nav-indicator-shadow)',
+              transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
+            }}
             aria-hidden="true"
           />
-          {links.map((link) => {
+          {links.map((link, index) => {
             const active = hoveredLink === link.id;
-            const index = links.indexOf(link);
 
             return (
               <button
@@ -209,13 +205,9 @@ export default function Header({ onHireClick }) {
                 className="relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  color: active
-                    ? (isLightTheme ? '#ffffff' : 'rgba(243, 247, 255, 0.92)')
-                    : (isLightTheme ? 'rgba(255, 255, 255, 0.72)' : 'rgba(210, 218, 238, 0.72)'),
+                  color: active ? 'var(--nav-text-strong)' : 'var(--nav-text-muted)',
                   transform: active ? 'translateY(-2px)' : 'translateY(0)',
-                  textShadow: active
-                    ? (isLightTheme ? '0 0 10px rgba(255, 255, 255, 0.14)' : '0 0 10px rgba(124, 131, 255, 0.18)')
-                    : 'none',
+                  textShadow: active ? 'var(--nav-link-glow)' : 'none',
                   fontWeight: 600,
                 }}
                 onMouseEnter={() => {
@@ -254,32 +246,28 @@ export default function Header({ onHireClick }) {
             aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
             onClick={toggleTheme}
             style={{
-              color: isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)',
+              color: 'var(--nav-icon)',
               border: 'none',
-              background: isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)',
+              background: 'var(--nav-icon-surface)',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#f3f7ff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.28)';
-              event.currentTarget.style.boxShadow = isLightTheme
-                ? '0 0 16px rgba(255, 255, 255, 0.18)'
-                : '0 0 16px rgba(124, 131, 255, 0.18)';
+              event.currentTarget.style.color = 'var(--nav-icon-hover)';
+              event.currentTarget.style.background = 'var(--nav-icon-surface-hover)';
+              event.currentTarget.style.boxShadow = 'var(--nav-icon-glow)';
             }}
             onMouseLeave={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)';
+              event.currentTarget.style.color = 'var(--nav-icon)';
+              event.currentTarget.style.background = 'var(--nav-icon-surface)';
               event.currentTarget.style.boxShadow = 'none';
             }}
             onFocus={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#f3f7ff';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.28)';
-              event.currentTarget.style.boxShadow = isLightTheme
-                ? '0 0 16px rgba(255, 255, 255, 0.18)'
-                : '0 0 16px rgba(124, 131, 255, 0.18)';
+              event.currentTarget.style.color = 'var(--nav-icon-hover)';
+              event.currentTarget.style.background = 'var(--nav-icon-surface-hover)';
+              event.currentTarget.style.boxShadow = 'var(--nav-icon-glow)';
             }}
             onBlur={(event) => {
-              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : 'rgba(240, 244, 255, 0.92)';
-              event.currentTarget.style.background = isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.18)';
+              event.currentTarget.style.color = 'var(--nav-icon)';
+              event.currentTarget.style.background = 'var(--nav-icon-surface)';
               event.currentTarget.style.boxShadow = 'none';
             }}
           >
@@ -299,15 +287,11 @@ export default function Header({ onHireClick }) {
             type="button"
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              color: '#ffffff',
+              color: 'var(--nav-text-strong)',
               border: 'none',
-              background: isLightTheme ? '#ffffff' : 'rgba(124, 131, 255, 0.2)',
+              background: 'var(--nav-cta-surface)',
               transform: isHireHovered ? 'scale(1.05)' : 'scale(1)',
-              boxShadow: isHireHovered
-                ? isLightTheme
-                  ? '0 0 15px rgba(255, 255, 255, 0.18)'
-                  : '0 0 15px rgba(124, 131, 255, 0.18)'
-                : 'none',
+              boxShadow: isHireHovered ? 'var(--nav-cta-shadow)' : 'none',
             }}
             onMouseEnter={() => setIsHireHovered(true)}
             onMouseLeave={() => setIsHireHovered(false)}
@@ -315,7 +299,7 @@ export default function Header({ onHireClick }) {
             onBlur={() => setIsHireHovered(false)}
             onClick={onHireClick}
           >
-            <span style={{ color: isLightTheme ? '#544ae8' : 'rgba(243, 247, 255, 0.94)' }}>Hire Me</span>
+            <span style={{ color: 'var(--nav-cta-label)' }}>Hire Me</span>
           </button>
 
           <button
@@ -325,24 +309,24 @@ export default function Header({ onHireClick }) {
             onClick={toggleTheme}
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              color: '#ffffff',
+              color: 'var(--nav-text-strong)',
               border: 'none',
               background: 'transparent',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
+              event.currentTarget.style.boxShadow = 'var(--nav-mobile-control-glow)';
             }}
             onMouseLeave={(event) => {
-              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
               event.currentTarget.style.boxShadow = 'none';
             }}
             onFocus={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
+              event.currentTarget.style.boxShadow = 'var(--nav-mobile-control-glow)';
             }}
             onBlur={(event) => {
-              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
               event.currentTarget.style.boxShadow = 'none';
             }}
           >
@@ -365,24 +349,24 @@ export default function Header({ onHireClick }) {
             onClick={() => setMobileOpen((value) => !value)}
             style={{
               fontFamily: "'DM Sans', sans-serif",
-              color: '#ffffff',
+              color: 'var(--nav-text-strong)',
               border: 'none',
               background: 'transparent',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
+              event.currentTarget.style.boxShadow = 'var(--nav-mobile-control-glow)';
             }}
             onMouseLeave={(event) => {
-              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
               event.currentTarget.style.boxShadow = 'none';
             }}
             onFocus={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
+              event.currentTarget.style.boxShadow = 'var(--nav-mobile-control-glow)';
             }}
             onBlur={(event) => {
-              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.color = 'var(--nav-text-strong)';
               event.currentTarget.style.boxShadow = 'none';
             }}
           >
@@ -399,12 +383,8 @@ export default function Header({ onHireClick }) {
         <div
           className="mx-auto mt-3 max-w-5xl rounded-3xl p-3 backdrop-blur-md md:hidden"
           style={{
-            border: isLightTheme
-              ? '1px solid rgba(255, 255, 255, 0.12)'
-              : '1px solid rgba(var(--brand-rgb), 0.14)',
-            background: isLightTheme
-              ? 'var(--nav-surface)'
-              : 'rgba(var(--surface-strong-rgb), 0.96)',
+            border: '1px solid var(--nav-mobile-border)',
+            background: 'var(--nav-mobile-panel)',
             transformOrigin: 'top center',
             animation: 'menuScalePop 360ms cubic-bezier(0.22, 1, 0.36, 1) both',
           }}
@@ -417,9 +397,7 @@ export default function Header({ onHireClick }) {
                 className="w-full rounded-2xl px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  color: isLightTheme
-                    ? 'rgba(255, 255, 255, 0.78)'
-                    : 'rgba(var(--text-rgb), 0.74)',
+                  color: 'var(--nav-mobile-link)',
                   animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + index * 60}ms both`,
                 }}
                 onClick={() => {
@@ -427,18 +405,12 @@ export default function Header({ onHireClick }) {
                   setMobileOpen(false);
                 }}
                 onMouseEnter={(event) => {
-                  event.currentTarget.style.background = isLightTheme
-                    ? 'rgba(255, 255, 255, 0.14)'
-                    : 'rgba(var(--brand-rgb), 0.12)';
-                  event.currentTarget.style.color = isLightTheme
-                    ? '#ffffff'
-                    : 'var(--text)';
+                  event.currentTarget.style.background = 'var(--nav-mobile-link-hover-surface)';
+                  event.currentTarget.style.color = 'var(--nav-text-strong)';
                 }}
                 onMouseLeave={(event) => {
                   event.currentTarget.style.background = 'transparent';
-                  event.currentTarget.style.color = isLightTheme
-                    ? 'rgba(255, 255, 255, 0.78)'
-                    : 'rgba(var(--text-rgb), 0.74)';
+                  event.currentTarget.style.color = 'var(--nav-mobile-link)';
                 }}
               >
                 {link.label}
@@ -449,9 +421,9 @@ export default function Header({ onHireClick }) {
               className="mt-1 w-full rounded-2xl px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.18em]"
               style={{
                 fontFamily: "'DM Sans', sans-serif",
-                color: '#ffffff',
+                color: 'var(--nav-text-strong)',
                 border: 'none',
-                background: isLightTheme ? '#8f88ff' : 'rgba(var(--brand-rgb), 0.2)',
+                background: 'var(--nav-mobile-button-surface)',
                 animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + links.length * 60}ms both`,
               }}
               onClick={() => {

@@ -4,7 +4,7 @@ const projects = [
     status: 'In Progress',
     summary:
       'A refined personal site with stronger storytelling, visual rhythm, and cleaner component architecture.',
-    accent: '#6C63FF',
+    accent: 'var(--project-accent-featured)',
     featured: true,
   },
   {
@@ -12,21 +12,21 @@ const projects = [
     status: 'Planned',
     summary:
       'A collection of reusable cards, forms, and navigation patterns for faster interface building.',
-    accent: '#6C63FF',
+    accent: 'var(--project-accent-secondary)',
   },
   {
     name: 'Landing Page Series',
     status: 'Building',
     summary:
       'Practice pages focused on conversion sections, mobile responsiveness, and interaction polish.',
-    accent: '#7C83FF',
+    accent: 'var(--project-accent-tertiary)',
   },
   {
     name: 'Job Application Logger',
     status: 'Active',
     summary:
       'A focused tracker for applications, follow-ups, and interview progress so the search stays organized and visible.',
-    accent: '#8B7BFF',
+    accent: 'var(--project-accent-quaternary)',
   },
 ];
 
