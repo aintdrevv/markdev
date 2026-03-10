@@ -4,7 +4,7 @@ const projects = [
     status: 'In Progress',
     summary:
       'A refined personal site with stronger storytelling, visual rhythm, and cleaner component architecture.',
-    accent: '#00D4AA',
+    accent: '#6C63FF',
     featured: true,
   },
   {

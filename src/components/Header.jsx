@@ -38,9 +38,7 @@ export default function Header({ onHireClick }) {
     setIndicatorStyle({
       width: `${node.offsetWidth}px`,
       height: `${node.offsetHeight}px`,
-      transform: isLightTheme
-        ? `translate(${node.offsetLeft}px, 0) scaleX(1)`
-        : `translate(${node.offsetLeft}px, -50%)`,
+      transform: `translate(${node.offsetLeft}px, -50%)`,
       opacity: 1,
     });
   };
@@ -144,27 +142,6 @@ export default function Header({ onHireClick }) {
             transform: translateY(0) scale(1);
           }
         }
-        .nav-link-light {
-          position: relative;
-        }
-        .nav-link-light::after {
-          content: '';
-          position: absolute;
-          left: 1rem;
-          right: 1rem;
-          bottom: 0.28rem;
-          height: 3px;
-          border-radius: 999px;
-          background: #6C63FF;
-          transform: scaleX(0);
-          transform-origin: left center;
-          opacity: 0;
-          transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease-out;
-        }
-        .nav-link-light.is-active::after {
-          transform: scaleX(1);
-          opacity: 1;
-        }
       `}</style>
       <div
         className="relative mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-3 md:px-6"
@@ -177,39 +154,49 @@ export default function Header({ onHireClick }) {
           opacity: !isMounted ? 0 : isMobileIdleHidden ? 0.18 : 1,
           transition: 'transform 700ms cubic-bezier(0.22, 1.2, 0.36, 1), opacity 500ms ease-in-out, box-shadow 250ms ease-in-out, border-color 250ms ease-in-out, backdrop-filter 250ms ease-in-out',
           color: 'var(--text)',
-          background: 'rgba(var(--surface-rgb), 0.62)',
-          boxShadow: 'none',
-          borderColor: isScrolled ? 'rgba(var(--brand-rgb), 0.28)' : 'var(--line-soft)',
-          backdropFilter: isScrolled ? 'blur(20px)' : 'blur(8px)',
-          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'blur(8px)',
+          background: isLightTheme
+            ? 'rgba(108, 99, 255, 0.94)'
+            : 'rgba(84, 74, 232, 0.7)',
+          boxShadow: isScrolled
+            ? '0 0 20px rgba(108, 99, 255, 0.18)'
+            : 'none',
+          borderColor: isLightTheme
+            ? 'rgba(255, 255, 255, 0.14)'
+            : isScrolled
+              ? 'rgba(255, 255, 255, 0.16)'
+              : 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: isScrolled ? 'blur(20px)' : 'blur(10px)',
+          WebkitBackdropFilter: isScrolled ? 'blur(20px)' : 'blur(10px)',
         }}
       >
         <button
           className="relative z-10 bg-transparent text-[0.8rem] md:text-base font-extrabold uppercase tracking-[0.18em] transition duration-300 ease-in-out hover:-translate-y-0.5"
-          style={{ fontFamily: 'var(--font-display)', color: 'var(--text)' }}
+          style={{
+            fontFamily: 'var(--font-display)',
+            color: '#ffffff',
+          }}
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          mark<span style={{ color: 'var(--brand)' }}>.dev</span>
+          mark
+          <span style={{ color: 'rgba(255, 255, 255, 0.76)' }}>.dev</span>
         </button>
 
         <nav
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 md:flex"
           aria-label="Main"
         >
-          {!isLightTheme ? (
-            <span
-              className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
-              style={{
-                ...indicatorStyle,
-                background: 'rgba(var(--brand-rgb), 0.22)',
-                borderColor: 'transparent',
-                boxShadow: '0 0 18px rgba(var(--brand-rgb), 0.28)',
-                transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
-              }}
-              aria-hidden="true"
-            />
-          ) : null}
+          <span
+            className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
+            style={{
+              ...indicatorStyle,
+              background: 'rgba(255, 255, 255, 0.14)',
+              borderColor: 'transparent',
+              boxShadow: '0 0 18px rgba(255, 255, 255, 0.12)',
+              transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
+            }}
+            aria-hidden="true"
+          />
           {links.map((link) => {
             const active = hoveredLink === link.id;
             const index = links.indexOf(link);
@@ -221,20 +208,13 @@ export default function Header({ onHireClick }) {
                 ref={(node) => {
                   navRefs.current[index] = node;
                 }}
-                className={`relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out ${isLightTheme ? 'nav-link-light' : ''} ${isLightTheme && active ? 'is-active' : ''}`}
+                className="relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
-                  color: active
-                    ? isLightTheme
-                      ? '#6C63FF'
-                      : '#ffffff'
-                    : 'rgba(var(--text-rgb), 0.65)',
+                  fontFamily: "'DM Sans', sans-serif",
+                  color: active ? '#ffffff' : 'rgba(255, 255, 255, 0.72)',
                   transform: active ? 'translateY(-2px)' : 'translateY(0)',
-                  textShadow: active
-                    ? isLightTheme
-                      ? '0 0 16px rgba(108, 99, 255, 0.28)'
-                      : '0 0 18px rgba(108, 99, 255, 0.52)'
-                    : 'none',
-                  fontWeight: active ? 700 : 600,
+                  textShadow: active ? '0 0 10px rgba(255, 255, 255, 0.14)' : 'none',
+                  fontWeight: 600,
                 }}
                 onMouseEnter={() => {
                   setHoveredLink(link.id);
@@ -272,28 +252,32 @@ export default function Header({ onHireClick }) {
             aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
             onClick={toggleTheme}
             style={{
-              color: '#ffffff',
+              color: isLightTheme ? '#6C63FF' : '#ffffff',
               border: 'none',
-              background: '#6C63FF',
+              background: isLightTheme ? '#ffffff' : '#8f88ff',
             }}
             onMouseEnter={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.background = '#7a72ff';
-              event.currentTarget.style.boxShadow = '0 0 16px rgba(108, 99, 255, 0.22)';
+              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#ffffff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#a39dff';
+              event.currentTarget.style.boxShadow = isLightTheme
+                ? '0 0 16px rgba(255, 255, 255, 0.18)'
+                : '0 0 16px rgba(143, 136, 255, 0.28)';
             }}
             onMouseLeave={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.background = '#6C63FF';
+              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : '#ffffff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#8f88ff';
               event.currentTarget.style.boxShadow = 'none';
             }}
             onFocus={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.background = '#7a72ff';
-              event.currentTarget.style.boxShadow = '0 0 16px rgba(108, 99, 255, 0.22)';
+              event.currentTarget.style.color = isLightTheme ? '#544ae8' : '#ffffff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#a39dff';
+              event.currentTarget.style.boxShadow = isLightTheme
+                ? '0 0 16px rgba(255, 255, 255, 0.18)'
+                : '0 0 16px rgba(143, 136, 255, 0.28)';
             }}
             onBlur={(event) => {
-              event.currentTarget.style.color = '#ffffff';
-              event.currentTarget.style.background = '#6C63FF';
+              event.currentTarget.style.color = isLightTheme ? '#6C63FF' : '#ffffff';
+              event.currentTarget.style.background = isLightTheme ? '#ffffff' : '#8f88ff';
               event.currentTarget.style.boxShadow = 'none';
             }}
           >
@@ -312,11 +296,16 @@ export default function Header({ onHireClick }) {
             className="hidden h-10 items-center rounded-full px-4 text-xs font-bold uppercase tracking-[0.2em] transition duration-200 ease-in-out md:inline-flex"
             type="button"
             style={{
-              color: 'var(--text)',
+              fontFamily: "'DM Sans', sans-serif",
+              color: '#ffffff',
               border: 'none',
-              background: '#6C63FF',
+              background: isLightTheme ? '#ffffff' : '#8f88ff',
               transform: isHireHovered ? 'scale(1.05)' : 'scale(1)',
-              boxShadow: isHireHovered ? '0 0 15px rgba(var(--brand-rgb), 0.5)' : 'none',
+              boxShadow: isHireHovered
+                ? isLightTheme
+                  ? '0 0 15px rgba(255, 255, 255, 0.18)'
+                  : '0 0 15px rgba(143, 136, 255, 0.28)'
+                : 'none',
             }}
             onMouseEnter={() => setIsHireHovered(true)}
             onMouseLeave={() => setIsHireHovered(false)}
@@ -324,7 +313,46 @@ export default function Header({ onHireClick }) {
             onBlur={() => setIsHireHovered(false)}
             onClick={onHireClick}
           >
-            Hire Me
+            <span style={{ color: isLightTheme ? '#544ae8' : '#ffffff' }}>Hire Me</span>
+          </button>
+
+          <button
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full transition duration-200 ease-in-out md:hidden"
+            type="button"
+            aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
+            onClick={toggleTheme}
+            style={{
+              fontFamily: "'DM Sans', sans-serif",
+              color: '#ffffff',
+              border: 'none',
+              background: 'transparent',
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+            }}
+            onBlur={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {isLightTheme ? (
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <path d="M20.76 14.19A9 9 0 0 1 9.81 3.24a1 1 0 0 0-1.12-1.38A10 10 0 1 0 22.14 15.3a1 1 0 0 0-1.38-1.11Z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16a1 1 0 0 1 1 1v1.25a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17.75a1 1 0 0 1 1 1V22a1 1 0 1 1-2 0v-1.25a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.42 0l.88.88A1 1 0 1 1 5.1 7.93l-.88-.88a1 1 0 0 1 0-1.41Zm13.26 13.26a1 1 0 0 1 1.42 0l.88.88a1 1 0 1 1-1.42 1.41l-.88-.88a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1.25a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm16.75 0a1 1 0 0 1 1-1H21a1 1 0 1 1 0 2h-1.25a1 1 0 0 1-1-1ZM5.1 16.07a1 1 0 0 1 1.42 1.41l-.88.88a1 1 0 1 1-1.42-1.41l.88-.88Zm12.38-9.45a1 1 0 0 1 0 1.41l-.88.88a1 1 0 1 1-1.42-1.41l.88-.88a1 1 0 0 1 1.42 0Z" />
+              </svg>
+            )}
           </button>
 
           <button
@@ -334,9 +362,26 @@ export default function Header({ onHireClick }) {
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMobileOpen((value) => !value)}
             style={{
-              color: 'var(--text)',
+              fontFamily: "'DM Sans', sans-serif",
+              color: '#ffffff',
               border: 'none',
               background: 'transparent',
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = '0 0 14px rgba(255, 255, 255, 0.16)';
+            }}
+            onBlur={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.boxShadow = 'none';
             }}
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -352,8 +397,8 @@ export default function Header({ onHireClick }) {
         <div
           className="mx-auto mt-3 max-w-5xl rounded-3xl p-3 backdrop-blur-md md:hidden"
           style={{
-            border: '1px solid var(--line-soft)',
-            background: 'rgba(var(--surface-strong-rgb), 0.9)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            background: 'rgba(94, 83, 240, 0.94)',
             transformOrigin: 'top center',
             animation: 'menuScalePop 360ms cubic-bezier(0.22, 1, 0.36, 1) both',
           }}
@@ -365,7 +410,8 @@ export default function Header({ onHireClick }) {
                 type="button"
                 className="w-full rounded-2xl px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
-                  color: 'rgba(var(--text-rgb), 0.7)',
+                  fontFamily: "'DM Sans', sans-serif",
+                  color: 'rgba(255, 255, 255, 0.78)',
                   animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + index * 60}ms both`,
                 }}
                 onClick={() => {
@@ -373,12 +419,12 @@ export default function Header({ onHireClick }) {
                   setMobileOpen(false);
                 }}
                 onMouseEnter={(event) => {
-                  event.currentTarget.style.background = 'rgba(var(--brand-rgb), 0.1)';
-                  event.currentTarget.style.color = 'var(--brand)';
+                  event.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
+                  event.currentTarget.style.color = '#ffffff';
                 }}
                 onMouseLeave={(event) => {
                   event.currentTarget.style.background = 'transparent';
-                  event.currentTarget.style.color = 'rgba(var(--text-rgb), 0.7)';
+                  event.currentTarget.style.color = 'rgba(255, 255, 255, 0.78)';
                 }}
               >
                 {link.label}
@@ -388,9 +434,10 @@ export default function Header({ onHireClick }) {
               type="button"
               className="mt-1 w-full rounded-2xl px-4 py-3 text-center text-sm font-bold uppercase tracking-[0.18em]"
               style={{
-                color: 'var(--text)',
+                fontFamily: "'DM Sans', sans-serif",
+                color: '#ffffff',
                 border: 'none',
-                background: '#6C63FF',
+                background: '#8f88ff',
                 animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + links.length * 60}ms both`,
               }}
               onClick={() => {
