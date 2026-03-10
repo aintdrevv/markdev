@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import Header from './components/Header.jsx';
-import Hero from './components/Hero.jsx';
-import About from './components/About.jsx';
-import Skills from './components/Skills.jsx';
-import Projects from './components/Projects.jsx';
-import Contact from './components/Contact.jsx';
-import ContactModal from './components/ContactModal.jsx';
-import Footer from './components/Footer.jsx';
+import Footer from './components/layout/Footer.jsx';
+import Header from './components/layout/Header.jsx';
+import ContactModal from './components/modals/ContactModal.jsx';
+import About from './sections/About.jsx';
+import Contact from './sections/Contact.jsx';
+import Hero from './sections/Hero.jsx';
+import Projects from './sections/Projects.jsx';
+import Skills from './sections/Skills.jsx';
 
 function App() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);

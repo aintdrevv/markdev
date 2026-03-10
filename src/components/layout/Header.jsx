@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useTheme } from '../theme/ThemeProvider.jsx';
+import { useTheme } from '../../theme/ThemeProvider.jsx';
 
 const links = [
   { label: 'About', id: 'about' },
