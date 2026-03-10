@@ -147,7 +147,7 @@ export default function Header({ onHireClick }) {
         }
       `}</style>
       <div
-        className="relative mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-3 md:px-6"
+        className="relative mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-2.5 md:px-6 md:py-3"
         style={{
           transform: !isMounted
             ? 'translateY(-100%)'
@@ -165,7 +165,7 @@ export default function Header({ onHireClick }) {
         }}
       >
         <button
-          className="relative z-10 bg-transparent text-[0.8rem] md:text-base font-extrabold uppercase tracking-[0.18em] transition duration-300 ease-in-out hover:-translate-y-0.5"
+          className="relative z-10 ml-1 bg-transparent text-[0.8rem] md:ml-0 md:text-base font-extrabold uppercase tracking-[0.18em] transition duration-300 ease-in-out hover:-translate-y-0.5"
           style={{
             fontFamily: 'var(--font-display)',
             color: 'var(--nav-logo)',
@@ -293,17 +293,29 @@ export default function Header({ onHireClick }) {
               transform: isHireHovered ? 'scale(1.05)' : 'scale(1)',
               boxShadow: isHireHovered ? 'var(--nav-cta-shadow)' : 'none',
             }}
-            onMouseEnter={() => setIsHireHovered(true)}
-            onMouseLeave={() => setIsHireHovered(false)}
-            onFocus={() => setIsHireHovered(true)}
-            onBlur={() => setIsHireHovered(false)}
+            onMouseEnter={(event) => {
+              setIsHireHovered(true);
+              event.currentTarget.style.background = 'var(--nav-icon-surface-hover)';
+            }}
+            onMouseLeave={(event) => {
+              setIsHireHovered(false);
+              event.currentTarget.style.background = 'var(--nav-cta-surface)';
+            }}
+            onFocus={(event) => {
+              setIsHireHovered(true);
+              event.currentTarget.style.background = 'var(--nav-icon-surface-hover)';
+            }}
+            onBlur={(event) => {
+              setIsHireHovered(false);
+              event.currentTarget.style.background = 'var(--nav-cta-surface)';
+            }}
             onClick={onHireClick}
           >
             <span style={{ color: 'var(--nav-cta-label)' }}>Hire Me</span>
           </button>
 
           <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full transition duration-200 ease-in-out md:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full transition duration-200 ease-in-out md:hidden"
             type="button"
             aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
             onClick={toggleTheme}
@@ -342,7 +354,7 @@ export default function Header({ onHireClick }) {
           </button>
 
           <button
-            className="inline-flex rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.16em] md:hidden"
+            className="inline-flex rounded-full px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] md:hidden"
             type="button"
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}

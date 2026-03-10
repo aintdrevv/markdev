@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+// Shared social links for the modal's left-hand intro panel.
 const socialLinks = [
   {
     label: 'GitHub',
@@ -31,6 +32,7 @@ const socialLinks = [
 ];
 
 function getEndpoints() {
+  // Prefer an explicit external endpoint, otherwise try the supported serverless routes.
   return import.meta.env.VITE_CONTACT_API_URL
     ? [import.meta.env.VITE_CONTACT_API_URL]
     : ['/api/contact', '/.netlify/functions/contact'];
@@ -43,6 +45,7 @@ export default function ContactModal({ open, onClose }) {
 
   useEffect(() => {
     if (!open) return undefined;
+    // Lock background scroll and allow Escape to close while the modal is open.
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
     };
@@ -116,6 +119,7 @@ export default function ContactModal({ open, onClose }) {
   return (
     <>
       <style>{`
+        /* Modal-only entry motion lives with the component that uses it. */
         @keyframes modalScalePop {
           0% {
             opacity: 0;
@@ -156,6 +160,7 @@ export default function ContactModal({ open, onClose }) {
           }}
           onClick={(event) => event.stopPropagation()}
         >
+          {/* Left panel: framing copy and profile links */}
           <div
             className="contact-modal-left"
             style={{
@@ -181,6 +186,7 @@ export default function ContactModal({ open, onClose }) {
             </div>
           </div>
 
+          {/* Right panel: quick inquiry form */}
           <div
             className="contact-modal-right"
             style={{

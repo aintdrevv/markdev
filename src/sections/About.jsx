@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+// Ordered story beats that power the timeline layout.
 const storyPoints = [
   {
     tag: '01 / Identity',
@@ -39,6 +40,7 @@ export default function About() {
   const [lineProgress, setLineProgress] = useState(0);
 
   useEffect(() => {
+    // Track the story card currently nearest the focus zone.
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntries = entries
@@ -64,6 +66,7 @@ export default function About() {
   }, []);
 
   useEffect(() => {
+    // Fill the vertical progress line as the section moves through the viewport.
     const updateLine = () => {
       const section = sectionRef.current;
       if (!section) return;
@@ -103,6 +106,7 @@ export default function About() {
             </p>
           </div>
 
+          {/* Vertical timeline with an active marker tied to scroll position */}
           <div className="section-body-gap relative pl-[4.5rem] sm:pl-24">
             <div
               className="absolute left-4 top-0 h-full w-px sm:left-8"

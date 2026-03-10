@@ -1,3 +1,4 @@
+// Project cards feed both the featured center card and the smaller side cards.
 const projects = [
   {
     name: 'Portfolio V3',
@@ -48,6 +49,7 @@ export default function Projects() {
             </p>
           </div>
 
+          {/* Featured build first, then supporting experiments around it */}
           <div className="section-body-gap projects-bento-grid">
             <article
               className="project-bento-card project-bento-featured"

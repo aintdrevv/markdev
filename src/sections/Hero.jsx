@@ -9,6 +9,7 @@ export default function Hero() {
   return (
     <section id="hero" className="hero hero-v2 section">
       <style>{`
+        /* Hero-only entrance motion stays local to this section. */
         @keyframes fadeScaleBg {
           from { opacity: 0; transform: translate(-50%, -48%) scale(1.06); }
           to   { opacity: 1; transform: translate(-50%, -48%) scale(1); }
@@ -67,6 +68,7 @@ export default function Hero() {
         }
       `}</style>
 
+      {/* Oversized background wordmark behind the main hero copy */}
       <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
         <span>MARK</span>
         <span>DEV</span>
@@ -75,6 +77,7 @@ export default function Hero() {
       <div className="container hero-v2-shell">
         <div className="hero-v2-content">
           <div className="hero-v2-copy-block">
+            {/* Primary hero message */}
             <h1 className="hero-v2-title">
               <span>Building digital</span>
               <span className="typing-cursor hero-v2-cursor">|</span>
@@ -87,6 +90,7 @@ export default function Hero() {
             </p>
           </div>
 
+          {/* Primary CTA plus quick resume access */}
           <div className="hero-v2-actions">
             <button className="hero-v2-btn hero-v2-btn-primary hero-v2-btn-launch" type="button" onClick={jumpToContact}>
               Launch Project
