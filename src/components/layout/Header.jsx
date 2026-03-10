@@ -177,7 +177,7 @@ export default function Header({ onHireClick }) {
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           mark
-          <span style={{ color: isLightTheme ? 'rgba(255, 255, 255, 0.76)' : 'rgba(156, 168, 255, 0.9)' }}>.dev</span>
+          <span style={{ color: isLightTheme ? 'var(--accent)' : 'rgba(156, 168, 255, 0.9)' }}>.dev</span>
         </button>
 
         <nav
@@ -399,8 +399,12 @@ export default function Header({ onHireClick }) {
         <div
           className="mx-auto mt-3 max-w-5xl rounded-3xl p-3 backdrop-blur-md md:hidden"
           style={{
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            background: 'rgba(94, 83, 240, 0.94)',
+            border: isLightTheme
+              ? '1px solid rgba(255, 255, 255, 0.12)'
+              : '1px solid rgba(var(--brand-rgb), 0.14)',
+            background: isLightTheme
+              ? 'var(--nav-surface)'
+              : 'rgba(var(--surface-strong-rgb), 0.96)',
             transformOrigin: 'top center',
             animation: 'menuScalePop 360ms cubic-bezier(0.22, 1, 0.36, 1) both',
           }}
@@ -413,7 +417,9 @@ export default function Header({ onHireClick }) {
                 className="w-full rounded-2xl px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
-                  color: 'rgba(255, 255, 255, 0.78)',
+                  color: isLightTheme
+                    ? 'rgba(255, 255, 255, 0.78)'
+                    : 'rgba(var(--text-rgb), 0.74)',
                   animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + index * 60}ms both`,
                 }}
                 onClick={() => {
@@ -421,12 +427,18 @@ export default function Header({ onHireClick }) {
                   setMobileOpen(false);
                 }}
                 onMouseEnter={(event) => {
-                  event.currentTarget.style.background = 'rgba(255, 255, 255, 0.14)';
-                  event.currentTarget.style.color = '#ffffff';
+                  event.currentTarget.style.background = isLightTheme
+                    ? 'rgba(255, 255, 255, 0.14)'
+                    : 'rgba(var(--brand-rgb), 0.12)';
+                  event.currentTarget.style.color = isLightTheme
+                    ? '#ffffff'
+                    : 'var(--text)';
                 }}
                 onMouseLeave={(event) => {
                   event.currentTarget.style.background = 'transparent';
-                  event.currentTarget.style.color = 'rgba(255, 255, 255, 0.78)';
+                  event.currentTarget.style.color = isLightTheme
+                    ? 'rgba(255, 255, 255, 0.78)'
+                    : 'rgba(var(--text-rgb), 0.74)';
                 }}
               >
                 {link.label}
@@ -439,7 +451,7 @@ export default function Header({ onHireClick }) {
                 fontFamily: "'DM Sans', sans-serif",
                 color: '#ffffff',
                 border: 'none',
-                background: '#8f88ff',
+                background: isLightTheme ? '#8f88ff' : 'rgba(var(--brand-rgb), 0.2)',
                 animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + links.length * 60}ms both`,
               }}
               onClick={() => {

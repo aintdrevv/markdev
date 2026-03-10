@@ -117,15 +117,15 @@ export default function Contact() {
           </p>
 
           <h2
-            className="mt-4 text-center text-[2.5rem] font-extrabold leading-[0.95] sm:text-[3.5rem]"
-            style={{ fontFamily: 'var(--font-display)', color: 'var(--text)' }}
+            className="section-title section-title-modern mt-4 text-center"
+            style={{ color: 'var(--text)' }}
           >
             Got a project in <span style={{ color: 'var(--color-accent)' }}>mind?</span>
           </h2>
 
           <p
-            className="mx-auto mt-5 max-w-[46ch] text-center text-base leading-8 sm:text-lg"
-            style={{ fontFamily: 'var(--font-body)', color: 'rgba(var(--text-rgb), 0.7)' }}
+            className="section-copy mx-auto mt-5 text-center"
+            style={{ maxWidth: '46ch', color: 'rgba(var(--text-rgb), 0.7)' }}
           >
             Share the brief, the direction, or even just the rough idea. I'm open to building
             thoughtful frontend work with strong visual polish.
