@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useTheme } from '../theme/ThemeProvider.jsx';
 
 const links = [
   { label: 'About', id: 'about' },
@@ -16,6 +17,7 @@ function scrollToId(id) {
 }
 
 export default function Header({ onHireClick }) {
+  const { isLightTheme, toggleTheme } = useTheme();
   const [isMounted, setIsMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState(null);
@@ -25,6 +27,10 @@ export default function Header({ onHireClick }) {
   const [indicatorStyle, setIndicatorStyle] = useState({ opacity: 0 });
   const navRefs = useRef([]);
 
+  const hideIndicator = () => {
+    setIndicatorStyle((current) => ({ ...current, opacity: 0 }));
+  };
+
   const moveIndicator = (index) => {
     const node = navRefs.current[index];
     if (!node) return;
@@ -32,7 +38,9 @@ export default function Header({ onHireClick }) {
     setIndicatorStyle({
       width: `${node.offsetWidth}px`,
       height: `${node.offsetHeight}px`,
-      transform: `translate(${node.offsetLeft}px, -50%)`,
+      transform: isLightTheme
+        ? `translate(${node.offsetLeft}px, 0) scaleX(1)`
+        : `translate(${node.offsetLeft}px, -50%)`,
       opacity: 1,
     });
   };
@@ -52,13 +60,12 @@ export default function Header({ onHireClick }) {
   }, []);
 
   useLayoutEffect(() => {
-    moveIndicator(0);
-
     const handleResize = () => {
-      moveIndicator(0);
       if (window.innerWidth >= 768) {
         setMobileOpen(false);
       }
+      hideIndicator();
+      setHoveredLink(null);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -112,6 +119,53 @@ export default function Header({ onHireClick }) {
 
   return (
     <header className="fixed top-6 left-0 right-0 z-50 px-4 md:px-8">
+      <style>{`
+        @keyframes menuScalePop {
+          0% {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.94);
+          }
+          70% {
+            opacity: 1;
+            transform: translateY(0) scale(1.01);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        @keyframes menuItemPop {
+          from {
+            opacity: 0;
+            transform: translateY(10px) scale(0.98);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+        .nav-link-light {
+          position: relative;
+        }
+        .nav-link-light::after {
+          content: '';
+          position: absolute;
+          left: 1rem;
+          right: 1rem;
+          bottom: 0.28rem;
+          height: 3px;
+          border-radius: 999px;
+          background: #6C63FF;
+          transform: scaleX(0);
+          transform-origin: left center;
+          opacity: 0;
+          transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 240ms ease-out;
+        }
+        .nav-link-light.is-active::after {
+          transform: scaleX(1);
+          opacity: 1;
+        }
+      `}</style>
       <div
         className="relative mx-auto flex max-w-6xl items-center justify-between rounded-full border px-4 py-3 md:px-6"
         style={{
@@ -143,17 +197,19 @@ export default function Header({ onHireClick }) {
           className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 md:flex"
           aria-label="Main"
         >
-          <span
-            className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
-            style={{
-              ...indicatorStyle,
-              background: 'rgba(var(--brand-rgb), 0.22)',
-              borderColor: 'transparent',
-              boxShadow: '0 0 18px rgba(var(--brand-rgb), 0.28)',
-              transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
-            }}
-            aria-hidden="true"
-          />
+          {!isLightTheme ? (
+            <span
+              className="pointer-events-none absolute left-0 top-1/2 rounded-full border"
+              style={{
+                ...indicatorStyle,
+                background: 'rgba(var(--brand-rgb), 0.22)',
+                borderColor: 'transparent',
+                boxShadow: '0 0 18px rgba(var(--brand-rgb), 0.28)',
+                transition: 'transform 250ms ease-in-out, width 250ms ease-in-out, height 250ms ease-in-out, opacity 200ms ease-in-out',
+              }}
+              aria-hidden="true"
+            />
+          ) : null}
           {links.map((link) => {
             const active = hoveredLink === link.id;
             const index = links.indexOf(link);
@@ -165,25 +221,42 @@ export default function Header({ onHireClick }) {
                 ref={(node) => {
                   navRefs.current[index] = node;
                 }}
-                className="relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
+                className={`relative z-10 rounded-full bg-transparent px-4 py-2 text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out ${isLightTheme ? 'nav-link-light' : ''} ${isLightTheme && active ? 'is-active' : ''}`}
                 style={{
-                  color: active ? '#ffffff' : 'rgba(var(--text-rgb), 0.65)',
+                  color: active
+                    ? isLightTheme
+                      ? '#6C63FF'
+                      : '#ffffff'
+                    : 'rgba(var(--text-rgb), 0.65)',
                   transform: active ? 'translateY(-2px)' : 'translateY(0)',
-                  textShadow: active ? '0 0 14px rgba(var(--brand-rgb), 0.42)' : 'none',
+                  textShadow: active
+                    ? isLightTheme
+                      ? '0 0 16px rgba(108, 99, 255, 0.28)'
+                      : '0 0 18px rgba(108, 99, 255, 0.52)'
+                    : 'none',
+                  fontWeight: active ? 700 : 600,
                 }}
                 onMouseEnter={() => {
                   setHoveredLink(link.id);
                   moveIndicator(index);
                 }}
-                onMouseLeave={() => setHoveredLink(null)}
+                onMouseLeave={() => {
+                  setHoveredLink(null);
+                  hideIndicator();
+                }}
                 onFocus={() => {
                   setHoveredLink(link.id);
                   moveIndicator(index);
                 }}
-                onBlur={() => setHoveredLink(null)}
-                onClick={() => {
+                onBlur={() => {
+                  setHoveredLink(null);
+                  hideIndicator();
+                }}
+                onClick={(event) => {
                   scrollToId(link.id);
-                  moveIndicator(index);
+                  setHoveredLink(null);
+                  hideIndicator();
+                  event.currentTarget.blur();
                 }}
               >
                 {link.label}
@@ -194,7 +267,49 @@ export default function Header({ onHireClick }) {
 
         <div className="relative z-10 flex items-center gap-2 md:mr-[-8px]">
           <button
-            className="hidden rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] transition duration-200 ease-in-out md:inline-flex"
+            className="hidden h-10 w-10 items-center justify-center rounded-full transition duration-200 ease-in-out md:inline-flex"
+            type="button"
+            aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
+            onClick={toggleTheme}
+            style={{
+              color: '#ffffff',
+              border: 'none',
+              background: '#6C63FF',
+            }}
+            onMouseEnter={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.background = '#7a72ff';
+              event.currentTarget.style.boxShadow = '0 0 16px rgba(108, 99, 255, 0.22)';
+            }}
+            onMouseLeave={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.background = '#6C63FF';
+              event.currentTarget.style.boxShadow = 'none';
+            }}
+            onFocus={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.background = '#7a72ff';
+              event.currentTarget.style.boxShadow = '0 0 16px rgba(108, 99, 255, 0.22)';
+            }}
+            onBlur={(event) => {
+              event.currentTarget.style.color = '#ffffff';
+              event.currentTarget.style.background = '#6C63FF';
+              event.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            {isLightTheme ? (
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <path d="M20.76 14.19A9 9 0 0 1 9.81 3.24a1 1 0 0 0-1.12-1.38A10 10 0 1 0 22.14 15.3a1 1 0 0 0-1.38-1.11Z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true">
+                <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0-16a1 1 0 0 1 1 1v1.25a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1Zm0 17.75a1 1 0 0 1 1 1V22a1 1 0 1 1-2 0v-1.25a1 1 0 0 1 1-1ZM4.22 5.64a1 1 0 0 1 1.42 0l.88.88A1 1 0 1 1 5.1 7.93l-.88-.88a1 1 0 0 1 0-1.41Zm13.26 13.26a1 1 0 0 1 1.42 0l.88.88a1 1 0 1 1-1.42 1.41l-.88-.88a1 1 0 0 1 0-1.41ZM2 12a1 1 0 0 1 1-1h1.25a1 1 0 1 1 0 2H3a1 1 0 0 1-1-1Zm16.75 0a1 1 0 0 1 1-1H21a1 1 0 1 1 0 2h-1.25a1 1 0 0 1-1-1ZM5.1 16.07a1 1 0 0 1 1.42 1.41l-.88.88a1 1 0 1 1-1.42-1.41l.88-.88Zm12.38-9.45a1 1 0 0 1 0 1.41l-.88.88a1 1 0 1 1-1.42-1.41l.88-.88a1 1 0 0 1 1.42 0Z" />
+              </svg>
+            )}
+          </button>
+
+          <button
+            className="hidden h-10 items-center rounded-full px-4 text-xs font-bold uppercase tracking-[0.2em] transition duration-200 ease-in-out md:inline-flex"
             type="button"
             style={{
               color: 'var(--text)',
@@ -216,6 +331,7 @@ export default function Header({ onHireClick }) {
             className="inline-flex rounded-full px-3 py-2 text-xs font-bold uppercase tracking-[0.16em] md:hidden"
             type="button"
             aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMobileOpen((value) => !value)}
             style={{
               color: 'var(--text)',
@@ -223,7 +339,11 @@ export default function Header({ onHireClick }) {
               background: '#6C63FF',
             }}
           >
-            Menu
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <path d="M4 7h16" />
+              <path d="M4 12h16" />
+              <path d="M4 17h16" />
+            </svg>
           </button>
         </div>
       </div>
@@ -234,15 +354,20 @@ export default function Header({ onHireClick }) {
           style={{
             border: '1px solid var(--line-soft)',
             background: 'rgba(var(--surface-strong-rgb), 0.9)',
+            transformOrigin: 'top center',
+            animation: 'menuScalePop 360ms cubic-bezier(0.22, 1, 0.36, 1) both',
           }}
         >
           <div className="flex flex-col items-center gap-2">
-            {links.map((link) => (
+            {links.map((link, index) => (
               <button
                 key={link.id}
                 type="button"
                 className="w-full rounded-2xl px-4 py-3 text-center text-sm font-semibold uppercase tracking-[0.16em] transition duration-200 ease-in-out"
-                style={{ color: 'rgba(var(--text-rgb), 0.7)' }}
+                style={{
+                  color: 'rgba(var(--text-rgb), 0.7)',
+                  animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + index * 60}ms both`,
+                }}
                 onClick={() => {
                   scrollToId(link.id);
                   setMobileOpen(false);
@@ -266,6 +391,7 @@ export default function Header({ onHireClick }) {
                 color: 'var(--text)',
                 border: 'none',
                 background: '#6C63FF',
+                animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + links.length * 60}ms both`,
               }}
               onClick={() => {
                 onHireClick();

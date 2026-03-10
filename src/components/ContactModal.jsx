@@ -114,15 +114,54 @@ export default function ContactModal({ open, onClose }) {
   };
 
   return (
-    <div
-      className="contact-modal-overlay"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Contact form modal"
-      onClick={onClose}
-    >
-      <div className="contact-modal" onClick={(event) => event.stopPropagation()}>
-        <div className="contact-modal-left">
+    <>
+      <style>{`
+        @keyframes modalScalePop {
+          0% {
+            opacity: 0;
+            transform: scale(0.94) translateY(12px);
+          }
+          70% {
+            opacity: 1;
+            transform: scale(1.01) translateY(0);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+        @keyframes modalPanelPop {
+          from {
+            opacity: 0;
+            transform: translateY(12px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
+      <div
+        className="contact-modal-overlay"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Contact form modal"
+        onClick={onClose}
+      >
+        <div
+          className="contact-modal"
+          onClick={(event) => event.stopPropagation()}
+          style={{
+            transformOrigin: 'center',
+            animation: 'modalScalePop 320ms cubic-bezier(0.22, 1, 0.36, 1) both',
+          }}
+        >
+        <div
+          className="contact-modal-left"
+          style={{
+            animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both',
+          }}
+        >
           <div>
             <h3>Let&apos;s build something great.</h3>
             <p>
@@ -140,7 +179,12 @@ export default function ContactModal({ open, onClose }) {
           </div>
         </div>
 
-        <div className="contact-modal-right">
+        <div
+          className="contact-modal-right"
+          style={{
+            animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both',
+          }}
+        >
           <div className="contact-modal-head">
             <p className="contact-modal-kicker">Quick Inquiry</p>
             <button
@@ -201,10 +245,20 @@ export default function ContactModal({ open, onClose }) {
               <button type="submit" disabled={isSubmitting} className="contact-submit-button">
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
+              <a
+                className="contact-modal-cv"
+                href="/Mark-Macaraig-CV.pdf"
+                target="_blank"
+                rel="noreferrer"
+                download
+              >
+                Download CV
+              </a>
             </div>
           </form>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

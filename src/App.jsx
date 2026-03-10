@@ -7,16 +7,11 @@ import Projects from './components/Projects.jsx';
 import Contact from './components/Contact.jsx';
 import ContactModal from './components/ContactModal.jsx';
 import Footer from './components/Footer.jsx';
-import LoadingScreen from './components/LoadingScreen.jsx';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   useEffect(() => {
-    if (isLoading) return;
-
     const sections = Array.from(document.querySelectorAll('.section'));
     if (!sections.length) return;
 
@@ -44,17 +39,10 @@ function App() {
     sections.forEach((section) => observer.observe(section));
 
     return () => observer.disconnect();
-  }, [isLoading]);
-
-  if (isLoading) {
-    return <LoadingScreen onDone={() => {
-      setIsVisible(true);
-      setIsLoading(false);
-    }} />;
-  }
+  }, []);
 
   return (
-    <div className={`site-shell ${isVisible ? 'site-visible' : ''}`}>
+    <div className="site-shell site-visible">
       <div className="site-bg" aria-hidden="true" />
       <Header onHireClick={() => setIsContactModalOpen(true)} />
       <main>

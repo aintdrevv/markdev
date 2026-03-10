@@ -5,32 +5,66 @@ const STORAGE_KEY = 'fallforyou-theme';
 
 const ThemeContext = createContext(null);
 
-function getInitialTheme() {
+function getSystemTheme() {
   if (typeof window === 'undefined') return DEFAULT_THEME;
+  return window.matchMedia('(prefers-color-scheme: light)').matches
+    ? THEMES.light
+    : THEMES.midnight;
+}
+
+function getInitialTheme() {
+  if (typeof window === 'undefined') {
+    return { theme: DEFAULT_THEME, hasManualPreference: false };
+  }
 
   const savedTheme = window.localStorage.getItem(STORAGE_KEY);
   if (savedTheme && Object.values(THEMES).includes(savedTheme)) {
-    return savedTheme;
+    return { theme: savedTheme, hasManualPreference: true };
   }
 
-  return DEFAULT_THEME;
+  return { theme: getSystemTheme(), hasManualPreference: false };
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(getInitialTheme);
+  const [{ theme, hasManualPreference }, setThemeState] = useState(getInitialTheme);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || hasManualPreference) return undefined;
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const syncSystemTheme = (event) => {
+      setThemeState((current) => (
+        current.hasManualPreference
+          ? current
+          : {
+              theme: event.matches ? THEMES.light : THEMES.midnight,
+              hasManualPreference: false,
+            }
+      ));
+    };
+
+    mediaQuery.addEventListener('change', syncSystemTheme);
+    return () => mediaQuery.removeEventListener('change', syncSystemTheme);
+  }, [hasManualPreference]);
 
   const value = useMemo(() => ({
     theme,
-    setTheme,
+    setTheme: (nextTheme) => {
+      if (!Object.values(THEMES).includes(nextTheme)) return;
+      setThemeState({ theme: nextTheme, hasManualPreference: true });
+      window.localStorage.setItem(STORAGE_KEY, nextTheme);
+    },
     toggleTheme: () => {
-      setTheme((currentTheme) => (
-        currentTheme === THEMES.midnight ? THEMES.light : THEMES.midnight
-      ));
+      setThemeState((currentTheme) => {
+        const nextTheme =
+          currentTheme.theme === THEMES.midnight ? THEMES.light : THEMES.midnight;
+        window.localStorage.setItem(STORAGE_KEY, nextTheme);
+        return { theme: nextTheme, hasManualPreference: true };
+      });
     },
     isLightTheme: theme === THEMES.light,
   }), [theme]);

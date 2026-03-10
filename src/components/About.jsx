@@ -4,7 +4,7 @@ const storyPoints = [
   {
     tag: '01 / Identity',
     title: 'Who I Am',
-    body: 'Mark Macaraig, aspiring frontend developer based in Quezon, Philippines, building interfaces that feel calm, sharp, and easy to use.',
+    body: `I'm Mark, aspiring frontend developer based in Quezon, Philippines, building interfaces that feel calm, sharp, and easy to use.`,
   },
   {
     tag: '02 / Practice',

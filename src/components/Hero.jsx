@@ -8,30 +8,91 @@ function jumpToContact() {
 export default function Hero() {
   return (
     <section id="hero" className="hero hero-v2 section">
-      <div className="hero-v2-bg" aria-hidden="true">
+      <style>{`
+        @keyframes fadeScaleBg {
+          from { opacity: 0; transform: translate(-50%, -48%) scale(1.06); }
+          to   { opacity: 1; transform: translate(-50%, -48%) scale(1); }
+        }
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(28px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scrollPulse {
+          0%, 100% { opacity: 0.5; }
+          50%      { opacity: 1; }
+        }
+        .hero-bg-stack {
+          position: absolute;
+          top: 50%; left: 50%;
+          transform: translate(-50%, -48%);
+          display: flex; flex-direction: column;
+          align-items: center;
+          line-height: 0.82;
+          pointer-events: none;
+          user-select: none;
+          z-index: 0;
+          animation: fadeScaleBg 0.9s cubic-bezier(0.25,0.46,0.45,0.94) 0s both;
+        }
+        .hero-bg-stack span {
+          display: block;
+        }
+        .hero-kicker,
+        .hero-v2-kicker {
+          animation: fadeDown 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s both;
+        }
+        .hero h1,
+        .hero-v2-title {
+          animation: fadeDown 0.7s cubic-bezier(0.25,0.46,0.45,0.94) 0.5s both;
+        }
+        .hero > .container > .hero-content > p,
+        .hero-v2-copy {
+          animation: fadeDown 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.75s both;
+        }
+        .hero-actions,
+        .hero-v2-actions {
+          animation: fadeUp 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.9s both;
+        }
+        .hero-scroll,
+        .hero-v2-scroll {
+          animation: fadeUp 0.5s cubic-bezier(0.25,0.46,0.45,0.94) 1.2s both;
+          animation-fill-mode: both;
+        }
+        .hero-scroll-line,
+        .hero-v2-scroll-line {
+          animation: scrollPulse 2s ease-in-out infinite;
+        }
+      `}</style>
+
+      <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
         <span>MARK</span>
         <span>DEV</span>
       </div>
 
       <div className="container hero-v2-shell">
         <div className="hero-v2-content">
-          <h1 className="hero-v2-title">
-            <span>Building digital</span>
-            <span className="typing-cursor hero-v2-cursor">|</span>
-            <br />
-            <span>that feel alive.</span>
-          </h1>
+          <div className="hero-v2-copy-block">
+            <h1 className="hero-v2-title">
+              <span>Building digital</span>
+              <span className="typing-cursor hero-v2-cursor">|</span>
+              <br />
+              <span>that feel alive.</span>
+            </h1>
 
-          <p className="hero-v2-copy">
-            Frontend work shaped to feel sharp, alive, and clear.
-          </p>
+            <p className="hero-v2-copy">
+              Frontend work shaped to feel sharp, alive, and clear.
+            </p>
+          </div>
 
           <div className="hero-v2-actions">
             <button className="hero-v2-btn hero-v2-btn-primary" type="button" onClick={jumpToContact}>
               Launch Project
             </button>
             <a
-              className="hero-v2-btn hero-v2-btn-secondary"
+              className="hero-v2-btn hero-v2-btn-secondary hero-v2-btn-cv"
               href="/Mark-Macaraig-CV.pdf"
               target="_blank"
               rel="noreferrer"
