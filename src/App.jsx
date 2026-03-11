@@ -161,7 +161,6 @@ function App() {
           <path d="m5 12 7-7 7 7" />
         </svg>
       </button>
-      {/* Shared contact modal opened from nav CTAs */}
       <ContactModal open={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </div>
   );

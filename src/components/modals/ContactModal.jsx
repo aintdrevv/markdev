@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Shared social links for the modal's left-hand intro panel.
 const socialLinks = [
   {
     label: 'GitHub',
@@ -32,7 +31,6 @@ const socialLinks = [
 ];
 
 function getEndpoints() {
-  // Prefer an explicit external endpoint, otherwise try the supported serverless routes.
   return import.meta.env.VITE_CONTACT_API_URL
     ? [import.meta.env.VITE_CONTACT_API_URL]
     : ['/api/contact', '/.netlify/functions/contact'];
@@ -45,12 +43,14 @@ export default function ContactModal({ open, onClose }) {
 
   useEffect(() => {
     if (!open) return undefined;
-    // Lock background scroll and allow Escape to close while the modal is open.
+
     const onKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
     };
+
     window.addEventListener('keydown', onKeyDown);
     document.body.style.overflow = 'hidden';
+
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
@@ -63,11 +63,13 @@ export default function ContactModal({ open, onClose }) {
     event.preventDefault();
     if (isSubmitting) return;
 
-    const cleanName = form.name.trim();
-    const cleanEmail = form.email.trim();
-    const cleanMessage = form.message.trim();
+    const payload = {
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    };
 
-    if (!cleanName || !cleanEmail || !cleanMessage) {
+    if (!payload.name || !payload.email || !payload.message) {
       setStatus({ type: 'error', message: 'Please complete all fields.' });
       return;
     }
@@ -83,12 +85,12 @@ export default function ContactModal({ open, onClose }) {
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: cleanName, email: cleanEmail, message: cleanMessage }),
+          body: JSON.stringify(payload),
         });
 
-        const payload = await response.json().catch(() => null);
+        const result = await response.json().catch(() => null);
         const explicitFailure =
-          payload?.ok === false || payload?.success === false || Boolean(payload?.error);
+          result?.ok === false || result?.success === false || Boolean(result?.error);
 
         if (response.ok && !explicitFailure) {
           delivered = true;
@@ -100,8 +102,7 @@ export default function ContactModal({ open, onClose }) {
           continue;
         }
 
-        lastError =
-          payload?.message || payload?.error || `Failed to send message (${response.status}).`;
+        lastError = result?.message || result?.error || `Failed to send message (${response.status}).`;
         break;
       }
 
@@ -117,146 +118,92 @@ export default function ContactModal({ open, onClose }) {
   };
 
   return (
-    <>
-      <style>{`
-        /* Modal-only entry motion lives with the component that uses it. */
-        @keyframes modalScalePop {
-          0% {
-            opacity: 0;
-            transform: scale(0.94) translateY(12px);
-          }
-          70% {
-            opacity: 1;
-            transform: scale(1.01) translateY(0);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-          }
-        }
-        @keyframes modalPanelPop {
-          from {
-            opacity: 0;
-            transform: translateY(12px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
-      <div
-        className="contact-modal-overlay"
-        role="dialog"
-        aria-modal="true"
-        aria-label="Contact form modal"
-        onClick={onClose}
-      >
-        <div
-          className="contact-modal"
-          style={{
-            transformOrigin: 'center',
-            animation: 'modalScalePop 320ms cubic-bezier(0.22, 1, 0.36, 1) both',
-          }}
-          onClick={(event) => event.stopPropagation()}
+    <div className="contact-dialog-overlay" role="dialog" aria-modal="true" aria-label="Contact form" onClick={onClose}>
+      <div className="contact-dialog-shell" onClick={(event) => event.stopPropagation()}>
+        <button
+          type="button"
+          className="contact-dialog-close contact-dialog-close-mobile"
+          aria-label="Close contact form"
+          onClick={onClose}
         >
-          {/* Left panel: framing copy and profile links */}
-          <div
-            className="contact-modal-left"
-            style={{
-              animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 40ms both',
-            }}
-          >
-            <div>
-              <h3 className="section-title section-title-modern contact-modal-title">
-                Let&apos;s build something great.
-              </h3>
-              <p className="section-copy contact-modal-copy">
-                Share the direction, the scope, or the rough idea. I&apos;ll help turn it into
-                something sharp and usable.
-              </p>
-            </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+            <path d="M6 6 18 18" />
+            <path d="M18 6 6 18" />
+          </svg>
+        </button>
 
-            <div className="contact-modal-socials">
-              {socialLinks.map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
-                  {link.icon}
-                </a>
-              ))}
-            </div>
+        <aside className="contact-dialog-aside">
+          <div className="contact-dialog-aside-copy">
+            <p className="contact-dialog-kicker">Contact</p>
+            <h3 className="contact-dialog-title">Let&apos;s build something sharp.</h3>
+            <p className="contact-dialog-copy">
+              Share the idea, timeline, or rough brief. I&apos;ll reply with a clear next step.
+            </p>
           </div>
 
-          {/* Right panel: quick inquiry form */}
-          <div
-            className="contact-modal-right"
-            style={{
-              animation: 'modalPanelPop 240ms cubic-bezier(0.22, 1, 0.36, 1) 60ms both',
-            }}
-          >
-            <div className="contact-modal-head">
-              <div>
-                <p className="contact-modal-kicker">Quick Inquiry</p>
-              </div>
-              <button
-                type="button"
-                className="contact-modal-close"
-                aria-label="Close contact modal"
-                onClick={onClose}
-              >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                  <path d="M6 6 18 18" />
-                  <path d="M18 6 6 18" />
-                </svg>
-              </button>
-            </div>
+          <div className="contact-dialog-socials contact-dialog-socials-desktop" aria-label="Social links">
+            {socialLinks.map((link) => (
+              <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+                {link.icon}
+              </a>
+            ))}
+          </div>
+        </aside>
+
+        <section className="contact-dialog-body">
+          <button type="button" className="contact-dialog-close contact-dialog-close-desktop" aria-label="Close contact form" onClick={onClose}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <path d="M6 6 18 18" />
+              <path d="M18 6 6 18" />
+            </svg>
+          </button>
+
+          <p className="contact-dialog-form-kicker">Quick Inquiry</p>
 
           {status.message ? (
-            <div className={`contact-modal-status ${status.type}`}>{status.message}</div>
+            <p className={`contact-dialog-status ${status.type}`}>{status.message}</p>
           ) : null}
 
-          <form className="contact-modal-form" onSubmit={handleSubmit}>
-            <div className="contact-modal-field">
-              <label htmlFor="modal-name">Name</label>
+          <form className="contact-dialog-form" onSubmit={handleSubmit}>
+            <label className="contact-dialog-field">
+              <span>Name</span>
               <input
-                id="modal-name"
                 type="text"
                 value={form.name}
                 onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
                 placeholder="Your name"
                 required
               />
-            </div>
+            </label>
 
-            <div className="contact-modal-field">
-              <label htmlFor="modal-email">Email</label>
+            <label className="contact-dialog-field">
+              <span>Email</span>
               <input
-                id="modal-email"
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                 placeholder="you@example.com"
                 required
               />
-            </div>
+            </label>
 
-            <div className="contact-modal-field">
-              <label htmlFor="modal-message">Message</label>
+            <label className="contact-dialog-field">
+              <span>Message</span>
               <textarea
-                id="modal-message"
-                rows="4"
+                rows="5"
                 value={form.message}
                 onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
                 placeholder="Tell me about your project..."
                 required
               />
-            </div>
+            </label>
 
-            <div className="contact-modal-actions">
-              <button type="submit" disabled={isSubmitting} className="contact-submit-button">
+            <div className="contact-dialog-actions">
+              <button type="submit" disabled={isSubmitting} className="contact-dialog-submit">
                 {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
               <a
-                className="contact-modal-cv"
+                className="contact-dialog-cv"
                 href="/Mark-Macaraig-CV.pdf"
                 target="_blank"
                 rel="noreferrer"
@@ -265,10 +212,17 @@ export default function ContactModal({ open, onClose }) {
                 Download CV
               </a>
             </div>
+
+            <div className="contact-dialog-socials contact-dialog-socials-mobile" aria-label="Social links">
+              {socialLinks.map((link) => (
+                <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+                  {link.icon}
+                </a>
+              ))}
+            </div>
           </form>
-        </div>
-        </div>
+        </section>
       </div>
-    </>
+    </div>
   );
 }

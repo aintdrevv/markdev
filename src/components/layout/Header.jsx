@@ -309,7 +309,7 @@ export default function Header({ onHireClick }) {
               setIsHireHovered(false);
               event.currentTarget.style.background = 'var(--nav-cta-surface)';
             }}
-            onClick={onHireClick}
+            onClick={() => (onHireClick ? onHireClick() : scrollToId('contacts'))}
           >
             <span style={{ color: 'var(--nav-cta-label)' }}>Hire Me</span>
           </button>
@@ -439,7 +439,11 @@ export default function Header({ onHireClick }) {
                 animation: `menuItemPop 320ms cubic-bezier(0.22, 1, 0.36, 1) ${80 + links.length * 60}ms both`,
               }}
               onClick={() => {
-                onHireClick();
+                if (onHireClick) {
+                  onHireClick();
+                } else {
+                  scrollToId('contacts');
+                }
                 setMobileOpen(false);
               }}
             >
