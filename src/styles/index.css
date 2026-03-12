@@ -852,6 +852,8 @@ body {
 .floating-contact-cta svg {
   width: 18px;
   height: 18px;
+  animation: floatingArrowBounce 1.8s ease-in-out infinite;
+  will-change: transform;
 }
 
 .floating-contact-cta:hover {
@@ -3080,6 +3082,15 @@ body {
   box-shadow: 0 0 20px rgba(108, 99, 255, 0.16);
 }
 
+:root[data-theme='clean-light'] .project-bento-meta a {
+  border-color: rgba(122, 111, 255, 0.18);
+  background: rgba(122, 111, 255, 0.06);
+}
+
+:root[data-theme='clean-light'] .project-bento-meta a:hover {
+  border-color: rgba(122, 111, 255, 0.36);
+}
+
 :root[data-theme='clean-light'] .project-card p {
   color: #69638a;
 }
@@ -3715,6 +3726,22 @@ body {
   }
 }
 
+@keyframes floatingArrowBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-4px);
+  }
+  55% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+}
+
 @keyframes enterUp {
   from {
     opacity: 0;
@@ -3794,6 +3821,10 @@ body {
   .project-donut-wrap,
   .project-donut-ring,
   .project-side-orb {
+    animation: none !important;
+  }
+
+  .floating-contact-cta svg {
     animation: none !important;
   }
 

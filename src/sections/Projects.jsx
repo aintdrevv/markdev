@@ -66,12 +66,25 @@ export default function Projects() {
               </div>
 
               <div className="project-bento-copy">
-                <span className="project-featured-tag">Featured</span>
-                <h3>{featured.name}</h3>
-                <p>{featured.summary}</p>
+                <span className="project-featured-tag bg-[color:var(--project-accent)]/12 text-[color:var(--project-accent)]">
+                  Featured
+                </span>
+                <h3 className="text-[color:var(--project-accent)] drop-shadow-[0_0_18px_color-mix(in_srgb,var(--project-accent)_24%,transparent)]">
+                  {featured.name}
+                </h3>
+                <p className="text-[color:color-mix(in_srgb,var(--text)_82%,var(--project-accent)_18%)]">
+                  {featured.summary}
+                </p>
                 <div className="project-bento-meta">
-                  <span className="project-status-badge">{featured.status}</span>
-                  <a href="https://github.com/aintdrevv" target="_blank" rel="noreferrer">
+                  <span className="project-status-badge bg-[color:var(--project-accent)]/10 text-[color:var(--project-accent)] ring-1 ring-[color:var(--project-accent)]/20">
+                    {featured.status}
+                  </span>
+                  <a
+                    className="transition-colors after:ml-1 after:inline-block after:text-current after:content-['↗'] hover:text-[color:var(--text)]"
+                    href="https://github.com/aintdrevv"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
                     Repository
                   </a>
                 </div>
@@ -91,11 +104,20 @@ export default function Projects() {
                 </div>
 
                 <div className="project-bento-copy">
-                  <h3>{project.name}</h3>
-                  <p>{project.summary}</p>
+                  <h3 className="text-[color:var(--project-accent)]">{project.name}</h3>
+                  <p className="text-[color:color-mix(in_srgb,var(--text)_80%,var(--project-accent)_20%)]">
+                    {project.summary}
+                  </p>
                   <div className="project-bento-meta">
-                    <span className="project-status-badge">{project.status}</span>
-                    <a href="https://github.com/aintdrevv" target="_blank" rel="noreferrer">
+                    <span className="project-status-badge bg-[color:var(--project-accent)]/10 text-[color:var(--project-accent)] ring-1 ring-[color:var(--project-accent)]/20">
+                      {project.status}
+                    </span>
+                    <a
+                      className="transition-colors after:ml-1 after:inline-block after:text-current after:content-['↗'] hover:text-[color:var(--text)]"
+                      href="https://github.com/aintdrevv"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       Repository
                     </a>
                   </div>
