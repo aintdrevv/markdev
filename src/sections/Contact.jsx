@@ -120,10 +120,13 @@ export default function Contact() {
           <form className="mt-8 grid gap-[14px]" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-[14px] md:grid-cols-2">
               <input
+                id="contact-name"
+                name="name"
                 type="text"
                 value={form.name}
                 onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
                 placeholder="Name"
+                autoComplete="name"
                 required
                 className="contact-field-input w-full border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
                 style={{
@@ -146,10 +149,13 @@ export default function Contact() {
               />
 
               <input
+                id="contact-email"
+                name="email"
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                 placeholder="Email"
+                autoComplete="email"
                 required
                 className="contact-field-input w-full border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
                 style={{
@@ -173,10 +179,13 @@ export default function Contact() {
             </div>
 
             <textarea
+              id="contact-message"
+              name="message"
               rows="6"
               value={form.message}
               onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
               placeholder="Message"
+              autoComplete="off"
               required
               className="contact-field-input h-[130px] w-full resize-none border px-[18px] py-[14px] text-sm outline-none transition-all duration-200"
               style={{

@@ -165,35 +165,44 @@ export default function ContactModal({ open, onClose }) {
           ) : null}
 
           <form className="contact-dialog-form" onSubmit={handleSubmit}>
-            <label className="contact-dialog-field">
+            <label className="contact-dialog-field" htmlFor="contact-modal-name">
               <span>Name</span>
               <input
+                id="contact-modal-name"
+                name="name"
                 type="text"
                 value={form.name}
                 onChange={(event) => setForm((prev) => ({ ...prev, name: event.target.value }))}
                 placeholder="Your name"
+                autoComplete="name"
                 required
               />
             </label>
 
-            <label className="contact-dialog-field">
+            <label className="contact-dialog-field" htmlFor="contact-modal-email">
               <span>Email</span>
               <input
+                id="contact-modal-email"
+                name="email"
                 type="email"
                 value={form.email}
                 onChange={(event) => setForm((prev) => ({ ...prev, email: event.target.value }))}
                 placeholder="you@example.com"
+                autoComplete="email"
                 required
               />
             </label>
 
-            <label className="contact-dialog-field">
+            <label className="contact-dialog-field" htmlFor="contact-modal-message">
               <span>Message</span>
               <textarea
+                id="contact-modal-message"
+                name="message"
                 rows="5"
                 value={form.message}
                 onChange={(event) => setForm((prev) => ({ ...prev, message: event.target.value }))}
                 placeholder="Tell me about your project..."
+                autoComplete="off"
                 required
               />
             </label>
