@@ -44,8 +44,8 @@ export default function Projects() {
               Creative builds arranged as a living bento board.
             </h2>
             <p className="section-copy">
-              A featured build sits at the center, while the next experiments orbit around it in
-              smaller snapshots. The focus is direction, momentum, and visual personality.
+              This section highlights the work I am building now, from my main featured project
+              to smaller experiments that show range, progress, and attention to detail.
             </p>
           </div>
 

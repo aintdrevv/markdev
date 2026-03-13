@@ -24,7 +24,7 @@ const storyPoints = [
   },
   {
     tag: '05 / Direction',
-    title: 'Open. Hungry. Ready.',
+    title: 'Focused and Ready to Build.',
     body: 'Looking for internship, junior, and freelance opportunities. I show up, I learn fast, and I ship polished work.',
   },
 ];
@@ -173,8 +173,8 @@ export default function About() {
               A timeline of how I am growing into the kind of developer teams can rely on.
             </h2>
             <p className="section-copy">
-              This section is meant to read like a story. It moves through identity, craft,
-              process, and direction instead of presenting me like a boxed resume panel.
+              This is a quick look at who I am, how I work, and where I am heading as a
+              developer, told with more personality than a standard resume summary.
             </p>
           </div>
 

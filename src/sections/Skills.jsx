@@ -19,8 +19,8 @@ export default function Skills() {
               The stack I keep returning to,
             </h2>
             <p className="section-copy">
-              A clean typography dump instead of cards or icons. The bigger the word, the more
-              central it is to how I build.
+              These are the tools I use most when building interfaces, with the strongest parts
+              of my stack given the most space and emphasis.
             </p>
           </div>
 
