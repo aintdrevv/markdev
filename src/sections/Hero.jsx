@@ -86,7 +86,7 @@ export default function Hero() {
             </h1>
             
             <p className="hero-v2-copy">
-              Frontend developer who sweats the details so users don't have to.
+              Frontend developer building clean, responsive interfaces with clarity and purpose.
             </p>
           </div>
 
