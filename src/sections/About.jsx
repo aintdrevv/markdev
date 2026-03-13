@@ -4,28 +4,28 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 const storyPoints = [
   {
     tag: '01 / Identity',
-    title: 'Who I Am',
-    body: `I'm Mark, aspiring frontend developer based in Quezon, Philippines, building interfaces that feel calm, sharp, and easy to use.`,
+    title: 'Hi, I\'m Mark.',
+    body: `I'm a frontend developer based in Quezon, Philippines. I build interfaces that feel calm, sharp, and easy to use — no fluff, just clean work.`,
   },
   {
     tag: '02 / Practice',
-    title: 'What I Do',
-    body: 'I focus on frontend development with React, modern CSS, and responsive UI work that keeps structure clear across desktop and mobile.',
+    title: 'I Make Interfaces Feel Right.',
+    body: 'Frontend development with React, modern CSS, and responsive UI. I care about the details — the kind users notice without knowing why.',
   },
   {
     tag: '03 / Process',
-    title: 'How I Work',
-    body: 'My learning path is iterative: study the fundamentals, build often, clean the code, then refine the details until the interface feels intentional.',
+    title: 'Learn. Build. Refine. Repeat.',
+    body: 'I study the fundamentals, build often, and keep cleaning the code until the interface feels intentional. No shortcuts, just iteration.',
   },
   {
     tag: '04 / Now',
-    title: 'Current Focus',
-    body: 'Right now I am sharpening React fundamentals, layout systems, and responsive design patterns that hold up in real product work.',
+    title: 'Currently Leveling Up.',
+    body: 'Deep in React fundamentals, layout systems, and responsive patterns. Sharpening the skills that hold up in real product work.',
   },
   {
     tag: '05 / Direction',
-    title: 'My Goal',
-    body: 'I am looking for internship, junior-level, and freelance opportunities where I can contribute, keep learning fast, and ship polished work.',
+    title: 'Open. Hungry. Ready.',
+    body: 'Looking for internship, junior, and freelance opportunities. I show up, I learn fast, and I ship polished work.',
   },
 ];
 
@@ -33,14 +33,59 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
+function getViewportHeight() {
+  return window.visualViewport?.height ?? window.innerHeight;
+}
+
+function getLineProgress(section) {
+  const rect = section.getBoundingClientRect();
+  const viewportHeight = getViewportHeight();
+  const sectionTop = window.scrollY + rect.top;
+  const start = sectionTop - viewportHeight * 0.72;
+  const end = sectionTop + rect.height - viewportHeight * 0.37;
+  const distance = Math.max(end - start, 1);
+
+  return clamp((window.scrollY - start) / distance, 0, 1);
+}
+
 export default function About() {
   const sectionRef = useRef(null);
   const pointRefs = useRef([]);
+  const frameRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lineProgress, setLineProgress] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+    updatePreference();
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', updatePreference);
+      return () => mediaQuery.removeEventListener('change', updatePreference);
+    }
+
+    mediaQuery.addListener(updatePreference);
+    return () => mediaQuery.removeListener(updatePreference);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setHasEntered(true);
+      return undefined;
+    }
+
+    const animationFrame = window.requestAnimationFrame(() => setHasEntered(true));
+    return () => window.cancelAnimationFrame(animationFrame);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     // Track the story card currently nearest the focus zone.
+    if (!('IntersectionObserver' in window)) return undefined;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntries = entries
@@ -68,36 +113,63 @@ export default function About() {
   useEffect(() => {
     // Fill the vertical progress line as the section moves through the viewport.
     const updateLine = () => {
+      frameRef.current = 0;
+
       const section = sectionRef.current;
       if (!section) return;
 
-      const rect = section.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const total = rect.height + viewportHeight * 0.35;
-      const traveled = viewportHeight * 0.72 - rect.top;
-      const progress = clamp(traveled / total, 0, 1);
-      setLineProgress(progress);
+      const progress = getLineProgress(section);
+      setLineProgress((current) => (Math.abs(current - progress) < 0.001 ? current : progress));
     };
 
-    updateLine();
-    window.addEventListener('scroll', updateLine, { passive: true });
-    window.addEventListener('resize', updateLine);
+    const requestLineUpdate = () => {
+      if (frameRef.current) return;
+      frameRef.current = window.requestAnimationFrame(updateLine);
+    };
+
+    requestLineUpdate();
+    window.addEventListener('scroll', requestLineUpdate, { passive: true });
+    window.addEventListener('resize', requestLineUpdate);
+    window.visualViewport?.addEventListener('resize', requestLineUpdate);
+    window.visualViewport?.addEventListener('scroll', requestLineUpdate);
 
     return () => {
-      window.removeEventListener('scroll', updateLine);
-      window.removeEventListener('resize', updateLine);
+      window.removeEventListener('scroll', requestLineUpdate);
+      window.removeEventListener('resize', requestLineUpdate);
+      window.visualViewport?.removeEventListener('resize', requestLineUpdate);
+      window.visualViewport?.removeEventListener('scroll', requestLineUpdate);
+
+      if (frameRef.current) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
     };
   }, []);
 
   const progressHeight = useMemo(() => `${lineProgress * 100}%`, [lineProgress]);
+  const activePoint = storyPoints[activeIndex];
+  const motionSafeTransition = prefersReducedMotion
+    ? 'none'
+    : 'opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+  const entryStyle = (delay = '0ms') => ({
+    opacity: hasEntered ? 1 : 0,
+    transform: hasEntered ? 'translateY(0)' : 'translateY(26px)',
+    transition: motionSafeTransition,
+    transitionDelay: prefersReducedMotion ? '0ms' : delay,
+  });
 
   return (
-    <section id="about" ref={sectionRef} className="section" data-deco="About">
+    <section
+      id="about"
+      ref={sectionRef}
+      className="section"
+      data-deco="About"
+      aria-labelledby="about-title"
+    >
       <div className="container">
         <div className="section-shell">
-          <div className="section-header-left">
+          <div className="section-header-left" style={entryStyle('90ms')}>
             <p className="section-kicker">About</p>
-            <h2 className="section-title section-title-modern">
+            <h2 id="about-title" className="section-title section-title-modern">
               A timeline of how I am growing into the kind of developer teams can rely on.
             </h2>
             <p className="section-copy">
@@ -107,7 +179,10 @@ export default function About() {
           </div>
 
           {/* Vertical timeline with an active marker tied to scroll position */}
-          <div className="section-body-gap relative pl-[4.5rem] sm:pl-24">
+          <div
+            className="section-body-gap relative pl-[4.5rem] sm:pl-24"
+            style={entryStyle('180ms')}
+          >
             <div
               className="absolute left-4 top-0 h-full w-px sm:left-8"
               style={{ background: 'rgba(var(--brand-rgb), 0.18)' }}
@@ -123,60 +198,82 @@ export default function About() {
               }}
               aria-hidden="true"
             />
+            <p className="sr-only">
+              Timeline step {activeIndex + 1} of {storyPoints.length}: {activePoint.title}.
+            </p>
 
-            <div className="space-y-[4.5rem] md:space-y-24">
+            <ol className="space-y-[4.5rem] md:space-y-24" aria-label="About timeline">
               {storyPoints.map((point, index) => {
                 const isActive = index === activeIndex;
+                const titleId = `about-point-title-${index}`;
+                const bodyId = `about-point-body-${index}`;
 
                 return (
-                  <article
-                    key={point.title}
-                    ref={(node) => {
-                      pointRefs.current[index] = node;
-                    }}
-                    data-index={index}
-                    className="relative"
-                    style={{
-                      opacity: index <= activeIndex ? 1 : 0.36,
-                      transform: index <= activeIndex ? 'translateX(0)' : 'translateX(-28px)',
-                      transition: 'opacity 520ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)',
-                    }}
-                  >
-                    <div className="absolute left-[-3.35rem] top-1 sm:left-[-4.9rem]" aria-hidden="true">
-                      <span
-                        className={`block h-3.5 w-3.5 rounded-full ${isActive ? 'animate-pulse' : ''}`}
-                        style={{
-                          background: isActive ? 'rgba(var(--brand-rgb), 1)' : 'rgba(var(--brand-rgb), 0.42)',
-                          boxShadow: isActive
-                            ? '0 0 0 5px rgba(var(--brand-rgb), 0.12), 0 0 18px rgba(var(--brand-rgb), 0.44)'
-                            : '0 0 0 4px rgba(var(--brand-rgb), 0.06)',
-                          transition: 'background 220ms ease, box-shadow 220ms ease',
-                        }}
-                      />
-                    </div>
+                  <li key={point.title} className="list-none">
+                    <article
+                      ref={(node) => {
+                        pointRefs.current[index] = node;
+                      }}
+                      data-index={index}
+                      className="relative"
+                      aria-current={isActive ? 'step' : undefined}
+                      aria-labelledby={titleId}
+                      aria-describedby={bodyId}
+                      style={{
+                        opacity: index <= activeIndex ? 1 : 0.36,
+                        transform: index <= activeIndex ? 'translateX(0)' : 'translateX(-28px)',
+                        transition: prefersReducedMotion
+                          ? 'none'
+                          : 'opacity 520ms ease, transform 520ms cubic-bezier(0.22, 1, 0.36, 1)',
+                      }}
+                    >
+                      <div
+                        className="absolute left-[-3.35rem] top-1 sm:left-[-4.9rem]"
+                        aria-hidden="true"
+                      >
+                        <span
+                          className={`block h-3.5 w-3.5 rounded-full ${
+                            isActive && !prefersReducedMotion ? 'animate-pulse' : ''
+                          }`}
+                          style={{
+                            background: isActive
+                              ? 'rgba(var(--brand-rgb), 1)'
+                              : 'rgba(var(--brand-rgb), 0.42)',
+                            boxShadow: isActive
+                              ? '0 0 0 5px rgba(var(--brand-rgb), 0.12), 0 0 18px rgba(var(--brand-rgb), 0.44)'
+                              : '0 0 0 4px rgba(var(--brand-rgb), 0.06)',
+                            transition: prefersReducedMotion
+                              ? 'none'
+                              : 'background 220ms ease, box-shadow 220ms ease',
+                          }}
+                        />
+                      </div>
 
-                    <p
-                      className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em]"
-                      style={{ color: isActive ? 'var(--brand)' : 'rgba(var(--text-rgb), 0.5)' }}
-                    >
-                      {point.tag}
-                    </p>
-                    <h3
-                      className="text-3xl leading-none sm:text-4xl"
-                      style={{ fontFamily: 'var(--font-display)', color: 'var(--text)' }}
-                    >
-                      {point.title}
-                    </h3>
-                    <p
-                      className="mt-4 max-w-2xl text-base leading-8 sm:text-lg"
-                      style={{ fontFamily: 'var(--font-body)', color: 'var(--muted)' }}
-                    >
-                      {point.body}
-                    </p>
-                  </article>
+                      <p
+                        className="mb-4 text-[0.72rem] font-semibold uppercase tracking-[0.28em]"
+                        style={{ color: isActive ? 'var(--brand)' : 'rgba(var(--text-rgb), 0.5)' }}
+                      >
+                        {point.tag}
+                      </p>
+                      <h3
+                        id={titleId}
+                        className="text-3xl leading-none sm:text-4xl"
+                        style={{ fontFamily: 'var(--font-display)', color: 'var(--text)' }}
+                      >
+                        {point.title}
+                      </h3>
+                      <p
+                        id={bodyId}
+                        className="mt-4 max-w-2xl text-base leading-8 sm:text-lg"
+                        style={{ fontFamily: 'var(--font-body)', color: 'var(--muted)' }}
+                      >
+                        {point.body}
+                      </p>
+                    </article>
+                  </li>
                 );
               })}
-            </div>
+            </ol>
           </div>
         </div>
       </div>

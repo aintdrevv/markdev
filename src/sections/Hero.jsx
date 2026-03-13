@@ -79,14 +79,14 @@ export default function Hero() {
           <div className="hero-v2-copy-block">
             {/* Primary hero message */}
             <h1 className="hero-v2-title">
-              <span>Building digital</span>
+              <span>Good design</span>
               <span className="typing-cursor hero-v2-cursor">|</span>
-              <br />
-              <span>that feel alive.</span>
+            <br />
+              <span>starts with caring.</span>
             </h1>
-
+            
             <p className="hero-v2-copy">
-              Frontend work shaped to feel sharp, alive, and clear.
+              Frontend developer who sweats the details so users don't have to.
             </p>
           </div>
 
