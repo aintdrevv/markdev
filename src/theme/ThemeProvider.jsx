@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { DEFAULT_THEME, THEMES } from './themes.js';
 
-const STORAGE_KEY = 'fallforyou-theme';
+const STORAGE_KEY = 'mark-dev-portfolio-theme';
+const LEGACY_STORAGE_KEYS = ['fallforyou-theme'];
 
 const ThemeContext = createContext(null);
 
@@ -17,8 +18,13 @@ function getInitialTheme() {
     return { theme: DEFAULT_THEME, hasManualPreference: false };
   }
 
-  const savedTheme = window.localStorage.getItem(STORAGE_KEY);
+  const savedTheme =
+    window.localStorage.getItem(STORAGE_KEY) ??
+    LEGACY_STORAGE_KEYS
+      .map((key) => window.localStorage.getItem(key))
+      .find(Boolean);
   if (savedTheme && Object.values(THEMES).includes(savedTheme)) {
+    window.localStorage.setItem(STORAGE_KEY, savedTheme);
     return { theme: savedTheme, hasManualPreference: true };
   }
 

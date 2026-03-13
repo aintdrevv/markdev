@@ -79,10 +79,10 @@ export default function Hero() {
           <div className="hero-v2-copy-block">
             {/* Primary hero message */}
             <h1 className="hero-v2-title">
-              <span>Good design</span>
+              <span>Interfaces built</span>
               <span className="typing-cursor hero-v2-cursor">|</span>
-            <br />
-              <span>starts with caring.</span>
+              <br />
+              <span>with care and clarity.</span>
             </h1>
             
             <p className="hero-v2-copy">

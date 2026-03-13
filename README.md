@@ -1,4 +1,4 @@
-# markdev
+# mark-dev-portfolio
 
 ## Contact form email setup (Resend)
 
