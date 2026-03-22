@@ -1,25 +1,29 @@
+import { lazy, Suspense } from 'react';
+
+const MiniIvePreview = lazy(() => import('../components/projects/MiniIvePreview.jsx'));
+
 // Project cards feed both the featured center card and the smaller side cards.
 const projects = [
   {
-    name: 'Portfolio V3',
+    name: 'UI Component Lab',
     status: 'In Progress',
     summary:
-      'A refined personal site with stronger storytelling, visual rhythm, and cleaner component architecture.',
+      'A reusable interface playground now featuring my MiniIVE model directly inside the project card.',
     accent: 'var(--project-accent-featured)',
     featured: true,
-  },
-  {
-    name: 'UI Component Lab',
-    status: 'Planned',
-    summary:
-      'A collection of reusable cards, forms, and navigation patterns for faster interface building.',
-    accent: 'var(--project-accent-secondary)',
   },
   {
     name: 'Landing Page Series',
     status: 'Building',
     summary:
       'Practice pages focused on conversion sections, mobile responsiveness, and interaction polish.',
+    accent: 'var(--project-accent-secondary)',
+  },
+  {
+    name: 'Portfolio System Notes',
+    status: 'Active',
+    summary:
+      'Ongoing experiments around layout systems, theme transitions, and more intentional portfolio presentation.',
     accent: 'var(--project-accent-tertiary)',
   },
   {
@@ -55,14 +59,10 @@ export default function Projects() {
               className="project-bento-card project-bento-featured"
               style={{ '--project-accent': featured.accent }}
             >
-              <div className="project-bento-preview project-bento-preview-featured" aria-hidden="true">
-                <div className="project-donut-glow" />
-                <div className="project-donut-wrap">
-                  <span className="project-donut-ring ring-a" />
-                  <span className="project-donut-ring ring-b" />
-                  <span className="project-donut-ring ring-c" />
-                  <span className="project-donut-core" />
-                </div>
+              <div className="project-bento-preview project-bento-preview-featured project-bento-preview-model">
+                <Suspense fallback={<div className="project-model-loading" aria-hidden="true" />}>
+                  <MiniIvePreview />
+                </Suspense>
               </div>
 
               <div className="project-bento-copy">
