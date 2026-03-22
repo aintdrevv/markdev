@@ -2146,9 +2146,14 @@ body {
 .project-bento-preview-model {
   min-height: 300px;
   padding: 1rem;
+  --project-model-shell-top: rgba(var(--surface-rgb), 0.78);
+  --project-model-shell-bottom: rgba(var(--surface-strong-rgb), 0.94);
+  --project-model-glow-top: rgba(255, 255, 255, 0.08);
+  --project-model-glow-bottom: color-mix(in srgb, var(--project-accent) 14%, rgba(var(--surface-rgb), 0.04));
+  --project-model-border: rgba(255, 255, 255, 0.08);
   background:
     radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--project-accent) 20%, transparent), transparent 52%),
-    linear-gradient(180deg, rgba(9, 14, 24, 0.96), rgba(6, 10, 18, 0.98));
+    linear-gradient(180deg, rgba(var(--surface-rgb), 0.22), rgba(var(--surface-strong-rgb), 0.4));
 }
 
 .project-model-preview {
@@ -2158,10 +2163,10 @@ body {
   border-radius: 18px;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 24%, rgba(255, 255, 255, 0.08), transparent 30%),
-    radial-gradient(circle at 50% 82%, color-mix(in srgb, var(--project-accent) 14%, rgba(255, 255, 255, 0.02)), transparent 44%),
-    linear-gradient(180deg, rgba(8, 12, 20, 0.9), rgba(5, 9, 16, 0.98));
-  border: 1px solid rgba(255, 255, 255, 0.06);
+    radial-gradient(circle at 50% 24%, var(--project-model-glow-top), transparent 30%),
+    radial-gradient(circle at 50% 82%, var(--project-model-glow-bottom), transparent 44%),
+    linear-gradient(180deg, var(--project-model-shell-top), var(--project-model-shell-bottom));
+  border: 1px solid var(--project-model-border);
 }
 
 .project-model-loading {
@@ -2170,9 +2175,9 @@ body {
   min-height: 100%;
   border-radius: 18px;
   background:
-    radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.08), transparent 24%),
+    radial-gradient(circle at 50% 28%, var(--project-model-glow-top), transparent 24%),
     radial-gradient(circle at 50% 78%, color-mix(in srgb, var(--project-accent) 16%, transparent), transparent 42%),
-    linear-gradient(180deg, rgba(8, 12, 20, 0.9), rgba(5, 9, 16, 0.98));
+    linear-gradient(180deg, var(--project-model-shell-top), var(--project-model-shell-bottom));
 }
 
 .project-model-canvas {
@@ -3179,6 +3184,17 @@ body {
 
 :root[data-theme='clean-light'] .project-bento-card {
   background: rgba(143, 136, 255, 0.1);
+}
+
+:root[data-theme='clean-light'] .project-bento-preview-model {
+  --project-model-shell-top: rgba(255, 255, 255, 0.98);
+  --project-model-shell-bottom: rgba(241, 238, 255, 0.98);
+  --project-model-glow-top: rgba(255, 255, 255, 0.72);
+  --project-model-glow-bottom: color-mix(in srgb, var(--project-accent) 12%, rgba(255, 255, 255, 0.78));
+  --project-model-border: rgba(122, 111, 255, 0.16);
+  background:
+    radial-gradient(circle at 50% 34%, color-mix(in srgb, var(--project-accent) 14%, transparent), transparent 54%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.52), rgba(122, 111, 255, 0.04));
 }
 
 :root[data-theme='clean-light'] .project-bento-card:hover {
