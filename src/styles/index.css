@@ -2148,9 +2148,9 @@ body {
   padding: 1rem;
   --project-model-shell-top: rgba(var(--surface-rgb), 0.78);
   --project-model-shell-bottom: rgba(var(--surface-strong-rgb), 0.94);
-  --project-model-glow-top: rgba(255, 255, 255, 0.08);
+  --project-model-glow-top: color-mix(in srgb, var(--project-accent) 12%, rgba(var(--surface-rgb), 0.1));
   --project-model-glow-bottom: color-mix(in srgb, var(--project-accent) 14%, rgba(var(--surface-rgb), 0.04));
-  --project-model-border: rgba(255, 255, 255, 0.08);
+  --project-model-border: rgba(var(--brand-rgb), 0.16);
   background:
     radial-gradient(circle at 50% 35%, color-mix(in srgb, var(--project-accent) 20%, transparent), transparent 52%),
     linear-gradient(180deg, rgba(var(--surface-rgb), 0.22), rgba(var(--surface-strong-rgb), 0.4));

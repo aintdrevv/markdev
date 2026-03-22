@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Bounds, Center, OrbitControls, useGLTF } from '@react-three/drei';
+import { useTheme } from '../../theme/ThemeProvider.jsx';
 
 function MiniIveModel() {
   const { scene } = useGLTF('/models/MiniIVE.glb');
@@ -17,6 +18,8 @@ function MiniIveModel() {
 useGLTF.preload('/models/MiniIVE.glb');
 
 export default function MiniIvePreview() {
+  const { isLightTheme } = useTheme();
+
   return (
     <div className="project-model-preview">
       <Canvas
@@ -30,11 +33,22 @@ export default function MiniIvePreview() {
         }}
         shadows={false}
       >
-        <color attach="background" args={['transparent']} />
-        <hemisphereLight intensity={0.9} groundColor="#1a2035" color="#ffffff" />
-        <ambientLight intensity={1.4} />
-        <directionalLight position={[4, 5, 4]} intensity={2.2} />
-        <directionalLight position={[-3, 2, -4]} intensity={0.75} color="#9db4ff" />
+        <hemisphereLight
+          intensity={isLightTheme ? 1.05 : 0.78}
+          groundColor={isLightTheme ? '#d7d0f3' : '#14182a'}
+          color={isLightTheme ? '#f7f4ff' : '#a79dff'}
+        />
+        <ambientLight intensity={isLightTheme ? 1.2 : 0.95} />
+        <directionalLight
+          position={[4, 5, 4]}
+          intensity={isLightTheme ? 2 : 1.55}
+          color={isLightTheme ? '#ffffff' : '#d7d0ff'}
+        />
+        <directionalLight
+          position={[-3, 2, -4]}
+          intensity={isLightTheme ? 0.62 : 0.52}
+          color={isLightTheme ? '#b9b0ff' : '#6f7dff'}
+        />
         <Suspense fallback={null}>
           <MiniIveModel />
         </Suspense>
