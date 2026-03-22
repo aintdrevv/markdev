@@ -22,8 +22,16 @@ export default function MiniIvePreview() {
       <Canvas
         className="project-model-canvas"
         camera={{ position: [0, 0.8, 5], fov: 32 }}
-        dpr={[1, 1.75]}
+        dpr={[1.2, 2]}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
+        shadows={false}
       >
+        <color attach="background" args={['transparent']} />
+        <hemisphereLight intensity={0.9} groundColor="#1a2035" color="#ffffff" />
         <ambientLight intensity={1.4} />
         <directionalLight position={[4, 5, 4]} intensity={2.2} />
         <directionalLight position={[-3, 2, -4]} intensity={0.75} color="#9db4ff" />
@@ -33,6 +41,8 @@ export default function MiniIvePreview() {
         <OrbitControls
           enablePan
           enableZoom
+          enableDamping
+          dampingFactor={0.08}
           maxDistance={8}
           minDistance={2.4}
           minPolarAngle={Math.PI / 3.5}
