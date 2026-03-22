@@ -5,10 +5,10 @@ const MiniIvePreview = lazy(() => import('../components/projects/MiniIvePreview.
 // Project cards feed both the featured center card and the smaller side cards.
 const projects = [
   {
-    name: 'UI Component Lab',
+    name: '3D Model Showcase',
     status: 'In Progress',
     summary:
-      'A reusable interface playground now featuring my MiniIVE model directly inside the project card.',
+      'An interactive 3D project card focused on presenting my 3D model inside the portfolio with cleaner motion and theme-aware styling.',
     accent: 'var(--project-accent-featured)',
     featured: true,
   },

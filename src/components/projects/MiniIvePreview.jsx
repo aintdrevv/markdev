@@ -54,7 +54,7 @@ export default function MiniIvePreview() {
         </Suspense>
         <OrbitControls
           enablePan
-          enableZoom
+          enableZoom={false}
           enableDamping
           dampingFactor={0.08}
           maxDistance={8}
