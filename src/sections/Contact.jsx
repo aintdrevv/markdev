@@ -91,7 +91,10 @@ export default function Contact() {
             className="section-title section-title-modern mt-4 text-center"
             style={{ color: 'var(--text)' }}
           >
-            Got a project in <span style={{ color: 'var(--color-accent)' }}>mind?</span>
+            Got a project{' '}
+            <span style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+              in <span style={{ color: 'var(--color-accent)' }}>mind?</span>
+            </span>
           </h2>
 
           <p

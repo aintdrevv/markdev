@@ -416,6 +416,7 @@
   padding: 20px;
   background: rgba(7, 6, 14, 0.7);
   backdrop-filter: blur(10px);
+  animation: contactDialogOverlayIn 0.22s ease-out;
 }
 
 .contact-dialog-shell {
@@ -428,6 +429,8 @@
   background: rgba(var(--surface-strong-rgb), 0.96);
   box-shadow: 0 28px 60px rgba(0, 0, 0, 0.32);
   position: relative;
+  transform-origin: center;
+  animation: contactDialogShellIn 0.34s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .contact-dialog-aside {
@@ -440,6 +443,7 @@
     linear-gradient(160deg, rgba(var(--brand-rgb), 0.18), rgba(var(--brand-rgb), 0.1)),
     rgba(var(--surface-rgb), 0.72);
   border-right: 1px solid rgba(var(--brand-rgb), 0.14);
+  animation: contactDialogSectionIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
 }
 
 .contact-dialog-kicker,
@@ -509,6 +513,41 @@
   position: relative;
   padding: 34px 30px 30px;
   background: rgba(var(--surface-strong-rgb), 0.98);
+  animation: contactDialogSectionIn 0.34s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@keyframes contactDialogOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contactDialogShellIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes contactDialogSectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .contact-dialog-form-kicker {
@@ -671,6 +710,15 @@
   background: rgba(34, 28, 63, 0.06);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .contact-dialog-overlay,
+  .contact-dialog-shell,
+  .contact-dialog-aside,
+  .contact-dialog-body {
+    animation: none;
+  }
+}
+
 @media (max-width: 760px) {
   .contact-dialog-overlay {
     display: flex;
@@ -745,6 +793,24 @@ html,
 body,
 #root {
   min-height: 100%;
+}
+
+:root {
+  view-transition-name: root;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: theme-fade-out;
+}
+
+::view-transition-new(root) {
+  animation-name: theme-fade-in;
 }
 
 html,
@@ -3259,6 +3325,32 @@ body {
   }
 }
 
+@keyframes theme-fade-out {
+  from {
+    opacity: 1;
+    filter: saturate(1) blur(0);
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    filter: saturate(0.94) blur(8px);
+    transform: scale(0.985);
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+    filter: saturate(1.08) blur(10px);
+    transform: scale(1.015);
+  }
+  to {
+    opacity: 1;
+    filter: saturate(1) blur(0);
+    transform: scale(1);
+  }
+}
+
 
 @media (max-width: 960px) {
   .projects-bento-grid {
@@ -3803,6 +3895,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
   .typing-cursor,
   .site-bg,
   .hero::before,
