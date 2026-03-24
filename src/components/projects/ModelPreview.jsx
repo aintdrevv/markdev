@@ -1,23 +1,35 @@
-import { Suspense } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { Bounds, Center, OrbitControls, useGLTF } from '@react-three/drei';
+import { Suspense, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Bounds, Center, useGLTF } from '@react-three/drei';
 import { useTheme } from '../../theme/ThemeProvider.jsx';
 
-function MiniIveModel() {
-  const { scene } = useGLTF('/models/MiniIVE.glb');
+function ModelAsset() {
+  const { scene } = useGLTF('/models/Minive.glb');
+  const modelRef = useRef(null);
+
+  useFrame((state) => {
+    if (!modelRef.current) return;
+
+    const t = state.clock.getElapsedTime();
+    modelRef.current.position.y = Math.sin(t * 0.9) * 0.12;
+    modelRef.current.rotation.y = Math.PI / 10 + Math.sin(t * 0.55) * 0.08;
+    modelRef.current.rotation.z = Math.sin(t * 0.7) * 0.02;
+  });
 
   return (
-    <Bounds fit clip observe margin={1.15}>
+    <Bounds fit clip margin={1.15}>
       <Center>
-        <primitive object={scene} rotation={[0, Math.PI / 10, 0]} />
+        <group ref={modelRef}>
+          <primitive object={scene} />
+        </group>
       </Center>
     </Bounds>
   );
 }
 
-useGLTF.preload('/models/MiniIVE.glb');
+useGLTF.preload('/models/Minive.glb');
 
-export default function MiniIvePreview() {
+export default function ModelPreview() {
   const { isLightTheme } = useTheme();
 
   return (
@@ -25,6 +37,7 @@ export default function MiniIvePreview() {
       <Canvas
         className="project-model-canvas"
         camera={{ position: [0, 0.8, 5], fov: 32 }}
+        frameloop="always"
         dpr={[1.2, 2]}
         gl={{
           antialias: true,
@@ -50,18 +63,8 @@ export default function MiniIvePreview() {
           color={isLightTheme ? '#b9b0ff' : '#6f7dff'}
         />
         <Suspense fallback={null}>
-          <MiniIveModel />
+          <ModelAsset />
         </Suspense>
-        <OrbitControls
-          enablePan
-          enableZoom={false}
-          enableDamping
-          dampingFactor={0.08}
-          maxDistance={8}
-          minDistance={2.4}
-          minPolarAngle={Math.PI / 3.5}
-          maxPolarAngle={Math.PI / 1.9}
-        />
       </Canvas>
     </div>
   );

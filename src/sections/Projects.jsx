@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 
-const MiniIvePreview = lazy(() => import('../components/projects/MiniIvePreview.jsx'));
+const ModelPreview = lazy(() => import('../components/projects/ModelPreview.jsx'));
 
 // Project cards feed both the featured center card and the smaller side cards.
 const projects = [
@@ -8,7 +8,7 @@ const projects = [
     name: '3D Model Showcase',
     status: 'In Progress',
     summary:
-      'An interactive 3D project card focused on presenting my 3D model inside the portfolio with cleaner motion and theme-aware styling.',
+      'An interactive 3D project card focused on presenting my 3Dgit puy model inside the portfolio with cleaner motion and theme-aware styling.',
     accent: 'var(--project-accent-featured)',
     featured: true,
   },
@@ -61,7 +61,7 @@ export default function Projects() {
             >
               <div className="project-bento-preview project-bento-preview-featured project-bento-preview-model">
                 <Suspense fallback={<div className="project-model-loading" aria-hidden="true" />}>
-                  <MiniIvePreview />
+                  <ModelPreview />
                 </Suspense>
               </div>
 
