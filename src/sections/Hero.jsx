@@ -73,22 +73,22 @@ export default function Hero() {
 
       <div className="container hero-v2-shell">
         <div className="hero-v2-content">
-          {/* Oversized background wordmark behind the main hero copy */}
-          <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
-            <span className="hero-bg-word hero-bg-word-mark">
-              <span>M</span>
-              <span>A</span>
-              <span>R</span>
-              <span>K</span>
-            </span>
-            <span className="hero-bg-word hero-bg-word-dev">
-              <span>D</span>
-              <span>E</span>
-              <span>V</span>
-            </span>
-          </div>
-
           <div className="hero-v2-copy-block">
+            {/* Oversized background wordmark behind the main hero copy */}
+            <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
+              <span className="hero-bg-word hero-bg-word-mark">
+                <span>M</span>
+                <span>A</span>
+                <span>R</span>
+                <span>K</span>
+              </span>
+              <span className="hero-bg-word hero-bg-word-dev">
+                <span>D</span>
+                <span>E</span>
+                <span>V</span>
+              </span>
+            </div>
+
             {/* Primary hero message */}
             <h1 className="hero-v2-title">
               <span>Interfaces built</span>
