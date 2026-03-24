@@ -1,10 +1,33 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { DEFAULT_THEME, THEMES } from './themes.js';
 
 const STORAGE_KEY = 'mark-dev-portfolio-theme';
 const LEGACY_STORAGE_KEYS = ['fallforyou-theme'];
 
 const ThemeContext = createContext(null);
+
+function prefersReducedMotion() {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function runThemeTransition(updateTheme) {
+  if (
+    typeof document === 'undefined' ||
+    typeof document.startViewTransition !== 'function' ||
+    prefersReducedMotion()
+  ) {
+    updateTheme();
+    return;
+  }
+
+  document.startViewTransition(() => {
+    flushSync(() => {
+      updateTheme();
+    });
+  });
+}
 
 function getSystemTheme() {
   if (typeof window === 'undefined') return DEFAULT_THEME;
@@ -61,15 +84,19 @@ export function ThemeProvider({ children }) {
     theme,
     setTheme: (nextTheme) => {
       if (!Object.values(THEMES).includes(nextTheme)) return;
-      setThemeState({ theme: nextTheme, hasManualPreference: true });
-      window.localStorage.setItem(STORAGE_KEY, nextTheme);
+      runThemeTransition(() => {
+        setThemeState({ theme: nextTheme, hasManualPreference: true });
+        window.localStorage.setItem(STORAGE_KEY, nextTheme);
+      });
     },
     toggleTheme: () => {
-      setThemeState((currentTheme) => {
-        const nextTheme =
-          currentTheme.theme === THEMES.midnight ? THEMES.light : THEMES.midnight;
-        window.localStorage.setItem(STORAGE_KEY, nextTheme);
-        return { theme: nextTheme, hasManualPreference: true };
+      runThemeTransition(() => {
+        setThemeState((currentTheme) => {
+          const nextTheme =
+            currentTheme.theme === THEMES.midnight ? THEMES.light : THEMES.midnight;
+          window.localStorage.setItem(STORAGE_KEY, nextTheme);
+          return { theme: nextTheme, hasManualPreference: true };
+        });
       });
     },
     isLightTheme: theme === THEMES.light,
