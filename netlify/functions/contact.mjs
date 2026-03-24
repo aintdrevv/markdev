@@ -24,15 +24,15 @@ export async function handler(event) {
     };
   }
 
-  const toEmail = process.env.CONTACT_TO_EMAIL || 'itsmarkmacaraig@gmail.com';
+  const toEmail = process.env.CONTACT_TO_EMAIL;
   const fromEmail = process.env.RESEND_FROM_EMAIL;
 
-  if (!process.env.RESEND_API_KEY || !fromEmail) {
+  if (!process.env.RESEND_API_KEY || !toEmail || !fromEmail) {
     return {
       statusCode: 500,
       body: JSON.stringify({
         ok: false,
-        message: 'Missing server email config. Set RESEND_API_KEY and RESEND_FROM_EMAIL.',
+        message: 'Missing server email config. Set RESEND_API_KEY, RESEND_FROM_EMAIL, and CONTACT_TO_EMAIL.',
       }),
     };
   }
