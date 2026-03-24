@@ -37,41 +37,43 @@ export default function Skills() {
               </div>
 
               <div className="skills-editor-code term-body" role="presentation" aria-label="Skills code block">
-                <div className="skills-code-line term-line">
-                  <span className="skills-line-number">1</span>
-                  <span>
-                    <span className="skills-keyword">const</span>
-                    <span className="skills-code-gap"> </span>
-                    <span className="skills-object-name">stack</span>
-                    <span className="skills-code-gap"> </span>
-                    <span className="skills-punctuation">=</span>
-                    <span className="skills-code-gap"> </span>
-                    <span className="skills-punctuation">{'{'}</span>
-                  </span>
-                </div>
-
-                {stackLines.map((line, index) => (
-                  <div key={line.keyName} className="skills-code-line skills-code-entry term-line">
-                    <span className="skills-line-number">{index + 2}</span>
+                <div className="skills-editor-scroll">
+                  <div className="skills-code-line term-line">
+                    <span className="skills-line-number">1</span>
                     <span>
-                      <span className="skills-indent" aria-hidden="true">
-                        {'  '}
-                      </span>
-                      <span className="skills-key-name">{line.keyName}</span>
-                      <span className="skills-punctuation">:</span>
-                      <span className="skills-entry-pad" aria-hidden="true" />
-                      <span className="skills-string">'{line.value}'</span>
-                      <span className="skills-punctuation">,</span>
+                      <span className="skills-keyword">const</span>
+                      <span className="skills-code-gap"> </span>
+                      <span className="skills-object-name">stack</span>
+                      <span className="skills-code-gap"> </span>
+                      <span className="skills-punctuation">=</span>
+                      <span className="skills-code-gap"> </span>
+                      <span className="skills-punctuation">{'{'}</span>
                     </span>
                   </div>
-                ))}
 
-                <div className="skills-code-line term-line">
-                  <span className="skills-line-number">{stackLines.length + 2}</span>
-                  <span>
-                    <span className="skills-punctuation">{'}'}</span>
-                    <span className="skills-cursor">|</span>
-                  </span>
+                  {stackLines.map((line, index) => (
+                    <div key={line.keyName} className="skills-code-line skills-code-entry term-line">
+                      <span className="skills-line-number">{index + 2}</span>
+                      <span>
+                        <span className="skills-indent" aria-hidden="true">
+                          {'  '}
+                        </span>
+                        <span className="skills-key-name">{line.keyName}</span>
+                        <span className="skills-punctuation">:</span>
+                        <span className="skills-entry-pad" aria-hidden="true" />
+                        <span className="skills-string">'{line.value}'</span>
+                        <span className="skills-punctuation">,</span>
+                      </span>
+                    </div>
+                  ))}
+
+                  <div className="skills-code-line term-line">
+                    <span className="skills-line-number">{stackLines.length + 2}</span>
+                    <span>
+                      <span className="skills-punctuation">{'}'}</span>
+                      <span className="skills-cursor">|</span>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

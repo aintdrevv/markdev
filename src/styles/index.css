@@ -1759,7 +1759,11 @@ body {
 }
 
 .term-body {
-  overflow-x: auto;
+  overflow: hidden;
+}
+
+.skills-editor-scroll {
+  overflow-x: visible;
 }
 
 .skills-code-line {
@@ -1849,6 +1853,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  .skills-editor-window {
+    overflow: hidden;
+  }
+
   .skills-editor-bar {
     padding: 0.8rem 0.9rem;
   }
@@ -1856,6 +1864,33 @@ body {
   .skills-editor-code {
     padding: 1rem 1rem 1.15rem;
     font-size: 0.88rem;
+  }
+
+  .skills-editor-scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(122, 111, 255, 0.55) rgba(255, 255, 255, 0.08);
+    min-width: 100%;
+  }
+
+  .skills-editor-scroll::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .skills-editor-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+  }
+
+  .skills-editor-scroll::-webkit-scrollbar-thumb {
+    background: rgba(122, 111, 255, 0.55);
+    border-radius: 999px;
+  }
+
+  .skills-code-line {
+    min-width: max-content;
   }
 
   .skills-code-line {
