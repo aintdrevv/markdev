@@ -381,6 +381,22 @@
     z-index: 2;
   }
 
+  @media (min-width: 390px) and (max-width: 480px) {
+    .hero.hero-v2 .hero-v2-bg.hero-bg-stack {
+      top: -18%;
+      transform: translate(-50%, 18%) scale(1);
+      font-size: clamp(4.5rem, 18vw, 6.4rem);
+    }
+  }
+
+  @media (min-width: 481px) and (max-width: 760px) {
+    .hero.hero-v2 .hero-v2-bg.hero-bg-stack {
+      top: -10%;
+      transform: translate(-50%, 10%) scale(1);
+      font-size: clamp(4.8rem, 16vw, 6.8rem);
+    }
+  }
+
   .hero.hero-v2 .hero-v2-copy-block {
     transform: none;
   }
