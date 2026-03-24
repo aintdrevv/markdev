@@ -3,7 +3,6 @@ import Footer from './components/layout/Footer.jsx';
 import Header from './components/layout/Header.jsx';
 import ContactModal from './components/modals/ContactModal.jsx';
 import About from './sections/About.jsx';
-import Contact from './sections/Contact.jsx';
 import Hero from './sections/Hero.jsx';
 import Projects from './sections/Projects.jsx';
 import Skills from './sections/Skills.jsx';
@@ -126,12 +125,9 @@ function App() {
         <div className="enter-item" style={{ '--enter-delay': '510ms' }}>
           <Projects />
         </div>
-        <div className="enter-item" style={{ '--enter-delay': '620ms' }}>
-          <Contact />
-        </div>
       </main>
-      <div className="enter-item" style={{ '--enter-delay': '730ms' }}>
-        <Footer />
+      <div className="enter-item" style={{ '--enter-delay': '620ms' }}>
+        <Footer onHireClick={() => setIsContactModalOpen(true)} />
       </div>
       <div className="floating-rail" aria-label="Section progress">
         <div className="floating-rail-track" aria-hidden="true">

@@ -41,6 +41,9 @@ export default function Hero() {
         .hero-bg-stack span {
           display: block;
         }
+        .hero-bg-word {
+          display: flex !important;
+        }
         .hero-kicker,
         .hero-v2-kicker {
           animation: fadeDown 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s both;
@@ -68,14 +71,23 @@ export default function Hero() {
         }
       `}</style>
 
-      {/* Oversized background wordmark behind the main hero copy */}
-      <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
-        <span>MARK</span>
-        <span>DEV</span>
-      </div>
-
       <div className="container hero-v2-shell">
         <div className="hero-v2-content">
+          {/* Oversized background wordmark behind the main hero copy */}
+          <div className="hero-v2-bg hero-bg-stack" aria-hidden="true">
+            <span className="hero-bg-word hero-bg-word-mark">
+              <span>M</span>
+              <span>A</span>
+              <span>R</span>
+              <span>K</span>
+            </span>
+            <span className="hero-bg-word hero-bg-word-dev">
+              <span>D</span>
+              <span>E</span>
+              <span>V</span>
+            </span>
+          </div>
+
           <div className="hero-v2-copy-block">
             {/* Primary hero message */}
             <h1 className="hero-v2-title">
@@ -100,9 +112,8 @@ export default function Hero() {
               href="/Mark-Macaraig-CV.pdf"
               target="_blank"
               rel="noreferrer"
-              download
             >
-              Download CV
+              View CV
             </a>
           </div>
         </div>

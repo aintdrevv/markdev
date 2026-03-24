@@ -216,9 +216,8 @@ export default function ContactModal({ open, onClose }) {
                 href="/Mark-Macaraig-CV.pdf"
                 target="_blank"
                 rel="noreferrer"
-                download
               >
-                Download CV
+                View CV
               </a>
             </div>
 

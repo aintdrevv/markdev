@@ -13,13 +13,6 @@ const projects = [
     featured: true,
   },
   {
-    name: 'Landing Page Series',
-    status: 'Building',
-    summary:
-      'Practice pages focused on conversion sections, mobile responsiveness, and interaction polish.',
-    accent: 'var(--project-accent-secondary)',
-  },
-  {
     name: 'Portfolio System Notes',
     status: 'Active',
     summary:
@@ -54,7 +47,9 @@ export default function Projects() {
           </div>
 
           {/* Featured build first, then supporting experiments around it */}
-          <div className="section-body-gap projects-bento-grid">
+          <div
+            className={`section-body-gap projects-bento-grid${secondaryProjects.length === 2 ? ' projects-bento-grid-compact' : ''}`}
+          >
             <article
               className="project-bento-card project-bento-featured"
               style={{ '--project-accent': featured.accent }}
