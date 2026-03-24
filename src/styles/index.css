@@ -347,9 +347,9 @@
 
   .hero.hero-v2 .hero-v2-bg.hero-bg-stack {
     display: flex;
-    top: 50%;
+    top: -25%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, 25%) scale(1);
     font-size: clamp(4.25rem, 19vw, 6.2rem);
     min-width: auto;
     width: auto;
