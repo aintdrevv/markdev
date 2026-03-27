@@ -28,8 +28,8 @@ export default function Hero() {
         }
         .hero-bg-stack {
           position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -48%);
+          top: 55%; left: 50%;
+          transform: translate(-50%, -43%);
           display: flex; flex-direction: column;
           align-items: center;
           line-height: 0.82;
@@ -92,7 +92,6 @@ export default function Hero() {
             {/* Primary hero message */}
             <h1 className="hero-v2-title">
               <span>Interfaces built</span>
-              <span className="typing-cursor hero-v2-cursor">|</span>
               <br />
               <span>with care and clarity.</span>
             </h1>

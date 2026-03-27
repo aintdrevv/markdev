@@ -182,9 +182,9 @@
 
 .hero-v2-bg {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
-  transform: translate(-50%, -48%) scale(1.1);
+  transform: translate(-50%, -43%) scale(1.1);
   z-index: 0;
   pointer-events: none;
   user-select: none;
@@ -347,7 +347,7 @@
 
   .hero.hero-v2 .hero-v2-bg.hero-bg-stack {
     display: flex;
-    top: -25%;
+    top: -21.5%;
     left: 50%;
     transform: translate(-50%, 25%) scale(1);
     font-size: clamp(4.25rem, 19vw, 6.2rem);
